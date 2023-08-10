@@ -136,7 +136,7 @@ export type _SendableFrom<T, R, S> = {
  * The functions return an object implementing {@link SentLiquityTransaction}, which can be used
  * to monitor the transaction and get its details when it succeeds.
  *
- * Implemented by {@link @liquity/lib-ethers#SendableEthersLiquity}.
+ * Implemented by {@link @sim/lib-ethers#SendableEthersLiquity}.
  *
  * @public
  */

@@ -12,7 +12,7 @@ export default defineConfig({
   define: { "process.env": {} }, // Coinbase SDK wants this
   optimizeDeps: {
     include: [
-      "@liquity/providers",
+      "@sim/providers",
       "@sim/lib-ethers",
       "@sim/lib-base",
       "@sim/lib-react"

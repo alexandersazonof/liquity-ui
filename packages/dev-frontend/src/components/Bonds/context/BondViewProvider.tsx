@@ -21,7 +21,7 @@ import { Decimal } from "@sim/lib-base";
 import { useLiquity } from "../../../hooks/LiquityContext";
 import { api, _getProtocolInfo } from "./api";
 import { useTransaction } from "../../../hooks/useTransaction";
-import type { ERC20Faucet } from "@liquity/chicken-bonds/lusd/types";
+import type { ERC20Faucet } from "@sim/chicken-bonds/lusd/types";
 import { useBondContracts } from "./useBondContracts";
 import { useChainId } from "wagmi";
 import { useBondAddresses } from "./BondAddressesContext";

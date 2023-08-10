@@ -17,7 +17,7 @@ export interface SendableLiquity<R = unknown, S = unknown> extends _SendableFrom
 
 The functions return an object implementing [SentLiquityTransaction](./lib-base.sentliquitytransaction.md)<!-- -->, which can be used to monitor the transaction and get its details when it succeeds.
 
-Implemented by .
+Implemented by [SendableEthersLiquity](./lib-ethers.sendableethersliquity.md)<!-- -->.
 
 ## Methods
 

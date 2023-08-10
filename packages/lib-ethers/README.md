@@ -30,12 +30,6 @@ async function example() {
 }
 ```
 
-## More examples
-
-See [packages/examples](https://github.com/liquity/liquity/tree/master/packages/examples) in the repo.
-
-Liquity's [Dev UI](https://github.com/liquity/liquity/tree/master/packages/dev-frontend) itself contains many examples of `@sim/lib-ethers` use.
-
 ## API Reference
 
 For now, it can be found in the public Liquity [repo](https://github.com/liquity/liquity/blob/master/docs/sdk/lib-ethers.md).

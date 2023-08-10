@@ -7,17 +7,17 @@ import {
   ChickenBondManager,
   ERC20Faucet,
   ERC20Faucet__factory
-} from "@liquity/chicken-bonds/lusd/types";
+} from "@sim/chicken-bonds/lusd/types";
 import {
   CurveCryptoSwap2ETH,
   CurveLiquidityGaugeV5__factory
-} from "@liquity/chicken-bonds/lusd/types/external";
-import { CurveCryptoSwap2ETH__factory } from "@liquity/chicken-bonds/lusd/types/external";
+} from "@sim/chicken-bonds/lusd/types/external";
+import { CurveCryptoSwap2ETH__factory } from "@sim/chicken-bonds/lusd/types/external";
 import {
   BLUSDToken__factory,
   BondNFT__factory,
   ChickenBondManager__factory
-} from "@liquity/chicken-bonds/lusd/types";
+} from "@sim/chicken-bonds/lusd/types";
 import type { LUSDToken } from "@sim/lib-ethers/dist/types";
 import LUSDTokenAbi from "@sim/lib-ethers/abi/LUSDToken.json";
 import { useContract } from "../../../hooks/useContract";
@@ -29,7 +29,7 @@ import { BLusdAmmTokenIndex } from "./transitions";
 import type { Addresses } from "./transitions";
 import { useChainId } from "wagmi";
 import { useBondAddresses } from "./BondAddressesContext";
-import type { CurveLiquidityGaugeV5 } from "@liquity/chicken-bonds/lusd/types/external/CurveLiquidityGaugeV5";
+import type { CurveLiquidityGaugeV5 } from "@sim/chicken-bonds/lusd/types/external/CurveLiquidityGaugeV5";
 
 type BondsInformation = {
   protocolInfo: ProtocolInfo;

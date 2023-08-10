@@ -183,7 +183,7 @@ const blockNumberDummy = new Query<void, BlockNumberDummy, BlockNumberDummyVaria
   () => {}
 );
 
-export class SubgraphLiquity implements ReadableLiquity, ObservableLiquity {
+export class SubgraphSim implements ReadableLiquity, ObservableLiquity {
   private client: ApolloClient<NormalizedCacheObject>;
 
   constructor(uri = "http://localhost:8000/subgraphs/name/liquity/subgraph", pollInterval = 4000) {

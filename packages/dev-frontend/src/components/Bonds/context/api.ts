@@ -14,11 +14,11 @@ import type {
   BondNFT,
   ChickenBondManager,
   BLUSDLPZap
-} from "@liquity/chicken-bonds/lusd/types";
+} from "@sim/chicken-bonds/lusd/types";
 import {
   CurveCryptoSwap2ETH,
   CurveRegistrySwaps__factory
-} from "@liquity/chicken-bonds/lusd/types/external";
+} from "@sim/chicken-bonds/lusd/types/external";
 import type {
   BondCreatedEventObject,
   BondCreatedEvent,
@@ -26,7 +26,7 @@ import type {
   BondCancelledEvent,
   BondClaimedEventObject,
   BondClaimedEvent
-} from "@liquity/chicken-bonds/lusd/types/ChickenBondManager";
+} from "@sim/chicken-bonds/lusd/types/ChickenBondManager";
 import { Decimal } from "@sim/lib-base";
 import type { LUSDToken } from "@sim/lib-ethers/dist/types";
 import type { ProtocolInfo, Bond, BondStatus, Stats, Maybe, BLusdLpRewards } from "./transitions";
@@ -51,15 +51,15 @@ import { BLusdAmmTokenIndex } from "./transitions";
 import {
   TokenExchangeEvent,
   TokenExchangeEventObject
-} from "@liquity/chicken-bonds/lusd/types/external/CurveCryptoSwap2ETH";
-import mainnet from "@liquity/chicken-bonds/lusd/addresses/mainnet.json";
+} from "@sim/chicken-bonds/lusd/types/external/CurveCryptoSwap2ETH";
+import mainnet from "@sim/chicken-bonds/lusd/addresses/mainnet.json";
 import type {
   CurveLiquidityGaugeV5,
   DepositEvent,
   DepositEventObject,
   WithdrawEvent,
   WithdrawEventObject
-} from "@liquity/chicken-bonds/lusd/types/external/CurveLiquidityGaugeV5";
+} from "@sim/chicken-bonds/lusd/types/external/CurveLiquidityGaugeV5";
 
 const BOND_STATUS: BondStatus[] = ["NON_EXISTENT", "PENDING", "CANCELLED", "CLAIMED"];
 
