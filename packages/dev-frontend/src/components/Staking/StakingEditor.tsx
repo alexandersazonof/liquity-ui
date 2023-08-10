@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Heading, Box, Card, Button } from "theme-ui";
 
-import { Decimal, Decimalish, Difference, LiquityStoreState, LQTYStake } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { Decimal, Decimalish, Difference, LiquityStoreState, LQTYStake } from "@sim/lib-base";
+import { useLiquitySelector } from "@sim/lib-react";
 
 import { COIN, GT } from "../../strings";
 

@@ -17,7 +17,7 @@ import {
  * A transaction that has already been sent.
  *
  * @remarks
- * Implemented by {@link @liquity/lib-ethers#SentEthersLiquityTransaction}.
+ * Implemented by {@link @sim/lib-ethers#SentEthersLiquityTransaction}.
  *
  * @public
  */
@@ -29,7 +29,7 @@ export interface SentLiquityTransaction<S = unknown, T extends LiquityReceipt = 
    * Check whether the transaction has been mined, and whether it was successful.
    *
    * @remarks
-   * Unlike {@link @liquity/lib-base#SentLiquityTransaction.waitForReceipt | waitForReceipt()},
+   * Unlike {@link @sim/lib-base#SentLiquityTransaction.waitForReceipt | waitForReceipt()},
    * this function doesn't wait for the transaction to be mined.
    */
   getReceipt(): Promise<T>;
@@ -37,8 +37,8 @@ export interface SentLiquityTransaction<S = unknown, T extends LiquityReceipt = 
   /**
    * Wait for the transaction to be mined, and check whether it was successful.
    *
-   * @returns Either a {@link @liquity/lib-base#FailedReceipt} or a
-   *          {@link @liquity/lib-base#SuccessfulReceipt}.
+   * @returns Either a {@link @sim/lib-base#FailedReceipt} or a
+   *          {@link @sim/lib-base#SuccessfulReceipt}.
    */
   waitForReceipt(): Promise<Extract<T, MinedReceipt>>;
 }

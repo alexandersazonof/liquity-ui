@@ -1,4 +1,4 @@
-import { Decimal } from "@liquity/lib-base";
+import { Decimal } from "@sim/lib-base";
 
 type Idle = "IDLE";
 type Creating = "CREATING";

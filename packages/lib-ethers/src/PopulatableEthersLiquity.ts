@@ -34,7 +34,7 @@ import {
   _normalizeTroveCreation,
   _pendingReceipt,
   _successfulReceipt
-} from "@liquity/lib-base";
+} from "@sim/lib-base";
 
 import {
   EthersPopulatedTransaction,
@@ -247,13 +247,13 @@ export class SentEthersLiquityTransaction<T = unknown>
     }
   }
 
-  /** {@inheritDoc @liquity/lib-base#SentLiquityTransaction.getReceipt} */
+  /** {@inheritDoc @sim/lib-base#SentLiquityTransaction.getReceipt} */
   async getReceipt(): Promise<LiquityReceipt<EthersTransactionReceipt, T>> {
     return this._receiptFrom(await this._waitForRawReceipt(0));
   }
 
   /**
-   * {@inheritDoc @liquity/lib-base#SentLiquityTransaction.waitForReceipt}
+   * {@inheritDoc @sim/lib-base#SentLiquityTransaction.waitForReceipt}
    *
    * @throws
    * Throws {@link EthersTransactionCancelledError} if the transaction is cancelled or replaced.
@@ -273,7 +273,7 @@ export class SentEthersLiquityTransaction<T = unknown>
  */
 export interface BorrowingOperationOptionalParams {
   /**
-   * Maximum acceptable {@link @liquity/lib-base#Fees.borrowingRate | borrowing rate}
+   * Maximum acceptable {@link @sim/lib-base#Fees.borrowingRate | borrowing rate}
    * (default: current borrowing rate plus 0.5%).
    */
   maxBorrowingRate?: Decimalish;
@@ -384,7 +384,7 @@ export class PopulatedEthersLiquityTransaction<T = unknown>
     }
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatedLiquityTransaction.send} */
+  /** {@inheritDoc @sim/lib-base#PopulatedLiquityTransaction.send} */
   async send(): Promise<SentEthersLiquityTransaction<T>> {
     return new SentEthersLiquityTransaction(
       await _requireSigner(this._connection).sendTransaction(this.rawPopulatedTransaction),
@@ -395,7 +395,7 @@ export class PopulatedEthersLiquityTransaction<T = unknown>
 }
 
 /**
- * {@inheritDoc @liquity/lib-base#PopulatedRedemption}
+ * {@inheritDoc @sim/lib-base#PopulatedRedemption}
  *
  * @public
  */
@@ -407,13 +407,13 @@ export class PopulatedEthersRedemption
       EthersTransactionResponse,
       EthersTransactionReceipt
     > {
-  /** {@inheritDoc @liquity/lib-base#PopulatedRedemption.attemptedLUSDAmount} */
+  /** {@inheritDoc @sim/lib-base#PopulatedRedemption.attemptedLUSDAmount} */
   readonly attemptedLUSDAmount: Decimal;
 
-  /** {@inheritDoc @liquity/lib-base#PopulatedRedemption.redeemableLUSDAmount} */
+  /** {@inheritDoc @sim/lib-base#PopulatedRedemption.redeemableLUSDAmount} */
   readonly redeemableLUSDAmount: Decimal;
 
-  /** {@inheritDoc @liquity/lib-base#PopulatedRedemption.isTruncated} */
+  /** {@inheritDoc @sim/lib-base#PopulatedRedemption.isTruncated} */
   readonly isTruncated: boolean;
 
   private readonly _increaseAmountByMinimumNetDebt?: (
@@ -453,7 +453,7 @@ export class PopulatedEthersRedemption
     this._increaseAmountByMinimumNetDebt = increaseAmountByMinimumNetDebt;
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatedRedemption.increaseAmountByMinimumNetDebt} */
+  /** {@inheritDoc @sim/lib-base#PopulatedRedemption.increaseAmountByMinimumNetDebt} */
   increaseAmountByMinimumNetDebt(
     maxRedemptionRate?: Decimalish
   ): Promise<PopulatedEthersRedemption> {
@@ -476,7 +476,7 @@ export interface _TroveChangeWithFees<T> {
 }
 
 /**
- * Ethers-based implementation of {@link @liquity/lib-base#PopulatableLiquity}.
+ * Ethers-based implementation of {@link @sim/lib-base#PopulatableLiquity}.
  *
  * @public
  */
@@ -813,7 +813,7 @@ export class PopulatableEthersLiquity
     ];
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.openTrove} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.openTrove} */
   async openTrove(
     params: TroveCreationParams<Decimalish>,
     maxBorrowingRateOrOptionalParams?: Decimalish | BorrowingOperationOptionalParams,
@@ -893,7 +893,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.closeTrove} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.closeTrove} */
   async closeTrove(
     overrides?: EthersTransactionOverrides
   ): Promise<PopulatedEthersLiquityTransaction<TroveClosureDetails>> {
@@ -905,7 +905,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.depositCollateral} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.depositCollateral} */
   depositCollateral(
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
@@ -913,7 +913,7 @@ export class PopulatableEthersLiquity
     return this.adjustTrove({ depositCollateral: amount }, undefined, overrides);
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.withdrawCollateral} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.withdrawCollateral} */
   withdrawCollateral(
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
@@ -921,7 +921,7 @@ export class PopulatableEthersLiquity
     return this.adjustTrove({ withdrawCollateral: amount }, undefined, overrides);
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.borrowLUSD} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.borrowLUSD} */
   borrowLUSD(
     amount: Decimalish,
     maxBorrowingRate?: Decimalish,
@@ -930,7 +930,7 @@ export class PopulatableEthersLiquity
     return this.adjustTrove({ borrowLUSD: amount }, maxBorrowingRate, overrides);
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.repayLUSD} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.repayLUSD} */
   repayLUSD(
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
@@ -938,7 +938,7 @@ export class PopulatableEthersLiquity
     return this.adjustTrove({ repayLUSD: amount }, undefined, overrides);
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.adjustTrove} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.adjustTrove} */
   async adjustTrove(
     params: TroveAdjustmentParams<Decimalish>,
     maxBorrowingRateOrOptionalParams?: Decimalish | BorrowingOperationOptionalParams,
@@ -1030,7 +1030,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.claimCollateralSurplus} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.claimCollateralSurplus} */
   async claimCollateralSurplus(
     overrides?: EthersTransactionOverrides
   ): Promise<PopulatedEthersLiquityTransaction<void>> {
@@ -1059,7 +1059,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.liquidate} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.liquidate} */
   async liquidate(
     address: string | string[],
     overrides?: EthersTransactionOverrides
@@ -1082,7 +1082,7 @@ export class PopulatableEthersLiquity
     }
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.liquidateUpTo} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.liquidateUpTo} */
   async liquidateUpTo(
     maximumNumberOfTrovesToLiquidate: number,
     overrides?: EthersTransactionOverrides
@@ -1099,7 +1099,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.depositLUSDInStabilityPool} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.depositLUSDInStabilityPool} */
   async depositLUSDInStabilityPool(
     amount: Decimalish,
     frontendTag?: string,
@@ -1120,7 +1120,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.withdrawLUSDFromStabilityPool} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.withdrawLUSDFromStabilityPool} */
   async withdrawLUSDFromStabilityPool(
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
@@ -1137,7 +1137,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.withdrawGainsFromStabilityPool} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.withdrawGainsFromStabilityPool} */
   async withdrawGainsFromStabilityPool(
     overrides?: EthersTransactionOverrides
   ): Promise<PopulatedEthersLiquityTransaction<StabilityPoolGainsWithdrawalDetails>> {
@@ -1153,7 +1153,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.transferCollateralGainToTrove} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.transferCollateralGainToTrove} */
   async transferCollateralGainToTrove(
     overrides?: EthersTransactionOverrides
   ): Promise<PopulatedEthersLiquityTransaction<CollateralGainTransferDetails>> {
@@ -1176,7 +1176,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.sendLUSD} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.sendLUSD} */
   async sendLUSD(
     toAddress: string,
     amount: Decimalish,
@@ -1195,7 +1195,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.sendLQTY} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.sendLQTY} */
   async sendLQTY(
     toAddress: string,
     amount: Decimalish,
@@ -1214,7 +1214,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.redeemLUSD} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.redeemLUSD} */
   async redeemLUSD(
     amount: Decimalish,
     maxRedemptionRate?: Decimalish,
@@ -1285,7 +1285,7 @@ export class PopulatableEthersLiquity
     return populateRedemption(attemptedLUSDAmount, maxRedemptionRate, truncatedAmount, partialHints);
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.stakeLQTY} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.stakeLQTY} */
   async stakeLQTY(
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
@@ -1298,7 +1298,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.unstakeLQTY} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.unstakeLQTY} */
   async unstakeLQTY(
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
@@ -1311,14 +1311,14 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.withdrawGainsFromStaking} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.withdrawGainsFromStaking} */
   withdrawGainsFromStaking(
     overrides?: EthersTransactionOverrides
   ): Promise<PopulatedEthersLiquityTransaction<void>> {
     return this.unstakeLQTY(Decimal.ZERO, overrides);
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.registerFrontend} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.registerFrontend} */
   async registerFrontend(
     kickbackRate: Decimalish,
     overrides?: EthersTransactionOverrides
@@ -1354,7 +1354,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.approveUniTokens} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.approveUniTokens} */
   async approveUniTokens(
     allowance?: Decimalish,
     overrides?: EthersTransactionOverrides
@@ -1372,7 +1372,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.stakeUniTokens} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.stakeUniTokens} */
   async stakeUniTokens(
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
@@ -1389,7 +1389,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.unstakeUniTokens} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.unstakeUniTokens} */
   async unstakeUniTokens(
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
@@ -1406,7 +1406,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.withdrawLQTYRewardFromLiquidityMining} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.withdrawLQTYRewardFromLiquidityMining} */
   async withdrawLQTYRewardFromLiquidityMining(
     overrides?: EthersTransactionOverrides
   ): Promise<PopulatedEthersLiquityTransaction<void>> {
@@ -1418,7 +1418,7 @@ export class PopulatableEthersLiquity
     );
   }
 
-  /** {@inheritDoc @liquity/lib-base#PopulatableLiquity.exitLiquidityMining} */
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.exitLiquidityMining} */
   async exitLiquidityMining(
     overrides?: EthersTransactionOverrides
   ): Promise<PopulatedEthersLiquityTransaction<void>> {

@@ -11,7 +11,7 @@ import {
   LiquityStoreState,
   TroveClosureParams,
   TroveCreationParams
-} from "@liquity/lib-base";
+} from "@sim/lib-base";
 
 import { COIN } from "../../../strings";
 

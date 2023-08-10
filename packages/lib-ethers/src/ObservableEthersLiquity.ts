@@ -7,7 +7,7 @@ import {
   StabilityDeposit,
   Trove,
   TroveWithPendingRedistribution
-} from "@liquity/lib-base";
+} from "@sim/lib-base";
 
 import { _getContracts, _requireAddress } from "./EthersLiquityConnection";
 import { ReadableEthersLiquity } from "./ReadableEthersLiquity";

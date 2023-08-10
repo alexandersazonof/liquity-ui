@@ -1,8 +1,8 @@
 import React from "react";
 import { Flex } from "theme-ui";
 
-import { LiquityStoreState } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { LiquityStoreState } from "@sim/lib-base";
+import { useLiquitySelector } from "@sim/lib-react";
 
 const selector = ({ remainingStabilityPoolLQTYReward }: LiquityStoreState) => ({
   remainingStabilityPoolLQTYReward

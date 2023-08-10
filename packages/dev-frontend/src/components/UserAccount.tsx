@@ -1,8 +1,8 @@
 import React from "react";
 import { Text, Flex, Box, Heading, Button } from "theme-ui";
 
-import { Decimal, LiquityStoreState } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { Decimal, LiquityStoreState } from "@sim/lib-base";
+import { useLiquitySelector } from "@sim/lib-react";
 
 import { COIN, GT } from "../strings";
 import { useLiquity } from "../hooks/LiquityContext";

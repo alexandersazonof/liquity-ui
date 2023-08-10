@@ -1,4 +1,4 @@
-import { Decimal } from "@liquity/lib-base";
+import { Decimal } from "@sim/lib-base";
 import { Text, Box, Flex } from "theme-ui";
 import { StaticRow, StaticAmounts } from "../../../Trove/Editor";
 import { useBondView } from "../../context/BondViewContext";

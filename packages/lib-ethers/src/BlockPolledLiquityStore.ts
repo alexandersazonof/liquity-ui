@@ -10,7 +10,7 @@ import {
   LQTYStake,
   LiquityStore,
   Fees
-} from "@liquity/lib-base";
+} from "@sim/lib-base";
 
 import { decimalify, promiseAllValues } from "./_utils";
 import { ReadableEthersLiquity } from "./ReadableEthersLiquity";
@@ -18,7 +18,7 @@ import { EthersLiquityConnection, _getProvider } from "./EthersLiquityConnection
 import { EthersCallOverrides, EthersProvider } from "./types";
 
 /**
- * Extra state added to {@link @liquity/lib-base#LiquityStoreState} by
+ * Extra state added to {@link @sim/lib-base#LiquityStoreState} by
  * {@link BlockPolledLiquityStore}.
  *
  * @public
@@ -43,14 +43,14 @@ export interface BlockPolledLiquityStoreExtraState {
 
 /**
  * The type of {@link BlockPolledLiquityStore}'s
- * {@link @liquity/lib-base#LiquityStore.state | state}.
+ * {@link @sim/lib-base#LiquityStore.state | state}.
  *
  * @public
  */
 export type BlockPolledLiquityStoreState = LiquityStoreState<BlockPolledLiquityStoreExtraState>;
 
 /**
- * Ethers-based {@link @liquity/lib-base#LiquityStore} that updates state whenever there's a new
+ * Ethers-based {@link @sim/lib-base#LiquityStore} that updates state whenever there's a new
  * block.
  *
  * @public

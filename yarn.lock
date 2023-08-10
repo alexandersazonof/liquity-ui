@@ -1719,81 +1719,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liquity/lib-base@workspace:packages/lib-base":
-  version: 0.0.0-use.local
-  resolution: "@liquity/lib-base@workspace:packages/lib-base"
-  dependencies:
-    "@ethersproject/bignumber": 5.7.0
-    "@microsoft/api-extractor": 7.13.2
-    "@types/mocha": 8.2.1
-    "@typescript-eslint/eslint-plugin": 4.17.0
-    "@typescript-eslint/parser": 4.18.0
-    eslint: 7.22.0
-    eslint-plugin-tsdoc: 0.2.11
-    fast-check: 2.13.0
-    mocha: 8.3.2
-    npm-run-all: 4.1.5
-    ts-node: 9.1.1
-    typescript: 4.1.5
-  languageName: unknown
-  linkType: soft
-
-"@liquity/lib-ethers@workspace:packages/lib-ethers":
-  version: 0.0.0-use.local
-  resolution: "@liquity/lib-ethers@workspace:packages/lib-ethers"
-  dependencies:
-    "@microsoft/api-extractor": 7.13.2
-    "@nomiclabs/hardhat-ethers": ^2.0.2
-    "@types/chai": 4.2.15
-    "@types/chai-as-promised": 7.1.3
-    "@types/chai-spies": 1.0.3
-    "@types/fs-extra": 9.0.8
-    "@types/mocha": 8.2.1
-    "@types/node": 14.14.34
-    "@types/sinon-chai": 3.2.5
-    "@types/ws": 7.4.4
-    "@typescript-eslint/eslint-plugin": 4.17.0
-    "@typescript-eslint/parser": 4.18.0
-    chai: 4.3.4
-    chai-as-promised: 7.1.1
-    chai-spies: 1.0.0
-    cross-env: 7.0.3
-    dotenv: 8.2.0
-    eslint: 7.22.0
-    eslint-plugin-tsdoc: 0.2.11
-    ethers: 5.7.2
-    fs-extra: 9.1.0
-    hardhat: ^2.6.1
-    npm-run-all: 4.1.5
-    ts-node: 9.1.1
-    typescript: 4.1.5
-    ws: 7.4.6
-  peerDependencies:
-    "@liquity/lib-base": ^3.0.0
-    ethers: ^5.3.0
-  languageName: unknown
-  linkType: soft
-
-"@liquity/lib-react@workspace:packages/lib-react":
-  version: 0.0.0-use.local
-  resolution: "@liquity/lib-react@workspace:packages/lib-react"
-  dependencies:
-    "@ethersproject/bignumber": 5.7.0
-    "@types/react": 17.0.3
-    "@typescript-eslint/eslint-plugin": 4.17.0
-    "@typescript-eslint/parser": 4.18.0
-    eslint: 7.22.0
-    eslint-plugin-react: 7.22.0
-    eslint-plugin-react-hooks: 4.2.0
-    npm-run-all: 4.1.5
-    react: 17.0.2
-    typescript: 4.1.5
-  peerDependencies:
-    "@liquity/lib-base": ^3.0.0
-    react: ^16.13.1
-  languageName: unknown
-  linkType: soft
-
 "@liquity/lib-subgraph@workspace:packages/lib-subgraph":
   version: 0.0.0-use.local
   resolution: "@liquity/lib-subgraph@workspace:packages/lib-subgraph"
@@ -1807,7 +1732,7 @@ __metadata:
     rimraf: ^3.0.2
     typescript: ~4.1.0
   peerDependencies:
-    "@liquity/lib-base": ^3.0.0
+    "@sim/lib-base": ^3.0.0
   languageName: unknown
   linkType: soft
 
@@ -2816,6 +2741,81 @@ __metadata:
   checksum: 27b259a136c664427641dd32ee3dc490553f3b5e92986accfa829d14063ebc69b191e92209ac9c40fbc367f74cfa17dc93b4c40981d666711fd57b4d51a82062
   languageName: node
   linkType: hard
+
+"@sim/lib-base@workspace:packages/lib-base":
+  version: 0.0.0-use.local
+  resolution: "@sim/lib-base@workspace:packages/lib-base"
+  dependencies:
+    "@ethersproject/bignumber": 5.7.0
+    "@microsoft/api-extractor": 7.13.2
+    "@types/mocha": 8.2.1
+    "@typescript-eslint/eslint-plugin": 4.17.0
+    "@typescript-eslint/parser": 4.18.0
+    eslint: 7.22.0
+    eslint-plugin-tsdoc: 0.2.11
+    fast-check: 2.13.0
+    mocha: 8.3.2
+    npm-run-all: 4.1.5
+    ts-node: 9.1.1
+    typescript: 4.1.5
+  languageName: unknown
+  linkType: soft
+
+"@sim/lib-ethers@workspace:packages/lib-ethers":
+  version: 0.0.0-use.local
+  resolution: "@sim/lib-ethers@workspace:packages/lib-ethers"
+  dependencies:
+    "@microsoft/api-extractor": 7.13.2
+    "@nomiclabs/hardhat-ethers": ^2.0.2
+    "@types/chai": 4.2.15
+    "@types/chai-as-promised": 7.1.3
+    "@types/chai-spies": 1.0.3
+    "@types/fs-extra": 9.0.8
+    "@types/mocha": 8.2.1
+    "@types/node": 14.14.34
+    "@types/sinon-chai": 3.2.5
+    "@types/ws": 7.4.4
+    "@typescript-eslint/eslint-plugin": 4.17.0
+    "@typescript-eslint/parser": 4.18.0
+    chai: 4.3.4
+    chai-as-promised: 7.1.1
+    chai-spies: 1.0.0
+    cross-env: 7.0.3
+    dotenv: 8.2.0
+    eslint: 7.22.0
+    eslint-plugin-tsdoc: 0.2.11
+    ethers: 5.7.2
+    fs-extra: 9.1.0
+    hardhat: ^2.6.1
+    npm-run-all: 4.1.5
+    ts-node: 9.1.1
+    typescript: 4.1.5
+    ws: 7.4.6
+  peerDependencies:
+    "@sim/lib-base": ^3.0.0
+    ethers: ^5.3.0
+  languageName: unknown
+  linkType: soft
+
+"@sim/lib-react@workspace:packages/lib-react":
+  version: 0.0.0-use.local
+  resolution: "@sim/lib-react@workspace:packages/lib-react"
+  dependencies:
+    "@ethersproject/bignumber": 5.7.0
+    "@types/react": 17.0.3
+    "@typescript-eslint/eslint-plugin": 4.17.0
+    "@typescript-eslint/parser": 4.18.0
+    eslint: 7.22.0
+    eslint-plugin-react: 7.22.0
+    eslint-plugin-react-hooks: 4.2.0
+    npm-run-all: 4.1.5
+    react: 17.0.2
+    typescript: 4.1.5
+  peerDependencies:
+    "@sim/lib-base": ^3.0.0
+    react: ^16.13.1
+  languageName: unknown
+  linkType: soft
 
 "@solana/buffer-layout@npm:^4.0.0":
   version: 4.0.1

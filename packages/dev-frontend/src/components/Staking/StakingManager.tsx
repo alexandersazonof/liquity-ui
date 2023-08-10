@@ -7,9 +7,9 @@ import {
   LiquityStoreState,
   LQTYStake,
   LQTYStakeChange
-} from "@liquity/lib-base";
+} from "@sim/lib-base";
 
-import { LiquityStoreUpdate, useLiquityReducer, useLiquitySelector } from "@liquity/lib-react";
+import { LiquityStoreUpdate, useLiquityReducer, useLiquitySelector } from "@sim/lib-react";
 
 import { GT, COIN } from "../../strings";
 

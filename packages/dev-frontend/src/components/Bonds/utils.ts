@@ -1,4 +1,4 @@
-import { Decimal } from "@liquity/lib-base";
+import { Decimal } from "@sim/lib-base";
 import { BigNumber } from "ethers";
 import { lambertW0 } from "lambert-w-function";
 

@@ -9,8 +9,8 @@ import {
   Trove,
   LiquityStoreState,
   LUSD_LIQUIDATION_RESERVE
-} from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+} from "@sim/lib-base";
+import { useLiquitySelector } from "@sim/lib-react";
 
 import { COIN } from "../../strings";
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { LiquityStoreState } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { LiquityStoreState } from "@sim/lib-base";
+import { useLiquitySelector } from "@sim/lib-react";
 import { Container, Flex, Box } from "theme-ui";
 import { AddressZero } from "@ethersproject/constants";
 import { useLiquity } from "../hooks/LiquityContext";

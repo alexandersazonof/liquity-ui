@@ -5,8 +5,8 @@ import { defaultAbiCoder } from "@ethersproject/abi";
 
 import "react-circular-progressbar/dist/styles.css";
 
-import { EthersTransactionOverrides, EthersTransactionCancelledError } from "@liquity/lib-ethers";
-import { SentLiquityTransaction, LiquityReceipt } from "@liquity/lib-base";
+import { EthersTransactionOverrides, EthersTransactionCancelledError } from "@sim/lib-ethers";
+import { SentLiquityTransaction, LiquityReceipt } from "@sim/lib-base";
 
 import { useLiquity } from "../hooks/LiquityContext";
 
