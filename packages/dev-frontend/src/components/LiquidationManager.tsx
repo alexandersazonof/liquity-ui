@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Card, Box, Heading, Flex, Button, Label, Input } from "theme-ui";
 
-import { useLiquity } from "../hooks/LiquityContext";
+import { useSim } from "../hooks/SimContext";
 
 import { Icon } from "./Icon";
 import { Transaction } from "./Transaction";
 
 export const LiquidationManager: React.FC = () => {
   const {
-    liquity: { send: liquity }
-  } = useLiquity();
+    sim: { send: liquity }
+  } = useSim();
   const [numberOfTrovesToLiquidate, setNumberOfTrovesToLiquidate] = useState("90");
 
   return (

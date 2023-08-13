@@ -1,20 +1,20 @@
 import { Button } from "theme-ui";
 
-import { LiquityStoreState } from "@sim/lib-base";
-import { useLiquitySelector } from "@sim/lib-react";
+import { SimStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 
-import { useLiquity } from "../../hooks/LiquityContext";
+import { useSim } from "../../hooks/SimContext";
 import { useTransactionFunction } from "../Transaction";
 
-const selectLQTYStake = ({ lqtyStake }: LiquityStoreState) => lqtyStake;
+const selectLQTYStake = ({ lqtyStake }: SimStoreState) => lqtyStake;
 
 export const StakingGainsAction: React.FC = () => {
-  const { liquity } = useLiquity();
-  const { collateralGain, lusdGain } = useLiquitySelector(selectLQTYStake);
+  const { sim } = useSim();
+  const { collateralGain, lusdGain } = useSimSelector(selectLQTYStake);
 
   const [sendTransaction] = useTransactionFunction(
     "stake",
-    liquity.send.withdrawGainsFromStaking.bind(liquity.send)
+    sim.send.withdrawGainsFromStaking.bind(sim.send)
   );
 
   return (

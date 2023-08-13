@@ -55,51 +55,6 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "address",
-        "name": "_lqtyStakingAddress",
-        "type": "address"
-      }
-    ],
-    "name": "LQTYStakingAddressChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "_borrower",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "_LUSDFee",
-        "type": "uint256"
-      }
-    ],
-    "name": "LUSDBorrowingFeePaid",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "_lusdTokenAddress",
-        "type": "address"
-      }
-    ],
-    "name": "LUSDTokenAddressChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -126,6 +81,51 @@
       }
     ],
     "name": "PriceFeedAddressChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_borrower",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_SIMFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "SIMBorrowingFeePaid",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_simTokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "SIMTokenAddressChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_VeAddress",
+        "type": "address"
+      }
+    ],
+    "name": "SimVeDistributorAddressChanged",
     "type": "event"
   },
   {
@@ -215,7 +215,7 @@
       },
       {
         "indexed": false,
-        "internalType": "enum BorrowerOperations.BorrowerOperation",
+        "internalType": "uint8",
         "name": "operation",
         "type": "uint8"
       }
@@ -252,19 +252,6 @@
   {
     "inputs": [],
     "name": "DECIMAL_PRECISION",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "LUSD_GAS_COMPENSATION",
     "outputs": [
       {
         "internalType": "uint256",
@@ -329,6 +316,19 @@
   },
   {
     "inputs": [],
+    "name": "WSTETHAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "_100pct",
     "outputs": [
       {
@@ -356,6 +356,11 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
         "internalType": "address",
         "name": "_upperHint",
         "type": "address"
@@ -368,11 +373,16 @@
     ],
     "name": "addColl",
     "outputs": [],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "addColAmount",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "_maxFeePercentage",
@@ -385,7 +395,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "_LUSDChange",
+        "name": "_SIMChange",
         "type": "uint256"
       },
       {
@@ -425,6 +435,19 @@
   },
   {
     "inputs": [],
+    "name": "collSurplusPool",
+    "outputs": [
+      {
+        "internalType": "contract ICollSurplusPool",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "defaultPool",
     "outputs": [
       {
@@ -437,22 +460,16 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_debt",
-        "type": "uint256"
-      }
-    ],
-    "name": "getCompositeDebt",
+    "inputs": [],
+    "name": "feeReceiver",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "address",
         "name": "",
-        "type": "uint256"
+        "type": "address"
       }
     ],
-    "stateMutability": "pure",
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -482,58 +499,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "isOwner",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "lqtyStaking",
-    "outputs": [
-      {
-        "internalType": "contract ILQTYStaking",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "lqtyStakingAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "lusdToken",
-    "outputs": [
-      {
-        "internalType": "contract ILUSDToken",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -551,7 +516,7 @@
         "type": "address"
       }
     ],
-    "name": "moveETHGainToTrove",
+    "name": "moveWSTETHGainToTrove",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function"
@@ -560,12 +525,17 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
         "name": "_maxFeePercentage",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "_LUSDAmount",
+        "name": "_SIMAmount",
         "type": "uint256"
       },
       {
@@ -611,10 +581,17 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_LUSDAmount",
+        "name": "_SIMAmount",
         "type": "uint256"
       },
       {
@@ -628,13 +605,18 @@
         "type": "address"
       }
     ],
-    "name": "repayLUSD",
+    "name": "repaySIM",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
+      {
+        "internalType": "address",
+        "name": "_WSTETHAddress",
+        "type": "address"
+      },
       {
         "internalType": "address",
         "name": "_troveManagerAddress",
@@ -657,11 +639,6 @@
       },
       {
         "internalType": "address",
-        "name": "_gasPoolAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
         "name": "_collSurplusPoolAddress",
         "type": "address"
       },
@@ -677,18 +654,49 @@
       },
       {
         "internalType": "address",
-        "name": "_lusdTokenAddress",
+        "name": "_simTokenAddress",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "_lqtyStakingAddress",
+        "name": "_simVeDistributorAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_feeReceiver",
         "type": "address"
       }
     ],
     "name": "setAddresses",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "simToken",
+    "outputs": [
+      {
+        "internalType": "contract ISIMToken",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "simVeDistributor",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -702,6 +710,32 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "stabilityPoolAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -749,7 +783,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "_LUSDAmount",
+        "name": "_SIMAmount",
         "type": "uint256"
       },
       {
@@ -763,7 +797,7 @@
         "type": "address"
       }
     ],
-    "name": "withdrawLUSD",
+    "name": "withdrawSIM",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

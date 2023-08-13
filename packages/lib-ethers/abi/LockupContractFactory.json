@@ -5,38 +5,25 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "_lqtyTokenAddress",
-        "type": "address"
-      }
-    ],
-    "name": "LQTYTokenAddressSet",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "_lockupContractAddress",
+        "name": "lockupContractAddress_",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "_beneficiary",
+        "name": "beneficiary_",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "_unlockTime",
+        "name": "unlockTime_",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "_deployer",
+        "name": "deployer_",
         "type": "address"
       }
     ],
@@ -63,6 +50,19 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "shadyTokenAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "SHADYTokenAddressSet",
+    "type": "event"
+  },
+  {
     "inputs": [],
     "name": "NAME",
     "outputs": [
@@ -70,19 +70,6 @@
         "internalType": "string",
         "name": "",
         "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "SECONDS_IN_ONE_YEAR",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -104,19 +91,6 @@
     "name": "deployLockupContract",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "isOwner",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -159,7 +133,7 @@
   },
   {
     "inputs": [],
-    "name": "lqtyTokenAddress",
+    "name": "owner",
     "outputs": [
       {
         "internalType": "address",
@@ -172,7 +146,27 @@
   },
   {
     "inputs": [],
-    "name": "owner",
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_shadyTokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setSHADYTokenAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "shadyTokenAddress",
     "outputs": [
       {
         "internalType": "address",
@@ -187,11 +181,11 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_lqtyTokenAddress",
+        "name": "newOwner",
         "type": "address"
       }
     ],
-    "name": "setLQTYTokenAddress",
+    "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

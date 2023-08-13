@@ -4,12 +4,12 @@
 
 ## ReadableEthersLiquity.hasStore() method
 
-Check whether this `ReadableEthersLiquity` is a [ReadableEthersLiquityWithStore](./lib-ethers.readableethersliquitywithstore.md)<!-- -->&lt;[BlockPolledLiquityStore](./lib-ethers.blockpolledliquitystore.md)<!-- -->&gt;<!-- -->.
+Check whether this `ReadableEthersLiquity` is a [ReadableEthersLiquityWithStore](./lib-ethers.readableethersliquitywithstore.md)<!-- -->&lt;[BlockPolledSimStore](./lib-ethers.blockpolledsimstore.md)<!-- -->&gt;<!-- -->.
 
 <b>Signature:</b>
 
 ```typescript
-hasStore(store: "blockPolled"): this is ReadableEthersLiquityWithStore<BlockPolledLiquityStore>;
+hasStore(store: "blockPolled"): this is ReadableEthersLiquityWithStore<BlockPolledSimStore>;
 ```
 
 ## Parameters
@@ -20,5 +20,5 @@ hasStore(store: "blockPolled"): this is ReadableEthersLiquityWithStore<BlockPoll
 
 <b>Returns:</b>
 
-this is [ReadableEthersLiquityWithStore](./lib-ethers.readableethersliquitywithstore.md)<!-- -->&lt;[BlockPolledLiquityStore](./lib-ethers.blockpolledliquitystore.md)<!-- -->&gt;
+this is [ReadableEthersLiquityWithStore](./lib-ethers.readableethersliquitywithstore.md)<!-- -->&lt;[BlockPolledSimStore](./lib-ethers.blockpolledsimstore.md)<!-- -->&gt;
 

@@ -8,7 +8,7 @@ import {
   Percent,
   MINIMUM_COLLATERAL_RATIO,
   CRITICAL_COLLATERAL_RATIO,
-  LiquityStoreState,
+  SimStoreState,
   TroveClosureParams,
   TroveCreationParams
 } from "@sim/lib-base";
@@ -89,7 +89,7 @@ export const selectForTroveChangeValidation = ({
   accountBalance,
   lusdBalance,
   numberOfTroves
-}: LiquityStoreState) => ({ price, total, accountBalance, lusdBalance, numberOfTroves });
+}: SimStoreState) => ({ price, total, accountBalance, lusdBalance, numberOfTroves });
 
 type TroveChangeValidationSelectedState = ReturnType<typeof selectForTroveChangeValidation>;
 

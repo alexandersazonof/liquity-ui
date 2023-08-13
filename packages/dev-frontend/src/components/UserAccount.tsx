@@ -1,11 +1,11 @@
 import React from "react";
 import { Text, Flex, Box, Heading, Button } from "theme-ui";
 
-import { Decimal, LiquityStoreState } from "@sim/lib-base";
-import { useLiquitySelector } from "@sim/lib-react";
+import { Decimal, SimStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 
-import { COIN, GT } from "../strings";
-import { useLiquity } from "../hooks/LiquityContext";
+import { COIN, GT, NETWORK } from '../strings';
+import { useSim } from "../hooks/SimContext";
 import { shortenAddress } from "../utils/shortenAddress";
 
 import { Icon } from "./Icon";
@@ -13,19 +13,19 @@ import { useBondView } from "./Bonds/context/BondViewContext";
 import { useBondAddresses } from "./Bonds/context/BondAddressesContext";
 import { ConnectKitButton } from "connectkit";
 
-const select = ({ accountBalance, lusdBalance, lqtyBalance }: LiquityStoreState) => ({
+const select = ({ accountBalance, lusdBalance, lqtyBalance }: SimStoreState) => ({
   accountBalance,
   lusdBalance,
   lqtyBalance
 });
 
 export const UserAccount: React.FC = () => {
-  const { account } = useLiquity();
-  const { accountBalance, lusdBalance: realLusdBalance, lqtyBalance } = useLiquitySelector(select);
+  const { account } = useSim();
+  const { accountBalance, lusdBalance: realLusdBalance, lqtyBalance } = useSimSelector(select);
   const { bLusdBalance, lusdBalance: customLusdBalance } = useBondView();
-  const { LUSD_OVERRIDE_ADDRESS } = useBondAddresses();
+  const { SIM_OVERRIDE_ADDRESS } = useBondAddresses();
 
-  const lusdBalance = LUSD_OVERRIDE_ADDRESS === null ? realLusdBalance : customLusdBalance;
+  const lusdBalance = SIM_OVERRIDE_ADDRESS === null ? realLusdBalance : customLusdBalance;
 
   return (
     <Flex>
@@ -53,7 +53,7 @@ export const UserAccount: React.FC = () => {
         <Icon name="wallet" size="lg" />
 
         {([
-          ["ETH", accountBalance],
+          [NETWORK, accountBalance],
           [COIN, Decimal.from(lusdBalance || 0)],
           [GT, Decimal.from(lqtyBalance)],
           ["bLUSD", Decimal.from(bLusdBalance || 0)]

@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Flex, Button, Box, Card, Heading, Spinner } from "theme-ui";
 import {
-  LiquityStoreState,
+  SimStoreState,
   Decimal,
   Trove,
   LUSD_LIQUIDATION_RESERVE,
   LUSD_MINIMUM_NET_DEBT,
   Percent
 } from "@sim/lib-base";
-import { useLiquitySelector } from "@sim/lib-react";
+import { useSimSelector } from "@sim/lib-react";
 
 import { useStableTroveChange } from "../../hooks/useStableTroveChange";
 import { ActionDescription } from "../ActionDescription";
@@ -27,7 +27,7 @@ import {
   validateTroveChange
 } from "./validation/validateTroveChange";
 
-const selector = (state: LiquityStoreState) => {
+const selector = (state: SimStoreState) => {
   const { fees, price, accountBalance } = state;
   return {
     fees,
@@ -43,7 +43,7 @@ const GAS_ROOM_ETH = Decimal.from(0.1);
 
 export const Opening: React.FC = () => {
   const { dispatchEvent } = useTroveView();
-  const { fees, price, accountBalance, validationContext } = useLiquitySelector(selector);
+  const { fees, price, accountBalance, validationContext } = useSimSelector(selector);
   const borrowingRate = fees.borrowingRate();
   const editingState = useState<string>();
 

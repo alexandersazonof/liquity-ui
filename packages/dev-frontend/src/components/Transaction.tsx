@@ -8,7 +8,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { EthersTransactionOverrides, EthersTransactionCancelledError } from "@sim/lib-ethers";
 import { SentLiquityTransaction, LiquityReceipt } from "@sim/lib-base";
 
-import { useLiquity } from "../hooks/LiquityContext";
+import { useSim } from "../hooks/SimContext";
 
 import { Tooltip } from "./Tooltip";
 import type { TooltipProps } from "./Tooltip";
@@ -226,7 +226,7 @@ const tryToGetRevertReason = async (provider: Provider, tx: TransactionReceipt) 
 };
 
 export const TransactionMonitor: React.FC = () => {
-  const { provider } = useLiquity();
+  const { provider } = useSim();
   const [transactionState, setTransactionState] = useTransactionState();
 
   const id = transactionState.type !== "idle" ? transactionState.id : undefined;

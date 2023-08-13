@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import { Flex, Button, Box, Card, Heading } from "theme-ui";
 import {
-  LiquityStoreState,
+  SimStoreState,
   Decimal,
   Trove,
   LUSD_LIQUIDATION_RESERVE,
   Percent,
   Difference
 } from "@sim/lib-base";
-import { useLiquitySelector } from "@sim/lib-react";
+import { useSimSelector } from "@sim/lib-react";
 
 import { useStableTroveChange } from "../../hooks/useStableTroveChange";
 import { ActionDescription } from "../ActionDescription";
@@ -27,7 +27,7 @@ import {
   validateTroveChange
 } from "./validation/validateTroveChange";
 
-const selector = (state: LiquityStoreState) => {
+const selector = (state: SimStoreState) => {
   const { trove, fees, price, accountBalance } = state;
   return {
     trove,
@@ -83,7 +83,7 @@ const applyUnsavedNetDebtChanges = (unsavedChanges: Difference, trove: Trove) =>
 
 export const Adjusting: React.FC = () => {
   const { dispatchEvent } = useTroveView();
-  const { trove, fees, price, accountBalance, validationContext } = useLiquitySelector(selector);
+  const { trove, fees, price, accountBalance, validationContext } = useSimSelector(selector);
   const editingState = useState<string>();
   const previousTrove = useRef<Trove>(trove);
   const [collateral, setCollateral] = useState<Decimal>(trove.collateral);

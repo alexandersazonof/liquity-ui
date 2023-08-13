@@ -34,3 +34,4 @@ ngrok.config.yml
 !/.yarn/sdks
 !/.yarn/versions
 /.idea/
+/.remove/

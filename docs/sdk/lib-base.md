@@ -10,8 +10,8 @@
 |  --- | --- |
 |  [Decimal](./lib-base.decimal.md) | Fixed-point decimal bignumber with 18 digits of precision. |
 |  [Fees](./lib-base.fees.md) | Calculator for fees. |
-|  [LiquityStore](./lib-base.liquitystore.md) | Abstract base class of Liquity data store implementations. |
 |  [LQTYStake](./lib-base.lqtystake.md) | Represents a user's LQTY stake and accrued gains. |
+|  [SimStore](./lib-base.simstore.md) | Abstract base class of Sim data store implementations. |
 |  [StabilityDeposit](./lib-base.stabilitydeposit.md) | A Stability Deposit and its accrued gains. |
 |  [TransactionFailedError](./lib-base.transactionfailederror.md) | Thrown by [TransactableLiquity](./lib-base.transactableliquity.md) functions in case of transaction failure. |
 |  [Trove](./lib-base.trove.md) | A combination of collateral and debt. |
@@ -24,9 +24,6 @@
 |  --- | --- |
 |  [CollateralGainTransferDetails](./lib-base.collateralgaintransferdetails.md) | Details of a [transferCollateralGainToTrove()](./lib-base.transactableliquity.transfercollateralgaintotrove.md) transaction. |
 |  [LiquidationDetails](./lib-base.liquidationdetails.md) | Details of a [liquidate()](./lib-base.transactableliquity.liquidate.md) or [liquidateUpTo()](./lib-base.transactableliquity.liquidateupto.md) transaction. |
-|  [LiquityStoreBaseState](./lib-base.liquitystorebasestate.md) | State variables read from the blockchain. |
-|  [LiquityStoreDerivedState](./lib-base.liquitystorederivedstate.md) | State variables derived from [LiquityStoreBaseState](./lib-base.liquitystorebasestate.md)<!-- -->. |
-|  [LiquityStoreListenerParams](./lib-base.liquitystorelistenerparams.md) | Parameters passed to [LiquityStore](./lib-base.liquitystore.md) listeners. |
 |  [PopulatableLiquity](./lib-base.populatableliquity.md) | Prepare Liquity transactions for sending. |
 |  [PopulatedLiquityTransaction](./lib-base.populatedliquitytransaction.md) | A transaction that has been prepared for sending. |
 |  [PopulatedRedemption](./lib-base.populatedredemption.md) | A redemption transaction that has been prepared for sending. |
@@ -34,6 +31,9 @@
 |  [RedemptionDetails](./lib-base.redemptiondetails.md) | Details of a [redeemLUSD()](./lib-base.transactableliquity.redeemlusd.md) transaction. |
 |  [SendableLiquity](./lib-base.sendableliquity.md) | Send Liquity transactions. |
 |  [SentLiquityTransaction](./lib-base.sentliquitytransaction.md) | A transaction that has already been sent. |
+|  [SimStoreBaseState](./lib-base.simstorebasestate.md) | State variables read from the blockchain. |
+|  [SimStoreDerivedState](./lib-base.simstorederivedstate.md) | State variables derived from [SimStoreBaseState](./lib-base.simstorebasestate.md)<!-- -->. |
+|  [SimStoreListenerParams](./lib-base.simstorelistenerparams.md) | Parameters passed to [SimStore](./lib-base.simstore.md) listeners. |
 |  [StabilityDepositChangeDetails](./lib-base.stabilitydepositchangedetails.md) | Details of a [depositLUSDInStabilityPool()](./lib-base.transactableliquity.depositlusdinstabilitypool.md) or [withdrawLUSDFromStabilityPool()](./lib-base.transactableliquity.withdrawlusdfromstabilitypool.md) transaction. |
 |  [StabilityPoolGainsWithdrawalDetails](./lib-base.stabilitypoolgainswithdrawaldetails.md) | Details of a [withdrawGainsFromStabilityPool()](./lib-base.transactableliquity.withdrawgainsfromstabilitypool.md) transaction. |
 |  [TransactableLiquity](./lib-base.transactableliquity.md) | Send Liquity transactions and wait for them to succeed. |
@@ -63,10 +63,10 @@
 |  [FailedReceipt](./lib-base.failedreceipt.md) | Indicates that the transaction has been mined, but it failed. |
 |  [FrontendStatus](./lib-base.frontendstatus.md) | Represents whether an address has been registered as a Liquity frontend. |
 |  [LiquityReceipt](./lib-base.liquityreceipt.md) | One of either a [PendingReceipt](./lib-base.pendingreceipt.md)<!-- -->, a [FailedReceipt](./lib-base.failedreceipt.md) or a [SuccessfulReceipt](./lib-base.successfulreceipt.md)<!-- -->. |
-|  [LiquityStoreState](./lib-base.liquitystorestate.md) | Type of [LiquityStore](./lib-base.liquitystore.md)<!-- -->'s [state](./lib-base.liquitystore.state.md)<!-- -->. |
 |  [LQTYStakeChange](./lib-base.lqtystakechange.md) | Represents the change between two states of an LQTY Stake. |
 |  [MinedReceipt](./lib-base.minedreceipt.md) | Either a [FailedReceipt](./lib-base.failedreceipt.md) or a [SuccessfulReceipt](./lib-base.successfulreceipt.md)<!-- -->. |
 |  [PendingReceipt](./lib-base.pendingreceipt.md) | Indicates that the transaction hasn't been mined yet. |
+|  [SimStoreState](./lib-base.simstorestate.md) | Type of [SimStore](./lib-base.simstore.md)<!-- -->'s [state](./lib-base.simstore.state.md)<!-- -->. |
 |  [StabilityDepositChange](./lib-base.stabilitydepositchange.md) | Represents the change between two Stability Deposit states. |
 |  [SuccessfulReceipt](./lib-base.successfulreceipt.md) | Indicates that the transaction has succeeded. |
 |  [TroveAdjustmentParams](./lib-base.troveadjustmentparams.md) | Parameters of an [adjustTrove()](./lib-base.transactableliquity.adjusttrove.md) transaction. |

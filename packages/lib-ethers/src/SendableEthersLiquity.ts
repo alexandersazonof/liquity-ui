@@ -201,7 +201,10 @@ export class SendableEthersLiquity
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
   ): Promise<SentEthersLiquityTransaction<void>> {
-    return this._populate.stakeLQTY(amount, overrides).then(sendTransaction);
+  //   return this._populate.stakeLQTY(amount, overrides).then(sendTransaction);
+    return new Promise(() => {
+      return {}
+    })
   }
 
   /** {@inheritDoc @sim/lib-base#SendableLiquity.unstakeLQTY} */
@@ -209,14 +212,20 @@ export class SendableEthersLiquity
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
   ): Promise<SentEthersLiquityTransaction<void>> {
-    return this._populate.unstakeLQTY(amount, overrides).then(sendTransaction);
+  //   return this._populate.unstakeLQTY(amount, overrides).then(sendTransaction);
+    return new Promise(() => {
+      return {}
+    })
   }
 
   /** {@inheritDoc @sim/lib-base#SendableLiquity.withdrawGainsFromStaking} */
   withdrawGainsFromStaking(
     overrides?: EthersTransactionOverrides
   ): Promise<SentEthersLiquityTransaction<void>> {
-    return this._populate.withdrawGainsFromStaking(overrides).then(sendTransaction);
+  //   return this._populate.withdrawGainsFromStaking(overrides).then(sendTransaction);
+    return new Promise(() => {
+      return {}
+    })
   }
 
   /** {@inheritDoc @sim/lib-base#SendableLiquity.registerFrontend} */
@@ -224,7 +233,10 @@ export class SendableEthersLiquity
     kickbackRate: Decimalish,
     overrides?: EthersTransactionOverrides
   ): Promise<SentEthersLiquityTransaction<void>> {
-    return this._populate.registerFrontend(kickbackRate, overrides).then(sendTransaction);
+  //   return this._populate.registerFrontend(kickbackRate, overrides).then(sendTransaction);
+    return new Promise(() => {
+      return {}
+    })
   }
 
   /** @internal */
@@ -249,16 +261,20 @@ export class SendableEthersLiquity
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
   ): Promise<SentEthersLiquityTransaction<void>> {
-    return this._populate.stakeUniTokens(amount, overrides).then(sendTransaction);
-  }
+  //   return this._populate.stakeUniTokens(amount, overrides).then(sendTransaction);
+    return new Promise(() => {
+      return {}
+    })}
 
   /** {@inheritDoc @sim/lib-base#SendableLiquity.unstakeUniTokens} */
   unstakeUniTokens(
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
   ): Promise<SentEthersLiquityTransaction<void>> {
-    return this._populate.unstakeUniTokens(amount, overrides).then(sendTransaction);
-  }
+  //   return this._populate.unstakeUniTokens(amount, overrides).then(sendTransaction);
+    return new Promise(() => {
+      return {}
+    })}
 
   /** {@inheritDoc @sim/lib-base#SendableLiquity.withdrawLQTYRewardFromLiquidityMining} */
   withdrawLQTYRewardFromLiquidityMining(

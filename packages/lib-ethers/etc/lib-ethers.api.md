@@ -15,8 +15,6 @@ import { Fees } from '@sim/lib-base';
 import { FrontendStatus } from '@sim/lib-base';
 import { LiquidationDetails } from '@sim/lib-base';
 import { LiquityReceipt } from '@sim/lib-base';
-import { LiquityStore } from '@sim/lib-base';
-import { LiquityStoreState } from '@sim/lib-base';
 import { LQTYStake } from '@sim/lib-base';
 import { MinedReceipt } from '@sim/lib-base';
 import { ObservableLiquity } from '@sim/lib-base';
@@ -30,6 +28,8 @@ import { RedemptionDetails } from '@sim/lib-base';
 import { SendableLiquity } from '@sim/lib-base';
 import { SentLiquityTransaction } from '@sim/lib-base';
 import { Signer } from '@ethersproject/abstract-signer';
+import { SimStore } from '@sim/lib-base';
+import { SimStoreState } from '@sim/lib-base';
 import { StabilityDeposit } from '@sim/lib-base';
 import { StabilityDepositChangeDetails } from '@sim/lib-base';
 import { StabilityPoolGainsWithdrawalDetails } from '@sim/lib-base';
@@ -48,18 +48,18 @@ import { TroveWithPendingRedistribution } from '@sim/lib-base';
 import { UserTrove } from '@sim/lib-base';
 
 // @public
-export class BlockPolledLiquityStore extends LiquityStore<BlockPolledLiquityStoreExtraState> {
+export class BlockPolledSimStore extends SimStore<BlockPolledSimStoreExtraState> {
     constructor(readable: ReadableEthersLiquity);
     // (undocumented)
     readonly connection: EthersLiquityConnection;
     // @internal @override (undocumented)
     protected _doStart(): () => void;
     // @internal @override (undocumented)
-    protected _reduceExtra(oldState: BlockPolledLiquityStoreExtraState, stateUpdate: Partial<BlockPolledLiquityStoreExtraState>): BlockPolledLiquityStoreExtraState;
+    protected _reduceExtra(oldState: BlockPolledSimStoreExtraState, stateUpdate: Partial<BlockPolledSimStoreExtraState>): BlockPolledSimStoreExtraState;
 }
 
 // @public
-export interface BlockPolledLiquityStoreExtraState {
+export interface BlockPolledSimStoreExtraState {
     blockTag?: number;
     blockTimestamp: number;
     // @internal (undocumented)
@@ -67,7 +67,7 @@ export interface BlockPolledLiquityStoreExtraState {
 }
 
 // @public
-export type BlockPolledLiquityStoreState = LiquityStoreState<BlockPolledLiquityStoreExtraState>;
+export type BlockPolledSimStoreState = SimStoreState<BlockPolledSimStoreExtraState>;
 
 // @public
 export interface BorrowingOperationOptionalParams {
@@ -108,7 +108,7 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
     // @internal (undocumented)
     static connect(signerOrProvider: EthersSigner | EthersProvider, optionalParams: EthersLiquityConnectionOptionalParams & {
         useStore: "blockPolled";
-    }): Promise<EthersLiquityWithStore<BlockPolledLiquityStore>>;
+    }): Promise<EthersLiquityWithStore<BlockPolledSimStore>>;
     static connect(signerOrProvider: EthersSigner | EthersProvider, optionalParams?: EthersLiquityConnectionOptionalParams): Promise<EthersLiquity>;
     readonly connection: EthersLiquityConnection;
     // (undocumented)
@@ -120,7 +120,7 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
     // @internal (undocumented)
     static _from(connection: EthersLiquityConnection & {
         useStore: "blockPolled";
-    }): EthersLiquityWithStore<BlockPolledLiquityStore>;
+    }): EthersLiquityWithStore<BlockPolledSimStore>;
     // @internal (undocumented)
     static _from(connection: EthersLiquityConnection): EthersLiquity;
     // @internal (undocumented)
@@ -184,7 +184,7 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
     // (undocumented)
     getUniTokenBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
     hasStore(): this is EthersLiquityWithStore;
-    hasStore(store: "blockPolled"): this is EthersLiquityWithStore<BlockPolledLiquityStore>;
+    hasStore(store: "blockPolled"): this is EthersLiquityWithStore<BlockPolledSimStore>;
     // (undocumented)
     liquidate(address: string | string[], overrides?: EthersTransactionOverrides): Promise<LiquidationDetails>;
     // (undocumented)
@@ -260,7 +260,7 @@ export interface EthersLiquityConnectionOptionalParams {
 export type EthersLiquityStoreOption = "blockPolled";
 
 // @public
-export interface EthersLiquityWithStore<T extends LiquityStore = LiquityStore> extends EthersLiquity {
+export interface EthersLiquityWithStore<T extends SimStore = SimStore> extends EthersLiquity {
     readonly store: T;
 }
 
@@ -447,7 +447,7 @@ export class ReadableEthersLiquity implements ReadableLiquity {
     // @internal (undocumented)
     static connect(signerOrProvider: EthersSigner | EthersProvider, optionalParams: EthersLiquityConnectionOptionalParams & {
         useStore: "blockPolled";
-    }): Promise<ReadableEthersLiquityWithStore<BlockPolledLiquityStore>>;
+    }): Promise<ReadableEthersLiquityWithStore<BlockPolledSimStore>>;
     // (undocumented)
     static connect(signerOrProvider: EthersSigner | EthersProvider, optionalParams?: EthersLiquityConnectionOptionalParams): Promise<ReadableEthersLiquity>;
     // (undocumented)
@@ -455,7 +455,7 @@ export class ReadableEthersLiquity implements ReadableLiquity {
     // @internal (undocumented)
     static _from(connection: EthersLiquityConnection & {
         useStore: "blockPolled";
-    }): ReadableEthersLiquityWithStore<BlockPolledLiquityStore>;
+    }): ReadableEthersLiquityWithStore<BlockPolledSimStore>;
     // @internal (undocumented)
     static _from(connection: EthersLiquityConnection): ReadableEthersLiquity;
     // @internal (undocumented)
@@ -519,11 +519,11 @@ export class ReadableEthersLiquity implements ReadableLiquity {
     // (undocumented)
     getUniTokenBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
     hasStore(): this is ReadableEthersLiquityWithStore;
-    hasStore(store: "blockPolled"): this is ReadableEthersLiquityWithStore<BlockPolledLiquityStore>;
+    hasStore(store: "blockPolled"): this is ReadableEthersLiquityWithStore<BlockPolledSimStore>;
 }
 
 // @public
-export interface ReadableEthersLiquityWithStore<T extends LiquityStore = LiquityStore> extends ReadableEthersLiquity {
+export interface ReadableEthersLiquityWithStore<T extends SimStore = SimStore> extends ReadableEthersLiquity {
     readonly store: T;
 }
 

@@ -35,18 +35,12 @@ Implemented by [PopulatableEthersLiquity](./lib-ethers.populatableethersliquity.
 |  [liquidateUpTo(maximumNumberOfTrovesToLiquidate)](./lib-base.populatableliquity.liquidateupto.md) | Liquidate the least collateralized Troves up to a maximum number. |
 |  [openTrove(params, maxBorrowingRate)](./lib-base.populatableliquity.opentrove.md) | Open a new Trove by depositing collateral and borrowing LUSD. |
 |  [redeemLUSD(amount, maxRedemptionRate)](./lib-base.populatableliquity.redeemlusd.md) | Redeem LUSD to native currency (e.g. Ether) at face value. |
-|  [registerFrontend(kickbackRate)](./lib-base.populatableliquity.registerfrontend.md) | Register current wallet address as a Liquity frontend. |
 |  [repayLUSD(amount)](./lib-base.populatableliquity.repaylusd.md) | Adjust existing Trove by repaying some of its debt. |
 |  [sendLQTY(toAddress, amount)](./lib-base.populatableliquity.sendlqty.md) | Send LQTY tokens to an address. |
 |  [sendLUSD(toAddress, amount)](./lib-base.populatableliquity.sendlusd.md) | Send LUSD tokens to an address. |
-|  [stakeLQTY(amount)](./lib-base.populatableliquity.stakelqty.md) | Stake LQTY to start earning fee revenue or increase existing stake. |
-|  [stakeUniTokens(amount)](./lib-base.populatableliquity.stakeunitokens.md) | Stake Uniswap ETH/LUSD LP tokens to participate in liquidity mining and earn LQTY. |
 |  [transferCollateralGainToTrove()](./lib-base.populatableliquity.transfercollateralgaintotrove.md) | Transfer [collateral gain](./lib-base.stabilitydeposit.collateralgain.md) from Stability Deposit to Trove. |
-|  [unstakeLQTY(amount)](./lib-base.populatableliquity.unstakelqty.md) | Withdraw LQTY from staking. |
-|  [unstakeUniTokens(amount)](./lib-base.populatableliquity.unstakeunitokens.md) | Withdraw Uniswap ETH/LUSD LP tokens from liquidity mining. |
 |  [withdrawCollateral(amount)](./lib-base.populatableliquity.withdrawcollateral.md) | Adjust existing Trove by withdrawing some of its collateral. |
 |  [withdrawGainsFromStabilityPool()](./lib-base.populatableliquity.withdrawgainsfromstabilitypool.md) | Withdraw [collateral gain](./lib-base.stabilitydeposit.collateralgain.md) and [LQTY reward](./lib-base.stabilitydeposit.lqtyreward.md) from Stability Deposit. |
-|  [withdrawGainsFromStaking()](./lib-base.populatableliquity.withdrawgainsfromstaking.md) | Withdraw [collateral gain](./lib-base.lqtystake.collateralgain.md) and [LUSD gain](./lib-base.lqtystake.lusdgain.md) from LQTY stake. |
 |  [withdrawLQTYRewardFromLiquidityMining()](./lib-base.populatableliquity.withdrawlqtyrewardfromliquiditymining.md) | Withdraw LQTY that has been earned by mining liquidity. |
 |  [withdrawLUSDFromStabilityPool(amount)](./lib-base.populatableliquity.withdrawlusdfromstabilitypool.md) | Withdraw LUSD from Stability Deposit. |
 

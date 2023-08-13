@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
 import { Card, Heading, Box, Flex, Button } from "theme-ui";
-import { useLiquitySelector } from "@sim/lib-react";
-import { LiquityStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
+import { SimStoreState } from "@sim/lib-base";
 import { DisabledEditableRow } from "./Editor";
 import { useTroveView } from "./context/TroveViewContext";
 import { Icon } from "../Icon";
 import { COIN } from "../../strings";
 import { CollateralRatio } from "./CollateralRatio";
 
-const select = ({ trove, price }: LiquityStoreState) => ({ trove, price });
+const select = ({ trove, price }: SimStoreState) => ({ trove, price });
 
 export const ReadOnlyTrove: React.FC = () => {
   const { dispatchEvent } = useTroveView();
@@ -19,7 +19,7 @@ export const ReadOnlyTrove: React.FC = () => {
     dispatchEvent("CLOSE_TROVE_PRESSED");
   }, [dispatchEvent]);
 
-  const { trove, price } = useLiquitySelector(select);
+  const { trove, price } = useSimSelector(select);
 
   // console.log("READONLY TROVE", trove.collateral.prettify(4));
   return (

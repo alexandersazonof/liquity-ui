@@ -4,12 +4,12 @@
 
 ## ReadableEthersLiquityWithStore interface
 
-Variant of [ReadableEthersLiquity](./lib-ethers.readableethersliquity.md) that exposes a [LiquityStore](./lib-base.liquitystore.md)<!-- -->.
+Variant of [ReadableEthersLiquity](./lib-ethers.readableethersliquity.md) that exposes a .
 
 <b>Signature:</b>
 
 ```typescript
-export interface ReadableEthersLiquityWithStore<T extends LiquityStore = LiquityStore> extends ReadableEthersLiquity 
+export interface ReadableEthersLiquityWithStore<T extends SimStore = SimStore> extends ReadableEthersLiquity 
 ```
 <b>Extends:</b> [ReadableEthersLiquity](./lib-ethers.readableethersliquity.md)
 

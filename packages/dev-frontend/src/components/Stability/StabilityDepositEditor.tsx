@@ -5,11 +5,11 @@ import {
   Decimal,
   Decimalish,
   StabilityDeposit,
-  LiquityStoreState,
+  SimStoreState,
   Difference
 } from "@sim/lib-base";
 
-import { useLiquitySelector } from "@sim/lib-react";
+import { useSimSelector } from "@sim/lib-react";
 
 import { COIN, GT } from "../../strings";
 
@@ -18,7 +18,7 @@ import { EditableRow, StaticRow } from "../Trove/Editor";
 import { LoadingOverlay } from "../LoadingOverlay";
 import { InfoIcon } from "../InfoIcon";
 
-const select = ({ lusdBalance, lusdInStabilityPool }: LiquityStoreState) => ({
+const select = ({ lusdBalance, lusdInStabilityPool }: SimStoreState) => ({
   lusdBalance,
   lusdInStabilityPool
 });
@@ -37,7 +37,7 @@ export const StabilityDepositEditor: React.FC<StabilityDepositEditorProps> = ({
   dispatch,
   children
 }) => {
-  const { lusdBalance, lusdInStabilityPool } = useLiquitySelector(select);
+  const { lusdBalance, lusdInStabilityPool } = useSimSelector(select);
   const editingState = useState<string>();
 
   const edited = !editedLUSD.eq(originalDeposit.currentLUSD);

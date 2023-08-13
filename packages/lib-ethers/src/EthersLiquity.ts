@@ -8,7 +8,7 @@ import {
   Fees,
   FrontendStatus,
   LiquidationDetails,
-  LiquityStore,
+  SimStore,
   LQTYStake,
   RedemptionDetails,
   StabilityDeposit,
@@ -50,7 +50,7 @@ import {
 } from "./PopulatableEthersLiquity";
 import { ReadableEthersLiquity, ReadableEthersLiquityWithStore } from "./ReadableEthersLiquity";
 import { SendableEthersLiquity } from "./SendableEthersLiquity";
-import { BlockPolledLiquityStore } from "./BlockPolledLiquityStore";
+import { BlockPolledSimStore } from "./BlockPolledSimStore";
 
 /**
  * Thrown by {@link EthersLiquity} in case of transaction failure.
@@ -103,7 +103,7 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
   /** @internal */
   static _from(
     connection: EthersLiquityConnection & { useStore: "blockPolled" }
-  ): EthersLiquityWithStore<BlockPolledLiquityStore>;
+  ): EthersLiquityWithStore<BlockPolledSimStore>;
 
   /** @internal */
   static _from(connection: EthersLiquityConnection): EthersLiquity;
@@ -121,7 +121,7 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
   static connect(
     signerOrProvider: EthersSigner | EthersProvider,
     optionalParams: EthersLiquityConnectionOptionalParams & { useStore: "blockPolled" }
-  ): Promise<EthersLiquityWithStore<BlockPolledLiquityStore>>;
+  ): Promise<EthersLiquityWithStore<BlockPolledSimStore>>;
 
   /**
    * Connect to the Liquity protocol and create an `EthersLiquity` object.
@@ -149,9 +149,9 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
 
   /**
    * Check whether this `EthersLiquity` is an
-   * {@link EthersLiquityWithStore}\<{@link BlockPolledLiquityStore}\>.
+   * {@link EthersLiquityWithStore}\<{@link BlockPolledSimStore}\>.
    */
-  hasStore(store: "blockPolled"): this is EthersLiquityWithStore<BlockPolledLiquityStore>;
+  hasStore(store: "blockPolled"): this is EthersLiquityWithStore<BlockPolledSimStore>;
 
   hasStore(): boolean {
     return false;
@@ -566,7 +566,8 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
    * Throws {@link EthersTransactionCancelledError} if the transaction is cancelled or replaced.
    */
   stakeLQTY(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<void> {
-    return this.send.stakeLQTY(amount, overrides).then(waitForSuccess);
+    // return this.send.stakeLQTY(amount, overrides).then(waitForSuccess);
+    return Promise.resolve();
   }
 
   /**
@@ -577,7 +578,8 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
    * Throws {@link EthersTransactionCancelledError} if the transaction is cancelled or replaced.
    */
   unstakeLQTY(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<void> {
-    return this.send.unstakeLQTY(amount, overrides).then(waitForSuccess);
+    // return this.send.unstakeLQTY(amount, overrides).then(waitForSuccess);
+    return Promise.resolve();
   }
 
   /**
@@ -588,7 +590,8 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
    * Throws {@link EthersTransactionCancelledError} if the transaction is cancelled or replaced.
    */
   withdrawGainsFromStaking(overrides?: EthersTransactionOverrides): Promise<void> {
-    return this.send.withdrawGainsFromStaking(overrides).then(waitForSuccess);
+    // return this.send.withdrawGainsFromStaking(overrides).then(waitForSuccess);
+    return Promise.resolve();
   }
 
   /**
@@ -599,7 +602,8 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
    * Throws {@link EthersTransactionCancelledError} if the transaction is cancelled or replaced.
    */
   registerFrontend(kickbackRate: Decimalish, overrides?: EthersTransactionOverrides): Promise<void> {
-    return this.send.registerFrontend(kickbackRate, overrides).then(waitForSuccess);
+    // return this.send.registerFrontend(kickbackRate, overrides).then(waitForSuccess);
+    return Promise.resolve();
   }
 
   /** @internal */
@@ -630,7 +634,8 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
    * Throws {@link EthersTransactionCancelledError} if the transaction is cancelled or replaced.
    */
   stakeUniTokens(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<void> {
-    return this.send.stakeUniTokens(amount, overrides).then(waitForSuccess);
+    // return this.send.stakeUniTokens(amount, overrides).then(waitForSuccess);
+    return Promise.resolve();
   }
 
   /**
@@ -641,7 +646,8 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
    * Throws {@link EthersTransactionCancelledError} if the transaction is cancelled or replaced.
    */
   unstakeUniTokens(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<void> {
-    return this.send.unstakeUniTokens(amount, overrides).then(waitForSuccess);
+    // return this.send.unstakeUniTokens(amount, overrides).then(waitForSuccess);
+    return Promise.resolve();
   }
 
   /**
@@ -672,13 +678,13 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
  *
  * @public
  */
-export interface EthersLiquityWithStore<T extends LiquityStore = LiquityStore>
+export interface EthersLiquityWithStore<T extends SimStore = SimStore>
   extends EthersLiquity {
   /** An object that implements LiquityStore. */
   readonly store: T;
 }
 
-class _EthersLiquityWithStore<T extends LiquityStore = LiquityStore>
+class _EthersLiquityWithStore<T extends SimStore = SimStore>
   extends EthersLiquity
   implements EthersLiquityWithStore<T> {
   readonly store: T;

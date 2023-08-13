@@ -1,17 +1,17 @@
 import React, { useCallback } from "react";
 import { Card, Heading, Box, Button, Flex } from "theme-ui";
 import { CollateralSurplusAction } from "../CollateralSurplusAction";
-import { LiquityStoreState } from "@sim/lib-base";
-import { useLiquitySelector } from "@sim/lib-react";
+import { SimStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 import { useTroveView } from "./context/TroveViewContext";
 import { InfoMessage } from "../InfoMessage";
 
-const select = ({ collateralSurplusBalance }: LiquityStoreState) => ({
+const select = ({ collateralSurplusBalance }: SimStoreState) => ({
   hasSurplusCollateral: !collateralSurplusBalance.isZero
 });
 
 export const RedeemedTrove: React.FC = () => {
-  const { hasSurplusCollateral } = useLiquitySelector(select);
+  const { hasSurplusCollateral } = useSimSelector(select);
   const { dispatchEvent } = useTroveView();
 
   const handleOpenTrove = useCallback(() => {

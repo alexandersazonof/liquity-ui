@@ -1,26 +1,19 @@
 import React from "react";
-import { LiquityStoreState } from "@sim/lib-base";
-import { useLiquitySelector } from "@sim/lib-react";
 import { Container, Flex, Box } from "theme-ui";
 import { AddressZero } from "@ethersproject/constants";
-import { useLiquity } from "../hooks/LiquityContext";
+import { useSim } from "../hooks/SimContext";
 
 import { LiquityLogo } from "./LiquityLogo";
 import { Nav } from "./Nav";
 import { SideNav } from "./SideNav";
 
-const logoHeight = "32px";
-
-const select = ({ frontend }: LiquityStoreState) => ({
-  frontend
-});
+const logoHeight = "40px";
 
 export const Header: React.FC = ({ children }) => {
   const {
     config: { frontendTag }
-  } = useLiquity();
-  const { frontend } = useLiquitySelector(select);
-  const isFrontendRegistered = frontendTag === AddressZero || frontend.status === "registered";
+  } = useSim();
+  const isFrontendRegistered = frontendTag === AddressZero;
 
   return (
     <Container variant="header">

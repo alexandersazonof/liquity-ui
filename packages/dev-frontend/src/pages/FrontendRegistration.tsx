@@ -4,7 +4,7 @@ import { Card, Heading, Box, Flex, Input, Label, Paragraph, Button, Spinner } fr
 import { Decimal } from "@sim/lib-base";
 
 import { shortenAddress } from "../utils/shortenAddress";
-import { useLiquity } from "../hooks/LiquityContext";
+import { useSim } from "../hooks/SimContext";
 import { Transaction, useMyTransactionState } from "../components/Transaction";
 import { Icon } from "../components/Icon";
 
@@ -14,8 +14,8 @@ type FrontendRegistrationActionProps = {
 
 const FrontendRegistrationAction: React.FC<FrontendRegistrationActionProps> = ({ kickbackRate }) => {
   const {
-    liquity: { send: liquity }
-  } = useLiquity();
+    sim: { send: liquity }
+  } = useSim();
 
   const myTransactionId = "register-frontend";
   const myTransactionState = useMyTransactionState(myTransactionId);
@@ -34,7 +34,7 @@ const FrontendRegistrationAction: React.FC<FrontendRegistrationActionProps> = ({
 };
 
 export const FrontendRegistration: React.FC = () => {
-  const { account } = useLiquity();
+  const { account } = useSim();
 
   const [kickbackRate, setKickbackRate] = useState(Decimal.from(0.8));
   const [cut, setCut] = useState(Decimal.from(0.2));

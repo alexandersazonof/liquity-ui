@@ -75,7 +75,7 @@ export interface LiquidationDetails {
   totalLiquidated: Trove;
 
   /** Amount of LUSD paid to the liquidator as gas compensation. */
-  lusdGasCompensation: Decimal;
+  // lusdGasCompensation: Decimal;
 
   /** Amount of native currency (e.g. Ether) paid to the liquidator as gas compensation. */
   collateralGasCompensation: Decimal;

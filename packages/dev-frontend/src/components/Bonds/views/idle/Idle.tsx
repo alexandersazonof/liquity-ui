@@ -6,29 +6,29 @@ import { useBondView } from "../../context/BondViewContext";
 import { BONDS } from "../../lexicon";
 import { InfoIcon } from "../../../InfoIcon";
 import { BLusdAmmTokenIndex, SwapPressedPayload } from "../../context/transitions";
-import { useLiquity } from "../../../../hooks/LiquityContext";
+import { useSim } from "../../../../hooks/SimContext";
 import { useBondAddresses } from "../../context/BondAddressesContext";
 
 export const Idle: React.FC = () => {
-  const { liquity } = useLiquity();
-  const { LUSD_OVERRIDE_ADDRESS } = useBondAddresses();
+  const { sim } = useSim();
+  const { SIM_OVERRIDE_ADDRESS } = useBondAddresses();
 
   const { dispatchEvent, bonds, getLusdFromFaucet, lusdBalance, hasLoaded } = useBondView();
   const [chain, setChain] = useState<number>();
 
   useEffect(() => {
     (async () => {
-      if (liquity.connection.signer === undefined || chain !== undefined) return;
-      const chainId = await liquity.connection.signer.getChainId();
+      if (sim.connection.signer === undefined || chain !== undefined) return;
+      const chainId = await sim.connection.signer.getChainId();
       setChain(chainId);
     })();
-  }, [chain, liquity.connection.signer]);
+  }, [chain, sim.connection.signer]);
 
   if (!hasLoaded) return null;
 
   const hasBonds = bonds !== undefined && bonds.length > 0;
 
-  const showLusdFaucet = LUSD_OVERRIDE_ADDRESS !== null && lusdBalance?.eq(0);
+  const showLusdFaucet = SIM_OVERRIDE_ADDRESS !== null && lusdBalance?.eq(0);
 
   const handleManageLiquidityPressed = () => dispatchEvent("MANAGE_LIQUIDITY_PRESSED");
 

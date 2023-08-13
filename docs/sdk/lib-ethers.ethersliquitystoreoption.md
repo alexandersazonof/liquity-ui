@@ -14,5 +14,5 @@ export declare type EthersLiquityStoreOption = "blockPolled";
 
 ## Remarks
 
-Currently, the only supported value is `"blockPolled"`<!-- -->, in which case a [BlockPolledLiquityStore](./lib-ethers.blockpolledliquitystore.md) will be created.
+Currently, the only supported value is `"blockPolled"`<!-- -->, in which case a  will be created.
 

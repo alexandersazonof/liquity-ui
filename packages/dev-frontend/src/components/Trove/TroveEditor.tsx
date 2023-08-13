@@ -7,10 +7,10 @@ import {
   Decimalish,
   Decimal,
   Trove,
-  LiquityStoreState,
+  SimStoreState,
   LUSD_LIQUIDATION_RESERVE
 } from "@sim/lib-base";
-import { useLiquitySelector } from "@sim/lib-react";
+import { useSimSelector } from "@sim/lib-react";
 
 import { COIN } from "../../strings";
 
@@ -30,7 +30,7 @@ type TroveEditorProps = {
   ) => void;
 };
 
-const select = ({ price }: LiquityStoreState) => ({ price });
+const select = ({ price }: SimStoreState) => ({ price });
 
 export const TroveEditor: React.FC<TroveEditorProps> = ({
   children,
@@ -40,7 +40,7 @@ export const TroveEditor: React.FC<TroveEditorProps> = ({
   borrowingRate,
   changePending
 }) => {
-  const { price } = useLiquitySelector(select);
+  const { price } = useSimSelector(select);
 
   const feePct = new Percent(borrowingRate);
 

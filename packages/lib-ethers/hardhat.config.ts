@@ -16,7 +16,7 @@ import "@nomiclabs/hardhat-ethers";
 import { Decimal } from "@sim/lib-base";
 
 import { deployAndSetupContracts, deployTellorCaller, setSilent } from "./utils/deploy";
-import { _connectToContracts, _LiquityDeploymentJSON, _priceFeedIsTestnet } from "./src/contracts";
+import { _connectToContracts, _SimDeploymentJSON, _priceFeedIsTestnet } from "./src/contracts";
 
 import accounts from "./accounts.json";
 
@@ -145,7 +145,7 @@ declare module "hardhat/types/runtime" {
       useRealPriceFeed?: boolean,
       wethAddress?: string,
       overrides?: Overrides
-    ) => Promise<_LiquityDeploymentJSON>;
+    ) => Promise<_SimDeploymentJSON>;
   }
 }
 

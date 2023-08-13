@@ -2,7 +2,7 @@ import { Button } from "theme-ui";
 
 import { Decimal, LQTYStakeChange } from "@sim/lib-base";
 
-import { useLiquity } from "../../hooks/LiquityContext";
+import { useSim } from "../../hooks/SimContext";
 import { useTransactionFunction } from "../Transaction";
 
 type StakingActionProps = {
@@ -10,13 +10,13 @@ type StakingActionProps = {
 };
 
 export const StakingManagerAction: React.FC<StakingActionProps> = ({ change, children }) => {
-  const { liquity } = useLiquity();
+  const { sim } = useSim();
 
   const [sendTransaction] = useTransactionFunction(
     "stake",
     change.stakeLQTY
-      ? liquity.send.stakeLQTY.bind(liquity.send, change.stakeLQTY)
-      : liquity.send.unstakeLQTY.bind(liquity.send, change.unstakeLQTY)
+      ? sim.send.stakeLQTY.bind(sim.send, change.stakeLQTY)
+      : sim.send.unstakeLQTY.bind(sim.send, change.unstakeLQTY)
   );
 
   return <Button onClick={sendTransaction}>{children}</Button>;

@@ -1,11 +1,11 @@
 import React from "react";
 import { createClient, WagmiConfig } from "wagmi";
-import { mainnet, goerli, localhost } from "wagmi/chains";
+import { polygonZkEvmTestnet, localhost } from "wagmi/chains";
 import { ConnectKitProvider, getDefaultClient } from "connectkit";
 import { Flex, Heading, ThemeProvider, Paragraph, Link } from "theme-ui";
 
 // import { BatchedWebSocketAugmentedWeb3Provider } from "@sim/providers";
-import { LiquityProvider } from "./hooks/LiquityContext";
+import { SimProvider } from "./hooks/SimContext";
 import { WalletConnector } from "./components/WalletConnector";
 import { TransactionProvider } from "./components/Transaction";
 import { Icon } from "./components/Icon";
@@ -13,7 +13,7 @@ import { getConfig } from "./config";
 import theme from "./theme";
 
 import { DisposableWalletProvider } from "./testUtils/DisposableWalletProvider";
-import { LiquityFrontend } from "./LiquityFrontend";
+import { SimFrontend } from "./SimFrontend";
 import { AppLoader } from "./components/AppLoader";
 import { useAsyncValue } from "./hooks/AsyncValue";
 
@@ -88,13 +88,13 @@ const App = () => {
         <WagmiConfig
           client={createClient(
             getDefaultClient({
-              appName: "Liquity",
+              appName: "Shadowy Internet Money",
               chains:
                 isDemoMode || import.meta.env.MODE === "test"
                   ? [localhost]
                   : config.value.testnetOnly
-                  ? [goerli]
-                  : [mainnet, goerli],
+                  ? [polygonZkEvmTestnet]
+                  : [polygonZkEvmTestnet],
               walletConnectProjectId: config.value.walletConnectProjectId,
               infuraId: config.value.infuraApiKey,
               alchemyId: config.value.alchemyApiKey
@@ -103,15 +103,15 @@ const App = () => {
         >
           <ConnectKitProvider options={{ hideBalance: true }}>
             <WalletConnector loader={loader}>
-              <LiquityProvider
+              <SimProvider
                 loader={loader}
                 unsupportedNetworkFallback={<UnsupportedNetworkFallback />}
                 unsupportedMainnetFallback={<UnsupportedMainnetFallback />}
               >
                 <TransactionProvider>
-                  <LiquityFrontend loader={loader} />
+                  <SimFrontend loader={loader} />
                 </TransactionProvider>
-              </LiquityProvider>
+              </SimProvider>
             </WalletConnector>
           </ConnectKitProvider>
         </WagmiConfig>

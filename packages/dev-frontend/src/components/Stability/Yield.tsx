@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Card, Paragraph, Text } from "theme-ui";
-import { Decimal, LiquityStoreState } from "@sim/lib-base";
-import { useLiquitySelector } from "@sim/lib-react";
+import { Decimal, SimStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 import { InfoIcon } from "../InfoIcon";
 import { Badge } from "../Badge";
 import { fetchLqtyPrice } from "./context/fetchLqtyPrice";
 
-const selector = ({ lusdInStabilityPool, remainingStabilityPoolLQTYReward }: LiquityStoreState) => ({
+const selector = ({ lusdInStabilityPool, remainingStabilityPoolLQTYReward }: SimStoreState) => ({
   lusdInStabilityPool,
   remainingStabilityPoolLQTYReward
 });
@@ -16,7 +16,7 @@ const dailyIssuanceFraction = Decimal.from(1 - yearlyIssuanceFraction ** (1 / 36
 const dailyIssuancePercentage = dailyIssuanceFraction.mul(100);
 
 export const Yield: React.FC = () => {
-  const { lusdInStabilityPool, remainingStabilityPoolLQTYReward } = useLiquitySelector(selector);
+  const { lusdInStabilityPool, remainingStabilityPoolLQTYReward } = useSimSelector(selector);
 
   const [lqtyPrice, setLqtyPrice] = useState<Decimal | undefined>(undefined);
   const hasZeroValue = remainingStabilityPoolLQTYReward.isZero || lusdInStabilityPool.isZero;

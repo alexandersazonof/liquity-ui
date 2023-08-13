@@ -32,7 +32,7 @@ import {
 } from "../src/PopulatableEthersLiquity";
 
 import { EthersTransactionReceipt } from "../src/types";
-import { _LiquityDeploymentJSON } from "../src/contracts";
+import { _SimDeploymentJSON } from "../src/contracts";
 import { _connectToDeployment } from "../src/EthersLiquityConnection";
 import { EthersLiquity } from "../src/EthersLiquity";
 import { ReadableEthersLiquity } from "../src/ReadableEthersLiquity";
@@ -50,7 +50,7 @@ const GAS_BUDGET = Decimal.from(0.1); // ETH
 const getGasCost = (tx: EthersTransactionReceipt) => tx.gasUsed.mul(tx.effectiveGasPrice);
 
 const connectToDeployment = async (
-  deployment: _LiquityDeploymentJSON,
+  deployment: _SimDeploymentJSON,
   signer: Signer,
   frontendTag?: string
 ) =>
@@ -94,7 +94,7 @@ describe("EthersLiquity", () => {
   let user: Signer;
   let otherUsers: Signer[];
 
-  let deployment: _LiquityDeploymentJSON;
+  let deployment: _SimDeploymentJSON;
 
   let deployerLiquity: EthersLiquity;
   let liquity: EthersLiquity;

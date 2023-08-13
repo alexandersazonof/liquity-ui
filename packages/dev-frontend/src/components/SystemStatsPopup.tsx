@@ -1,16 +1,16 @@
 import React, { useState, useRef } from "react";
 import { Container, Flex, Button } from "theme-ui";
 
-import { LiquityStoreState } from "@sim/lib-base";
-import { useLiquitySelector } from "@sim/lib-react";
+import { SimStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 
 import { Icon } from "./Icon";
 import { SystemStats } from "./SystemStats";
 
-const select = ({ total, price }: LiquityStoreState) => ({ total, price });
+const select = ({ total, price }: SimStoreState) => ({ total, price });
 
 export const SystemStatsPopup: React.FC = () => {
-  const { price, total } = useLiquitySelector(select);
+  const { price, total } = useSimSelector(select);
 
   const [systemStatsOpen, setSystemStatsOpen] = useState(false);
   const systemStatsOverlayRef = useRef<HTMLDivElement>(null);

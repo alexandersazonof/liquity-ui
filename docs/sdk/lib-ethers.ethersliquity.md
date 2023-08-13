@@ -62,7 +62,7 @@ The constructor for this class is marked as internal. Third-party code should no
 |  [getUniTokenAllowance(address, overrides)](./lib-ethers.ethersliquity.getunitokenallowance.md) |  | Get the liquidity mining contract's allowance of a holder's Uniswap ETH/LUSD LP tokens. |
 |  [getUniTokenBalance(address, overrides)](./lib-ethers.ethersliquity.getunitokenbalance.md) |  | Get the amount of Uniswap ETH/LUSD LP tokens held by an address. |
 |  [hasStore()](./lib-ethers.ethersliquity.hasstore.md) |  | Check whether this <code>EthersLiquity</code> is an [EthersLiquityWithStore](./lib-ethers.ethersliquitywithstore.md)<!-- -->. |
-|  [hasStore(store)](./lib-ethers.ethersliquity.hasstore_1.md) |  | Check whether this <code>EthersLiquity</code> is an [EthersLiquityWithStore](./lib-ethers.ethersliquitywithstore.md)<!-- -->&lt;[BlockPolledLiquityStore](./lib-ethers.blockpolledliquitystore.md)<!-- -->&gt;<!-- -->. |
+|  [hasStore(store)](./lib-ethers.ethersliquity.hasstore_1.md) |  | Check whether this <code>EthersLiquity</code> is an [EthersLiquityWithStore](./lib-ethers.ethersliquitywithstore.md)<!-- -->&lt;[BlockPolledSimStore](./lib-ethers.blockpolledsimstore.md)<!-- -->&gt;<!-- -->. |
 |  [liquidate(address, overrides)](./lib-ethers.ethersliquity.liquidate.md) |  | Liquidate one or more undercollateralized Troves. |
 |  [liquidateUpTo(maximumNumberOfTrovesToLiquidate, overrides)](./lib-ethers.ethersliquity.liquidateupto.md) |  | Liquidate the least collateralized Troves up to a maximum number. |
 |  [openTrove(params, maxBorrowingRateOrOptionalParams, overrides)](./lib-ethers.ethersliquity.opentrove.md) |  | Open a new Trove by depositing collateral and borrowing LUSD. |

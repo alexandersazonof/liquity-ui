@@ -9,11 +9,11 @@ import {
   UserTrove,
   Decimal
 } from "@sim/lib-base";
-import { BlockPolledLiquityStoreState } from "@sim/lib-ethers";
-import { useLiquitySelector } from "@sim/lib-react";
+import { BlockPolledSimStoreState } from "@sim/lib-ethers";
+import { useSimSelector } from "@sim/lib-react";
 
 import { shortenAddress } from "../utils/shortenAddress";
-import { useLiquity } from "../hooks/LiquityContext";
+import { useSim } from "../hooks/SimContext";
 import { COIN } from "../strings";
 
 import { Icon } from "./Icon";
@@ -55,7 +55,7 @@ const select = ({
   total,
   lusdInStabilityPool,
   blockTag
-}: BlockPolledLiquityStoreState) => ({
+}: BlockPolledSimStoreState) => ({
   numberOfTroves,
   price,
   recoveryMode: total.collateralRatioIsBelowCritical(price),
@@ -72,8 +72,8 @@ export const RiskyTroves: React.FC<RiskyTrovesProps> = ({ pageSize }) => {
     totalCollateralRatio,
     lusdInStabilityPool,
     price
-  } = useLiquitySelector(select);
-  const { liquity } = useLiquity();
+  } = useSimSelector(select);
+  const { sim } = useSim();
 
   const [loading, setLoading] = useState(true);
   const [troves, setTroves] = useState<UserTrove[]>();
@@ -108,7 +108,7 @@ export const RiskyTroves: React.FC<RiskyTrovesProps> = ({ pageSize }) => {
 
     setLoading(true);
 
-    liquity
+    sim
       .getTroves(
         {
           first: pageSize,
@@ -129,7 +129,7 @@ export const RiskyTroves: React.FC<RiskyTrovesProps> = ({ pageSize }) => {
     };
     // Omit blockTag from deps on purpose
     // eslint-disable-next-line
-  }, [liquity, clampedPage, pageSize, reload]);
+  }, [sim, clampedPage, pageSize, reload]);
 
   useEffect(() => {
     forceReload();
@@ -329,7 +329,7 @@ export const RiskyTroves: React.FC<RiskyTrovesProps> = ({ pageSize }) => {
                                 )
                               : liquidatableInNormalMode(trove, price)
                           ]}
-                          send={liquity.send.liquidate.bind(liquity.send, trove.ownerAddress)}
+                          send={sim.send.liquidate.bind(sim.send, trove.ownerAddress)}
                         >
                           <Button variant="dangerIcon">
                             <Icon name="trash" />
