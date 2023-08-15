@@ -18,11 +18,7 @@ export class _CachedReadableLiquity<T extends unknown[]> implements _ReadableLiq
     // (undocumented)
     getLiquidityMiningStake(address?: string, ...extraParams: T): Promise<Decimal>;
     // (undocumented)
-    getLQTYBalance(address?: string, ...extraParams: T): Promise<Decimal>;
-    // (undocumented)
     getLQTYStake(address?: string, ...extraParams: T): Promise<LQTYStake>;
-    // (undocumented)
-    getLUSDBalance(address?: string, ...extraParams: T): Promise<Decimal>;
     // (undocumented)
     getLUSDInStabilityPool(...extraParams: T): Promise<Decimal>;
     // (undocumented)
@@ -33,6 +29,10 @@ export class _CachedReadableLiquity<T extends unknown[]> implements _ReadableLiq
     getRemainingLiquidityMiningLQTYReward(...extraParams: T): Promise<Decimal>;
     // (undocumented)
     getRemainingStabilityPoolLQTYReward(...extraParams: T): Promise<Decimal>;
+    // (undocumented)
+    getSHADYBalance(address?: string, ...extraParams: T): Promise<Decimal>;
+    // (undocumented)
+    getSIMBalance(address?: string, ...extraParams: T): Promise<Decimal>;
     // (undocumented)
     getStabilityDeposit(address?: string, ...extraParams: T): Promise<StabilityDeposit>;
     // (undocumented)
@@ -401,14 +401,14 @@ export interface ReadableLiquity {
     getFrontendStatus(address?: string): Promise<FrontendStatus>;
     getLiquidityMiningLQTYReward(address?: string): Promise<Decimal>;
     getLiquidityMiningStake(address?: string): Promise<Decimal>;
-    getLQTYBalance(address?: string): Promise<Decimal>;
     getLQTYStake(address?: string): Promise<LQTYStake>;
-    getLUSDBalance(address?: string): Promise<Decimal>;
     getLUSDInStabilityPool(): Promise<Decimal>;
     getNumberOfTroves(): Promise<number>;
     getPrice(): Promise<Decimal>;
     getRemainingLiquidityMiningLQTYReward(): Promise<Decimal>;
     getRemainingStabilityPoolLQTYReward(): Promise<Decimal>;
+    getSHADYBalance(address?: string): Promise<Decimal>;
+    getSIMBalance(address?: string): Promise<Decimal>;
     getStabilityDeposit(address?: string): Promise<StabilityDeposit>;
     getTotal(): Promise<Trove>;
     getTotalRedistributed(): Promise<Trove>;
@@ -535,9 +535,7 @@ export interface SimStoreBaseState {
     frontend: FrontendStatus;
     liquidityMiningLQTYReward: Decimal;
     liquidityMiningStake: Decimal;
-    lqtyBalance: Decimal;
     lqtyStake: LQTYStake;
-    lusdBalance: Decimal;
     lusdInStabilityPool: Decimal;
     numberOfTroves: number;
     ownFrontend: FrontendStatus;
@@ -546,6 +544,8 @@ export interface SimStoreBaseState {
     remainingStabilityPoolLQTYReward: Decimal;
     // @internal (undocumented)
     _riskiestTroveBeforeRedistribution: TroveWithPendingRedistribution;
+    shadyBalance: Decimal;
+    simBalance: Decimal;
     stabilityDeposit: StabilityDeposit;
     total: Trove;
     totalRedistributed: Trove;

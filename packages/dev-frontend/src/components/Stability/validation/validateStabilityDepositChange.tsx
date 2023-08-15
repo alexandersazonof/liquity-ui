@@ -12,12 +12,12 @@ import { StabilityActionDescription } from "../StabilityActionDescription";
 
 export const selectForStabilityDepositChangeValidation = ({
   trove,
-  lusdBalance,
+  simBalance,
   ownFrontend,
   haveUndercollateralizedTroves
 }: SimStoreState) => ({
   trove,
-  lusdBalance,
+  simBalance,
   haveOwnFrontend: ownFrontend.status === "registered",
   haveUndercollateralizedTroves
 });
@@ -30,7 +30,7 @@ export const validateStabilityDepositChange = (
   originalDeposit: StabilityDeposit,
   editedLUSD: Decimal,
   {
-    lusdBalance,
+    simBalance,
     haveOwnFrontend,
     haveUndercollateralizedTroves
   }: StabilityDepositChangeValidationContext
@@ -53,13 +53,13 @@ export const validateStabilityDepositChange = (
     return [undefined, undefined];
   }
 
-  if (change.depositLUSD?.gt(lusdBalance)) {
+  if (change.depositLUSD?.gt(simBalance)) {
     return [
       undefined,
       <ErrorDescription>
         The amount you're trying to deposit exceeds your balance by{" "}
         <Amount>
-          {change.depositLUSD.sub(lusdBalance).prettify()} {COIN}
+          {change.depositLUSD.sub(simBalance).prettify()} {COIN}
         </Amount>
         .
       </ErrorDescription>
@@ -70,7 +70,7 @@ export const validateStabilityDepositChange = (
     return [
       undefined,
       <ErrorDescription>
-        You're not allowed to withdraw LUSD from your Stability Deposit when there are
+        You're not allowed to withdraw SIM from your Stability Deposit when there are
         undercollateralized Troves. Please liquidate those Troves or try again later.
       </ErrorDescription>
     ];

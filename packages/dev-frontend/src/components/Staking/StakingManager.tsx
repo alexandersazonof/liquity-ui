@@ -60,7 +60,7 @@ const reduce = (state: StakeManagerState, action: StakeManagerAction): StakeMana
   return state;
 };
 
-const selectLQTYBalance = ({ lqtyBalance }: SimStoreState) => lqtyBalance;
+const selectSHADYBalance = ({ shadyBalance }: SimStoreState) => shadyBalance;
 
 type StakingManagerActionDescriptionProps = {
   originalStake: LQTYStake;
@@ -119,7 +119,7 @@ const StakingManagerActionDescription: React.FC<StakingManagerActionDescriptionP
 export const StakingManager: React.FC = () => {
   const { dispatch: dispatchStakingViewAction } = useStakingView();
   const [{ originalStake, editedLQTY }, dispatch] = useSimReducer(reduce, init);
-  const lqtyBalance = useSimSelector(selectLQTYBalance);
+  const lqtyBalance = useSimSelector(selectSHADYBalance);
 
   const change = originalStake.whatChanged(editedLQTY);
   const [validChange, description] = !change

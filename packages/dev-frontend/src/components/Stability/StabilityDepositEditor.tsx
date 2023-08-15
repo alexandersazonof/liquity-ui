@@ -18,8 +18,8 @@ import { EditableRow, StaticRow } from "../Trove/Editor";
 import { LoadingOverlay } from "../LoadingOverlay";
 import { InfoIcon } from "../InfoIcon";
 
-const select = ({ lusdBalance, lusdInStabilityPool }: SimStoreState) => ({
-  lusdBalance,
+const select = ({ simBalance, lusdInStabilityPool }: SimStoreState) => ({
+  simBalance,
   lusdInStabilityPool
 });
 
@@ -37,12 +37,12 @@ export const StabilityDepositEditor: React.FC<StabilityDepositEditorProps> = ({
   dispatch,
   children
 }) => {
-  const { lusdBalance, lusdInStabilityPool } = useSimSelector(select);
+  const { simBalance, lusdInStabilityPool } = useSimSelector(select);
   const editingState = useState<string>();
 
   const edited = !editedLUSD.eq(originalDeposit.currentLUSD);
 
-  const maxAmount = originalDeposit.currentLUSD.add(lusdBalance);
+  const maxAmount = originalDeposit.currentLUSD.add(simBalance);
   const maxedOut = editedLUSD.eq(maxAmount);
 
   const lusdInStabilityPoolAfterChange = lusdInStabilityPool

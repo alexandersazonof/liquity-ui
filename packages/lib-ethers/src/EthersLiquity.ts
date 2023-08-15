@@ -215,14 +215,14 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
     return this._readable.getLUSDInStabilityPool(overrides);
   }
 
-  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getLUSDBalance} */
-  getLUSDBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
-    return this._readable.getLUSDBalance(address, overrides);
+  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getSIMBalance} */
+  getSIMBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
+    return this._readable.getSIMBalance(address, overrides);
   }
 
-  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getLQTYBalance} */
-  getLQTYBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
-    return this._readable.getLQTYBalance(address, overrides);
+  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getShadyBalance} */
+  getSHADYBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
+    return this._readable.getSHADYBalance(address, overrides);
   }
 
   /** {@inheritDoc @sim/lib-base#ReadableLiquity.getUniTokenBalance} */

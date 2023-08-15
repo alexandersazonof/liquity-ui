@@ -743,7 +743,7 @@ describe("EthersLiquity", () => {
           .sub(gasCost)}`
       );
 
-      expect(`${await liquity.getLUSDBalance()}`).to.equal("273.5");
+      expect(`${await liquity.getSIMBalance()}`).to.equal("273.5");
 
       expect(`${(await otherLiquities[0].getTrove()).debt}`).to.equal(
         `${Trove.create(troveCreations[1]).debt.sub(
@@ -1334,7 +1334,7 @@ describe("EthersLiquity", () => {
       // Sweep LUSD
       await Promise.all(
         otherLiquities.map(async otherLiquity =>
-          otherLiquity.sendLUSD(await user.getAddress(), await otherLiquity.getLUSDBalance())
+          otherLiquity.sendLUSD(await user.getAddress(), await otherLiquity.getSIMBalance())
         )
       );
 
@@ -1342,7 +1342,7 @@ describe("EthersLiquity", () => {
 
       // Create a "designated victim" Trove that'll be redeemed
       const redeemedTroveDebt = await liquity
-        .getLUSDBalance()
+        .getSIMBalance()
         .then(x => x.div(10).add(SIM_LIQUIDATION_RESERVE));
       const redeemedTroveCollateral = redeemedTroveDebt.mulDiv(1.1, price);
       const redeemedTrove = new Trove(redeemedTroveCollateral, redeemedTroveDebt);

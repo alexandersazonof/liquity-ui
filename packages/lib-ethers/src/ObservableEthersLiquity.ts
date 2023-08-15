@@ -198,7 +198,7 @@ export class ObservableEthersLiquity implements ObservableLiquity {
     const lusdTransferFilters = [transferLUSDFromUser, transferLUSDToUser];
 
     const lusdTransferListener = debounce((blockTag: number) => {
-      this._readable.getLUSDBalance(address, { blockTag }).then(onLUSDBalanceChanged);
+      this._readable.getSIMBalance(address, { blockTag }).then(onLUSDBalanceChanged);
     });
 
     lusdTransferFilters.forEach(filter => simToken.on(filter, lusdTransferListener));

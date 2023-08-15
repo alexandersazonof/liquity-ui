@@ -295,16 +295,16 @@ export class ReadableEthersLiquity implements ReadableLiquity {
     return stabilityPool.getTotalSIMDeposits({ ...overrides }).then(decimalify);
   }
 
-  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getLUSDBalance} */
-  getLUSDBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
+  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getSIMBalance} */
+  getSIMBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
     address ??= _requireAddress(this.connection);
     const { simToken } = _getContracts(this.connection);
 
     return simToken.balanceOf(address, { ...overrides }).then(decimalify);
   }
 
-  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getLQTYBalance} */
-  getLQTYBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
+  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getSHADYBalance} */
+  getSHADYBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
     address ??= _requireAddress(this.connection);
     const { shadyToken } = _getContracts(this.connection);
 
@@ -648,16 +648,16 @@ class _BlockPolledReadableEthersLiquity
       : this._readable.getLUSDInStabilityPool(overrides);
   }
 
-  async getLUSDBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
+  async getSIMBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
     return this._userHit(address, overrides)
-      ? this.store.state.lusdBalance
-      : this._readable.getLUSDBalance(address, overrides);
+      ? this.store.state.simBalance
+      : this._readable.getSIMBalance(address, overrides);
   }
 
-  async getLQTYBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
+  async getSHADYBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
     return this._userHit(address, overrides)
-      ? this.store.state.lqtyBalance
-      : this._readable.getLQTYBalance(address, overrides);
+      ? this.store.state.shadyBalance
+      : this._readable.getSHADYBalance(address, overrides);
   }
 
   async getWstEthBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {

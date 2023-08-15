@@ -85,9 +85,9 @@ export const selectForTroveChangeValidation = ({
   price,
   total,
   wstETHBalance,
-  lusdBalance,
+  simBalance,
   numberOfTroves
-}: SimStoreState) => ({ price, total, wstETHBalance, lusdBalance, numberOfTroves });
+}: SimStoreState) => ({ price, total, wstETHBalance, simBalance, numberOfTroves });
 
 type TroveChangeValidationSelectedState = ReturnType<typeof selectForTroveChangeValidation>;
 
@@ -230,7 +230,7 @@ const validateTroveAdjustment = (
     wouldTriggerRecoveryMode,
     price,
     wstETHBalance,
-    lusdBalance
+    simBalance
   }: TroveChangeValidationContext
 ): JSX.Element | null => {
   if (recoveryMode) {
@@ -292,12 +292,12 @@ const validateTroveAdjustment = (
       );
     }
 
-    if (repaySIM.gt(lusdBalance)) {
+    if (repaySIM.gt(simBalance)) {
       return (
         <ErrorDescription>
           The amount you're trying to repay exceeds your balance by{" "}
           <Amount>
-            {repaySIM.sub(lusdBalance).prettify()} {COIN}
+            {repaySIM.sub(simBalance).prettify()} {COIN}
           </Amount>
           .
         </ErrorDescription>
@@ -323,7 +323,7 @@ const validateTroveClosure = (
     recoveryMode,
     wouldTriggerRecoveryMode,
     numberOfTroves,
-    lusdBalance
+    simBalance
   }: TroveChangeValidationContext
 ): JSX.Element | null => {
   if (numberOfTroves === 1) {
@@ -342,12 +342,12 @@ const validateTroveClosure = (
     );
   }
 
-  if (repaySIM?.gt(lusdBalance)) {
+  if (repaySIM?.gt(simBalance)) {
     return (
       <ErrorDescription>
         You need{" "}
         <Amount>
-          {repaySIM.sub(lusdBalance).prettify()} {COIN}
+          {repaySIM.sub(simBalance).prettify()} {COIN}
         </Amount>{" "}
         more to close your Trove.
       </ErrorDescription>
