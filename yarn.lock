@@ -2653,7 +2653,7 @@ __metadata:
     "@tippyjs/react": 4.2.5
     "@types/react": 17.0.3
     "@types/react-copy-to-clipboard": 5.0.0
-    "@types/react-dom": 17.0.2
+    "@types/react-dom": 18.2.7
     "@types/react-modal": ^3.13.1
     "@types/react-router-dom": 5.1.7
     "@types/testing-library__jest-dom": 5.9.5
@@ -2675,7 +2675,7 @@ __metadata:
     react: 17.0.2
     react-circular-progressbar: 2.0.3
     react-copy-to-clipboard: 5.0.3
-    react-dom: 17.0.2
+    react-dom: 18.2.0
     react-modal: ^3.15.1
     react-router-dom: 5.2.0
     recharts: 2.1.10
@@ -3768,12 +3768,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:17.0.2":
-  version: 17.0.2
-  resolution: "@types/react-dom@npm:17.0.2"
+"@types/react-dom@npm:18.2.7":
+  version: 18.2.7
+  resolution: "@types/react-dom@npm:18.2.7"
   dependencies:
     "@types/react": "*"
-  checksum: 1725928a1c3a0026044e6401e6b53729e1a88849034fc67138d7784ec44a5132fe2e9056a19b741ccb462ff0ec0d8c2c01ef316bda19be0e31f2ead9346f600b
+  checksum: e02ea908289a7ad26053308248d2b87f6aeafd73d0e2de2a3d435947bcea0422599016ffd1c3e38ff36c42f5e1c87c7417f05b0a157e48649e4a02f21727d54f
   languageName: node
   linkType: hard
 
@@ -14894,16 +14894,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:17.0.2":
-  version: 17.0.2
-  resolution: "react-dom@npm:17.0.2"
+"react-dom@npm:18.2.0":
+  version: 18.2.0
+  resolution: "react-dom@npm:18.2.0"
   dependencies:
     loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-    scheduler: ^0.20.2
+    scheduler: ^0.23.0
   peerDependencies:
-    react: 17.0.2
-  checksum: 1c1eaa3bca7c7228d24b70932e3d7c99e70d1d04e13bb0843bbf321582bc25d7961d6b8a6978a58a598af2af496d1cedcfb1bf65f6b0960a0a8161cb8dab743c
+    react: ^18.2.0
+  checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
   languageName: node
   linkType: hard
 
@@ -15800,13 +15799,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.20.2":
-  version: 0.20.2
-  resolution: "scheduler@npm:0.20.2"
+"scheduler@npm:^0.23.0":
+  version: 0.23.0
+  resolution: "scheduler@npm:0.23.0"
   dependencies:
     loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: c4b35cf967c8f0d3e65753252d0f260271f81a81e427241295c5a7b783abf4ea9e905f22f815ab66676f5313be0a25f47be582254db8f9241b259213e999b8fc
+  checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
   languageName: node
   linkType: hard
 
