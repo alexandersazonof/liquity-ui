@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 
-import { Decimal, TroveChange } from "@liquity/lib-base";
-import { PopulatedEthersLiquityTransaction } from "@liquity/lib-ethers";
+import { Decimal, TroveChange } from "@sim/lib-base";
+import { PopulatedEthersLiquityTransaction } from "@sim/lib-ethers";
 
-import { useLiquity } from "../../hooks/LiquityContext";
+import { useSim } from "../../hooks/SimContext";
 import { Warning } from "../Warning";
 
 export type GasEstimationState =
@@ -25,7 +25,7 @@ export const ExpensiveTroveChangeWarning: React.FC<ExpensiveTroveChangeWarningPa
   gasEstimationState,
   setGasEstimationState
 }) => {
-  const { liquity } = useLiquity();
+  const { sim } = useSim();
 
   useEffect(() => {
     if (troveChange && troveChange.type !== "closure") {
@@ -35,11 +35,11 @@ export const ExpensiveTroveChangeWarning: React.FC<ExpensiveTroveChangeWarningPa
 
       const timeoutId = setTimeout(async () => {
         const populatedTx = await (troveChange.type === "creation"
-          ? liquity.populate.openTrove(troveChange.params, {
+          ? sim.populate.openTrove(troveChange.params, {
               maxBorrowingRate,
               borrowingFeeDecayToleranceMinutes
             })
-          : liquity.populate.adjustTrove(troveChange.params, {
+          : sim.populate.adjustTrove(troveChange.params, {
               maxBorrowingRate,
               borrowingFeeDecayToleranceMinutes
             }));

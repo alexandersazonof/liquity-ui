@@ -1,6 +1,6 @@
-import { Decimal } from "@liquity/lib-base";
+import { Decimal } from "@sim/lib-base";
 import { PieChart, Pie, ResponsiveContainer, Tooltip, Cell } from "recharts";
-import { useBondView } from "./Bonds/context/BondViewContext";
+import { useBondView } from './Bonds/context/BondViewContext';
 
 const labels = ["Pending", "Reserve", "Permanent"];
 const colors = ["#7a77c2", "#6d6aad", "#5f5c97"];

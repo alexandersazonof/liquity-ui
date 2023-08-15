@@ -1632,197 +1632,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@liquity/chicken-bonds@file:.yalc/@liquity/chicken-bonds::locator=%40liquity%2Fdev-frontend%40workspace%3Apackages%2Fdev-frontend":
-  version: 0.0.1
-  resolution: "@liquity/chicken-bonds@file:.yalc/@liquity/chicken-bonds#.yalc/@liquity/chicken-bonds::hash=f4a3c3&locator=%40liquity%2Fdev-frontend%40workspace%3Apackages%2Fdev-frontend"
-  checksum: c16397fed7724fd7ab81ca45b8531dc73437d494543e36b4c290fb1f10acc0b9ef541cad8b7a60789c02f4639a25bb951451b1eb6ca2ed5403fca6f79dd7f13b
-  languageName: node
-  linkType: hard
-
-"@liquity/dev-frontend@workspace:packages/dev-frontend":
-  version: 0.0.0-use.local
-  resolution: "@liquity/dev-frontend@workspace:packages/dev-frontend"
-  dependencies:
-    "@esbuild-plugins/node-modules-polyfill": ^0.2.2
-    "@ethersproject/abi": 5.7.0
-    "@ethersproject/experimental": 5.7.0
-    "@fortawesome/fontawesome-svg-core": 1.2.34
-    "@fortawesome/free-regular-svg-icons": 5.15.2
-    "@fortawesome/free-solid-svg-icons": 5.15.2
-    "@fortawesome/react-fontawesome": 0.1.14
-    "@liquity/chicken-bonds": "file:.yalc/@liquity/chicken-bonds"
-    "@metamask/eth-sig-util": 5.0.1
-    "@testing-library/dom": 7.30.0
-    "@testing-library/jest-dom": 5.11.9
-    "@testing-library/react": 11.2.5
-    "@testing-library/user-event": 12.8.3
-    "@tippyjs/react": 4.2.5
-    "@types/react": 17.0.3
-    "@types/react-copy-to-clipboard": 5.0.0
-    "@types/react-dom": 17.0.2
-    "@types/react-modal": ^3.13.1
-    "@types/react-router-dom": 5.1.7
-    "@types/testing-library__jest-dom": 5.9.5
-    "@types/testing-library__react": 10.2.0
-    "@types/testing-library__user-event": 4.2.0
-    "@typescript-eslint/eslint-plugin": ^5.57.1
-    "@typescript-eslint/parser": ^5.57.1
-    "@vitejs/plugin-react-swc": ^3.0.0
-    connectkit: ^1.3.0
-    cross-env: 7.0.3
-    eslint: ^8.38.0
-    eslint-plugin-react-hooks: ^4.6.0
-    eslint-plugin-react-refresh: ^0.3.4
-    ethers: 5.7.2
-    jsdom: 21
-    lambert-w-function: 3.0.0
-    node-fetch: ^3.3.1
-    npm-run-all: 4.1.5
-    react: 17.0.2
-    react-circular-progressbar: 2.0.3
-    react-copy-to-clipboard: 5.0.3
-    react-dom: 17.0.2
-    react-modal: ^3.15.1
-    react-router-dom: 5.2.0
-    recharts: 2.1.10
-    rollup-plugin-polyfill-node: ^0.12.0
-    source-map-explorer: 2.5.2
-    theme-ui: 0.6.0-canary.1544.5359f8a1e408a4dfeb74a9ae39688270286e534a.0
-    typescript: ^5.0.4
-    vite: ^4.3.2
-    vitest: ^0.31.0
-    wagmi: ^0.12.0
-    yalc: 1.0.0-pre.53
-  languageName: unknown
-  linkType: soft
-
-"@liquity/examples@workspace:packages/examples":
-  version: 0.0.0-use.local
-  resolution: "@liquity/examples@workspace:packages/examples"
-  dependencies:
-    chalk: ^4.1.0
-    ethers: ^5.4.3
-  languageName: unknown
-  linkType: soft
-
-"@liquity/fuzzer@workspace:packages/fuzzer":
-  version: 0.0.0-use.local
-  resolution: "@liquity/fuzzer@workspace:packages/fuzzer"
-  dependencies:
-    "@types/yargs": ^16.0.0
-    colors: ^1.4.0
-    dotenv: ^8.2.0
-    ethers: ^5.4.3
-    ts-node: ^9.0.0
-    typescript: ~4.1.0
-    yargs: ^16.0.3
-  languageName: unknown
-  linkType: soft
-
-"@liquity/lib-base@workspace:packages/lib-base":
-  version: 0.0.0-use.local
-  resolution: "@liquity/lib-base@workspace:packages/lib-base"
-  dependencies:
-    "@ethersproject/bignumber": 5.7.0
-    "@microsoft/api-extractor": 7.13.2
-    "@types/mocha": 8.2.1
-    "@typescript-eslint/eslint-plugin": 4.17.0
-    "@typescript-eslint/parser": 4.18.0
-    eslint: 7.22.0
-    eslint-plugin-tsdoc: 0.2.11
-    fast-check: 2.13.0
-    mocha: 8.3.2
-    npm-run-all: 4.1.5
-    ts-node: 9.1.1
-    typescript: 4.1.5
-  languageName: unknown
-  linkType: soft
-
-"@liquity/lib-ethers@workspace:packages/lib-ethers":
-  version: 0.0.0-use.local
-  resolution: "@liquity/lib-ethers@workspace:packages/lib-ethers"
-  dependencies:
-    "@microsoft/api-extractor": 7.13.2
-    "@nomiclabs/hardhat-ethers": ^2.0.2
-    "@types/chai": 4.2.15
-    "@types/chai-as-promised": 7.1.3
-    "@types/chai-spies": 1.0.3
-    "@types/fs-extra": 9.0.8
-    "@types/mocha": 8.2.1
-    "@types/node": 14.14.34
-    "@types/sinon-chai": 3.2.5
-    "@types/ws": 7.4.4
-    "@typescript-eslint/eslint-plugin": 4.17.0
-    "@typescript-eslint/parser": 4.18.0
-    chai: 4.3.4
-    chai-as-promised: 7.1.1
-    chai-spies: 1.0.0
-    cross-env: 7.0.3
-    dotenv: 8.2.0
-    eslint: 7.22.0
-    eslint-plugin-tsdoc: 0.2.11
-    ethers: 5.7.2
-    fs-extra: 9.1.0
-    hardhat: ^2.6.1
-    npm-run-all: 4.1.5
-    ts-node: 9.1.1
-    typescript: 4.1.5
-    ws: 7.4.6
-  peerDependencies:
-    "@liquity/lib-base": ^3.0.0
-    ethers: ^5.3.0
-  languageName: unknown
-  linkType: soft
-
-"@liquity/lib-react@workspace:packages/lib-react":
-  version: 0.0.0-use.local
-  resolution: "@liquity/lib-react@workspace:packages/lib-react"
-  dependencies:
-    "@ethersproject/bignumber": 5.7.0
-    "@types/react": 17.0.3
-    "@typescript-eslint/eslint-plugin": 4.17.0
-    "@typescript-eslint/parser": 4.18.0
-    eslint: 7.22.0
-    eslint-plugin-react: 7.22.0
-    eslint-plugin-react-hooks: 4.2.0
-    npm-run-all: 4.1.5
-    react: 17.0.2
-    typescript: 4.1.5
-  peerDependencies:
-    "@liquity/lib-base": ^3.0.0
-    react: ^16.13.1
-  languageName: unknown
-  linkType: soft
-
-"@liquity/lib-subgraph@workspace:packages/lib-subgraph":
-  version: 0.0.0-use.local
-  resolution: "@liquity/lib-subgraph@workspace:packages/lib-subgraph"
-  dependencies:
-    "@apollo/client": ^3.3.12
-    "@ethersproject/address": ^5.4.0
-    apollo: ^2.30.3
-    cross-fetch: ~3.0.6
-    graphql: ^15.3.0
-    npm-run-all: ^4.1.5
-    rimraf: ^3.0.2
-    typescript: ~4.1.0
-  peerDependencies:
-    "@liquity/lib-base": ^3.0.0
-  languageName: unknown
-  linkType: soft
-
-"@liquity/providers@workspace:packages/providers":
-  version: 0.0.0-use.local
-  resolution: "@liquity/providers@workspace:packages/providers"
-  dependencies:
-    ethers: ^5.4.3
-    ts-node: ^9.1.1
-    typescript: ~4.1.0
-  peerDependencies:
-    ethers: ^5.3.0
-  languageName: unknown
-  linkType: soft
-
 "@lit-labs/ssr-dom-shim@npm:^1.0.0, @lit-labs/ssr-dom-shim@npm:^1.1.0":
   version: 1.1.1
   resolution: "@lit-labs/ssr-dom-shim@npm:1.1.1"
@@ -2816,6 +2625,174 @@ __metadata:
   checksum: 27b259a136c664427641dd32ee3dc490553f3b5e92986accfa829d14063ebc69b191e92209ac9c40fbc367f74cfa17dc93b4c40981d666711fd57b4d51a82062
   languageName: node
   linkType: hard
+
+"@sim/chicken-bonds@file:.yalc/@sim/chicken-bonds::locator=%40sim%2Fdev-frontend%40workspace%3Apackages%2Fdev-frontend":
+  version: 0.0.1
+  resolution: "@sim/chicken-bonds@file:.yalc/@sim/chicken-bonds#.yalc/@sim/chicken-bonds::hash=5a45e8&locator=%40sim%2Fdev-frontend%40workspace%3Apackages%2Fdev-frontend"
+  checksum: 4f23bb814cf5e54b3b12448319a1c0463c696bcaf6982d755e78fa925f6568ac2299de7653b6b85d1fedfd01a796c36eecae99a6459a830689120a52f15b3c42
+  languageName: node
+  linkType: hard
+
+"@sim/dev-frontend@workspace:packages/dev-frontend":
+  version: 0.0.0-use.local
+  resolution: "@sim/dev-frontend@workspace:packages/dev-frontend"
+  dependencies:
+    "@esbuild-plugins/node-modules-polyfill": ^0.2.2
+    "@ethersproject/abi": 5.7.0
+    "@ethersproject/experimental": 5.7.0
+    "@fortawesome/fontawesome-svg-core": 1.2.34
+    "@fortawesome/free-regular-svg-icons": 5.15.2
+    "@fortawesome/free-solid-svg-icons": 5.15.2
+    "@fortawesome/react-fontawesome": 0.1.14
+    "@metamask/eth-sig-util": 5.0.1
+    "@sim/chicken-bonds": "file:.yalc/@sim/chicken-bonds"
+    "@testing-library/dom": 7.30.0
+    "@testing-library/jest-dom": 5.11.9
+    "@testing-library/react": 11.2.5
+    "@testing-library/user-event": 12.8.3
+    "@tippyjs/react": 4.2.5
+    "@types/react": 17.0.3
+    "@types/react-copy-to-clipboard": 5.0.0
+    "@types/react-dom": 17.0.2
+    "@types/react-modal": ^3.13.1
+    "@types/react-router-dom": 5.1.7
+    "@types/testing-library__jest-dom": 5.9.5
+    "@types/testing-library__react": 10.2.0
+    "@types/testing-library__user-event": 4.2.0
+    "@typescript-eslint/eslint-plugin": ^5.57.1
+    "@typescript-eslint/parser": ^5.57.1
+    "@vitejs/plugin-react-swc": ^3.0.0
+    connectkit: ^1.3.0
+    cross-env: 7.0.3
+    eslint: ^8.38.0
+    eslint-plugin-react-hooks: ^4.6.0
+    eslint-plugin-react-refresh: ^0.3.4
+    ethers: 5.7.2
+    jsdom: 21
+    lambert-w-function: 3.0.0
+    node-fetch: ^3.3.1
+    npm-run-all: 4.1.5
+    react: 17.0.2
+    react-circular-progressbar: 2.0.3
+    react-copy-to-clipboard: 5.0.3
+    react-dom: 17.0.2
+    react-modal: ^3.15.1
+    react-router-dom: 5.2.0
+    recharts: 2.1.10
+    rollup-plugin-polyfill-node: ^0.12.0
+    source-map-explorer: 2.5.2
+    theme-ui: 0.6.0-canary.1544.5359f8a1e408a4dfeb74a9ae39688270286e534a.0
+    typescript: ^5.0.4
+    vite: ^4.3.2
+    vitest: ^0.31.0
+    wagmi: ^0.12.0
+    yalc: 1.0.0-pre.53
+  languageName: unknown
+  linkType: soft
+
+"@sim/lib-base@workspace:packages/lib-base":
+  version: 0.0.0-use.local
+  resolution: "@sim/lib-base@workspace:packages/lib-base"
+  dependencies:
+    "@ethersproject/bignumber": 5.7.0
+    "@microsoft/api-extractor": 7.13.2
+    "@types/mocha": 8.2.1
+    "@typescript-eslint/eslint-plugin": 4.17.0
+    "@typescript-eslint/parser": 4.18.0
+    eslint: 7.22.0
+    eslint-plugin-tsdoc: 0.2.11
+    fast-check: 2.13.0
+    mocha: 8.3.2
+    npm-run-all: 4.1.5
+    ts-node: 9.1.1
+    typescript: 4.1.5
+  languageName: unknown
+  linkType: soft
+
+"@sim/lib-ethers@workspace:packages/lib-ethers":
+  version: 0.0.0-use.local
+  resolution: "@sim/lib-ethers@workspace:packages/lib-ethers"
+  dependencies:
+    "@microsoft/api-extractor": 7.13.2
+    "@nomiclabs/hardhat-ethers": ^2.0.2
+    "@types/chai": 4.2.15
+    "@types/chai-as-promised": 7.1.3
+    "@types/chai-spies": 1.0.3
+    "@types/fs-extra": 9.0.8
+    "@types/mocha": 8.2.1
+    "@types/node": 14.14.34
+    "@types/sinon-chai": 3.2.5
+    "@types/ws": 7.4.4
+    "@typescript-eslint/eslint-plugin": 4.17.0
+    "@typescript-eslint/parser": 4.18.0
+    chai: 4.3.4
+    chai-as-promised: 7.1.1
+    chai-spies: 1.0.0
+    cross-env: 7.0.3
+    dotenv: 8.2.0
+    eslint: 7.22.0
+    eslint-plugin-tsdoc: 0.2.11
+    ethers: 5.7.2
+    fs-extra: 9.1.0
+    hardhat: ^2.6.1
+    npm-run-all: 4.1.5
+    ts-node: 9.1.1
+    typescript: 4.1.5
+    ws: 7.4.6
+  peerDependencies:
+    "@sim/lib-base": ^3.0.0
+    ethers: ^5.3.0
+  languageName: unknown
+  linkType: soft
+
+"@sim/lib-react@workspace:packages/lib-react":
+  version: 0.0.0-use.local
+  resolution: "@sim/lib-react@workspace:packages/lib-react"
+  dependencies:
+    "@ethersproject/bignumber": 5.7.0
+    "@types/react": 17.0.3
+    "@typescript-eslint/eslint-plugin": 4.17.0
+    "@typescript-eslint/parser": 4.18.0
+    eslint: 7.22.0
+    eslint-plugin-react: 7.22.0
+    eslint-plugin-react-hooks: 4.2.0
+    npm-run-all: 4.1.5
+    react: 17.0.2
+    typescript: 4.1.5
+  peerDependencies:
+    "@sim/lib-base": ^3.0.0
+    react: ^16.13.1
+  languageName: unknown
+  linkType: soft
+
+"@sim/lib-subgraph@workspace:packages/lib-subgraph":
+  version: 0.0.0-use.local
+  resolution: "@sim/lib-subgraph@workspace:packages/lib-subgraph"
+  dependencies:
+    "@apollo/client": ^3.3.12
+    "@ethersproject/address": ^5.4.0
+    apollo: ^2.30.3
+    cross-fetch: ~3.0.6
+    graphql: ^15.3.0
+    npm-run-all: ^4.1.5
+    rimraf: ^3.0.2
+    typescript: ~4.1.0
+  peerDependencies:
+    "@sim/lib-base": ^3.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sim/providers@workspace:packages/providers":
+  version: 0.0.0-use.local
+  resolution: "@sim/providers@workspace:packages/providers"
+  dependencies:
+    ethers: ^5.4.3
+    ts-node: ^9.1.1
+    typescript: ~4.1.0
+  peerDependencies:
+    ethers: ^5.3.0
+  languageName: unknown
+  linkType: soft
 
 "@solana/buffer-layout@npm:^4.0.0":
   version: 4.0.1
@@ -3994,15 +3971,6 @@ __metadata:
   dependencies:
     "@types/yargs-parser": "*"
   checksum: a6ebb0ec63f168280e02370fcf24ff29c3eb0335e1c46e3b34e04d32eb7c818446e0b7de8badb339b07c0ddba322827ce13ccb604d14a0de422335ae56b2120d
-  languageName: node
-  linkType: hard
-
-"@types/yargs@npm:^16.0.0":
-  version: 16.0.0
-  resolution: "@types/yargs@npm:16.0.0"
-  dependencies:
-    "@types/yargs-parser": "*"
-  checksum: 84f6c50364d28a565a470cbea6f014eddd8e3add452c95b45b5c67436151d32b6cc8286a1876ec0ce503f4d2633fd508996e572349a5c358301cb4a71bead285
   languageName: node
   linkType: hard
 
@@ -5223,7 +5191,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"anymatch@npm:~3.1.1, anymatch@npm:~3.1.2":
+"anymatch@npm:~3.1.1":
+  version: 3.1.3
+  resolution: "anymatch@npm:3.1.3"
+  dependencies:
+    normalize-path: ^3.0.0
+    picomatch: ^2.0.4
+  checksum: 3e044fd6d1d26545f235a9fe4d7a534e2029d8e59fa7fd9f2a6eb21230f6b5380ea1eaf55136e60cbf8e613544b3b766e7a6fa2102e2a3a117505466e3025dc2
+  languageName: node
+  linkType: hard
+
+"anymatch@npm:~3.1.2":
   version: 3.1.2
   resolution: "anymatch@npm:3.1.2"
   dependencies:
@@ -6866,7 +6844,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colors@npm:^1.1.2, colors@npm:^1.4.0":
+"colors@npm:^1.1.2":
   version: 1.4.0
   resolution: "colors@npm:1.4.0"
   checksum: 98aa2c2418ad87dedf25d781be69dc5fc5908e279d9d30c34d8b702e586a0474605b3a189511482b9d5ed0d20c867515d22749537f7bc546256c6014f3ebdcec
@@ -7935,7 +7913,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:8.2.0, dotenv@npm:^8.0.0, dotenv@npm:^8.2.0":
+"dotenv@npm:8.2.0, dotenv@npm:^8.0.0":
   version: 8.2.0
   resolution: "dotenv@npm:8.2.0"
   checksum: ad4c8e0df3e24b4811c8e93377d048a10a9b213dcd9f062483b4a2d3168f08f10ec9c618c23f5639060d230ccdb174c08761479e9baa29610aa978e1ee66df76
@@ -11781,21 +11759,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"liquity@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "liquity@workspace:."
-  dependencies:
-    "@commitlint/cli": ^12.0.1
-    "@commitlint/config-conventional": ^12.0.1
-    "@microsoft/api-documenter": ^7.12.6
-    fs-extra: ^9.1.0
-    npm-run-all: ^4.1.5
-    prettier: ^2.1.2
-    semantic-release: ^17.4.2
-    semantic-release-monorepo: ^7.0.4
-  languageName: unknown
-  linkType: soft
-
 "listr-silent-renderer@npm:^1.1.1":
   version: 1.1.1
   resolution: "listr-silent-renderer@npm:1.1.1"
@@ -14748,9 +14711,9 @@ __metadata:
   linkType: hard
 
 "pure-rand@npm:^4.1.1":
-  version: 4.1.2
-  resolution: "pure-rand@npm:4.1.2"
-  checksum: 059c6d7e6074510c4400ab13df1c20678693d1cbd875b52e1dcb5b20ce98682674fa74dea8d098374a71a935a5650b3443f44480aa90ace5a51d8ed958dc8ea7
+  version: 4.2.1
+  resolution: "pure-rand@npm:4.2.1"
+  checksum: 436122e60d3ac309d415d7969377bf22ca11f4da414703989341831accc5d09202e9271707bd85cb89d272b46d8e5f2e02e11a363156f010ea37394a4c646486
   languageName: node
   linkType: hard
 
@@ -16191,6 +16154,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sim@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "sim@workspace:."
+  dependencies:
+    "@commitlint/cli": ^12.0.1
+    "@commitlint/config-conventional": ^12.0.1
+    "@microsoft/api-documenter": ^7.12.6
+    fs-extra: ^9.1.0
+    npm-run-all: ^4.1.5
+    prettier: ^2.1.2
+    semantic-release: ^17.4.2
+    semantic-release-monorepo: ^7.0.4
+  languageName: unknown
+  linkType: soft
+
 "slash@npm:^3.0.0":
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
@@ -17395,7 +17373,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:9.1.1, ts-node@npm:^9.0.0, ts-node@npm:^9.1.1":
+"ts-node@npm:9.1.1, ts-node@npm:^9.1.1":
   version: 9.1.1
   resolution: "ts-node@npm:9.1.1"
   dependencies:
@@ -18733,7 +18711,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:16.2.0, yargs@npm:^16.0.3, yargs@npm:^16.1.1, yargs@npm:^16.2.0":
+"yargs@npm:16.2.0, yargs@npm:^16.1.1, yargs@npm:^16.2.0":
   version: 16.2.0
   resolution: "yargs@npm:16.2.0"
   dependencies:

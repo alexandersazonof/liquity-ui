@@ -1,17 +1,15 @@
 import {
   Decimal,
-  LUSD_MINIMUM_DEBT,
-  LUSD_MINIMUM_NET_DEBT,
   Trove,
   TroveAdjustmentParams,
   TroveChange,
   Percent,
   MINIMUM_COLLATERAL_RATIO,
   CRITICAL_COLLATERAL_RATIO,
-  LiquityStoreState,
+  SimStoreState,
   TroveClosureParams,
-  TroveCreationParams
-} from "@liquity/lib-base";
+  TroveCreationParams, SIM_MINIMUM_DEBT, SIM_MINIMUM_NET_DEBT,
+} from '@sim/lib-base';
 
 import { COIN } from "../../../strings";
 
@@ -27,55 +25,55 @@ type TroveAdjustmentDescriptionParams = {
 
 const TroveChangeDescription: React.FC<TroveAdjustmentDescriptionParams> = ({ params }) => (
   <ActionDescription>
-    {params.depositCollateral && params.borrowLUSD ? (
+    {params.depositCollateral && params.borrowSIM ? (
       <>
-        You will deposit <Amount>{params.depositCollateral.prettify()} ETH</Amount> and receive{" "}
+        You will deposit <Amount>{params.depositCollateral.prettify()} wstETH</Amount> and receive{" "}
         <Amount>
-          {params.borrowLUSD.prettify()} {COIN}
+          {params.borrowSIM.prettify()} {COIN}
         </Amount>
       </>
-    ) : params.repayLUSD && params.withdrawCollateral ? (
+    ) : params.repaySIM && params.withdrawCollateral ? (
       <>
         You will pay{" "}
         <Amount>
-          {params.repayLUSD.prettify()} {COIN}
+          {params.repaySIM.prettify()} {COIN}
         </Amount>{" "}
         and receive <Amount>{params.withdrawCollateral.prettify()} ETH</Amount>
       </>
-    ) : params.depositCollateral && params.repayLUSD ? (
+    ) : params.depositCollateral && params.repaySIM ? (
       <>
-        You will deposit <Amount>{params.depositCollateral.prettify()} ETH</Amount> and pay{" "}
+        You will deposit <Amount>{params.depositCollateral.prettify()} wstETH</Amount> and pay{" "}
         <Amount>
-          {params.repayLUSD.prettify()} {COIN}
+          {params.repaySIM.prettify()} {COIN}
         </Amount>
       </>
-    ) : params.borrowLUSD && params.withdrawCollateral ? (
+    ) : params.borrowSIM && params.withdrawCollateral ? (
       <>
         You will receive <Amount>{params.withdrawCollateral.prettify()} ETH</Amount> and{" "}
         <Amount>
-          {params.borrowLUSD.prettify()} {COIN}
+          {params.borrowSIM.prettify()} {COIN}
         </Amount>
       </>
     ) : params.depositCollateral ? (
       <>
-        You will deposit <Amount>{params.depositCollateral.prettify()} ETH</Amount>
+        You will deposit <Amount>{params.depositCollateral.prettify()} wstETH</Amount>
       </>
     ) : params.withdrawCollateral ? (
       <>
         You will receive <Amount>{params.withdrawCollateral.prettify()} ETH</Amount>
       </>
-    ) : params.borrowLUSD ? (
+    ) : params.borrowSIM ? (
       <>
         You will receive{" "}
         <Amount>
-          {params.borrowLUSD.prettify()} {COIN}
+          {params.borrowSIM.prettify()} {COIN}
         </Amount>
       </>
     ) : (
       <>
         You will pay{" "}
         <Amount>
-          {params.repayLUSD.prettify()} {COIN}
+          {params.repaySIM.prettify()} {COIN}
         </Amount>
       </>
     )}
@@ -86,10 +84,10 @@ const TroveChangeDescription: React.FC<TroveAdjustmentDescriptionParams> = ({ pa
 export const selectForTroveChangeValidation = ({
   price,
   total,
-  accountBalance,
+  wstETHBalance,
   lusdBalance,
   numberOfTroves
-}: LiquityStoreState) => ({ price, total, accountBalance, lusdBalance, numberOfTroves });
+}: SimStoreState) => ({ price, total, wstETHBalance, lusdBalance, numberOfTroves });
 
 type TroveChangeValidationSelectedState = ReturnType<typeof selectForTroveChangeValidation>;
 
@@ -140,7 +138,7 @@ export const validateTroveChange = (
       <ErrorDescription>
         Total debt must be at least{" "}
         <Amount>
-          {LUSD_MINIMUM_DEBT.toString()} {COIN}
+          {SIM_MINIMUM_DEBT.toString()} {COIN}
         </Amount>
         .
       </ErrorDescription>
@@ -162,21 +160,21 @@ export const validateTroveChange = (
 };
 
 const validateTroveCreation = (
-  { depositCollateral, borrowLUSD }: TroveCreationParams<Decimal>,
+  { depositCollateral, borrowSIM }: TroveCreationParams<Decimal>,
   {
     resultingTrove,
     recoveryMode,
     wouldTriggerRecoveryMode,
-    accountBalance,
+    wstETHBalance,
     price
   }: TroveChangeValidationContext
 ): JSX.Element | null => {
-  if (borrowLUSD.lt(LUSD_MINIMUM_NET_DEBT)) {
+  if (borrowSIM.lt(SIM_MINIMUM_NET_DEBT)) {
     return (
       <ErrorDescription>
         You must borrow at least{" "}
         <Amount>
-          {LUSD_MINIMUM_NET_DEBT.toString()} {COIN}
+          {SIM_MINIMUM_NET_DEBT.toString()} {COIN}
         </Amount>
         .
       </ErrorDescription>
@@ -211,11 +209,11 @@ const validateTroveCreation = (
     }
   }
 
-  if (depositCollateral.gt(accountBalance)) {
+  if (depositCollateral.gt(wstETHBalance)) {
     return (
       <ErrorDescription>
         The amount you're trying to deposit exceeds your balance by{" "}
-        <Amount>{depositCollateral.sub(accountBalance).prettify()} ETH</Amount>.
+        <Amount>{depositCollateral.sub(wstETHBalance).prettify()} wstETH</Amount>.
       </ErrorDescription>
     );
   }
@@ -224,14 +222,14 @@ const validateTroveCreation = (
 };
 
 const validateTroveAdjustment = (
-  { depositCollateral, withdrawCollateral, borrowLUSD, repayLUSD }: TroveAdjustmentParams<Decimal>,
+  { depositCollateral, withdrawCollateral, borrowSIM, repaySIM }: TroveAdjustmentParams<Decimal>,
   {
     originalTrove,
     resultingTrove,
     recoveryMode,
     wouldTriggerRecoveryMode,
     price,
-    accountBalance,
+    wstETHBalance,
     lusdBalance
   }: TroveChangeValidationContext
 ): JSX.Element | null => {
@@ -244,7 +242,7 @@ const validateTroveAdjustment = (
       );
     }
 
-    if (borrowLUSD) {
+    if (borrowSIM) {
       if (resultingTrove.collateralRatioIsBelowCritical(price)) {
         return (
           <ErrorDescription>
@@ -281,25 +279,25 @@ const validateTroveAdjustment = (
     }
   }
 
-  if (repayLUSD) {
-    if (resultingTrove.debt.lt(LUSD_MINIMUM_DEBT)) {
+  if (repaySIM) {
+    if (resultingTrove.debt.lt(SIM_MINIMUM_DEBT)) {
       return (
         <ErrorDescription>
           Total debt must be at least{" "}
           <Amount>
-            {LUSD_MINIMUM_DEBT.toString()} {COIN}
+            {SIM_MINIMUM_DEBT.toString()} {COIN}
           </Amount>
           .
         </ErrorDescription>
       );
     }
 
-    if (repayLUSD.gt(lusdBalance)) {
+    if (repaySIM.gt(lusdBalance)) {
       return (
         <ErrorDescription>
           The amount you're trying to repay exceeds your balance by{" "}
           <Amount>
-            {repayLUSD.sub(lusdBalance).prettify()} {COIN}
+            {repaySIM.sub(lusdBalance).prettify()} {COIN}
           </Amount>
           .
         </ErrorDescription>
@@ -307,11 +305,11 @@ const validateTroveAdjustment = (
     }
   }
 
-  if (depositCollateral?.gt(accountBalance)) {
+  if (depositCollateral?.gt(wstETHBalance)) {
     return (
       <ErrorDescription>
         The amount you're trying to deposit exceeds your balance by{" "}
-        <Amount>{depositCollateral.sub(accountBalance).prettify()} ETH</Amount>.
+        <Amount>{depositCollateral.sub(wstETHBalance).prettify()} ETH</Amount>.
       </ErrorDescription>
     );
   }
@@ -320,7 +318,7 @@ const validateTroveAdjustment = (
 };
 
 const validateTroveClosure = (
-  { repayLUSD }: TroveClosureParams<Decimal>,
+  { repaySIM }: TroveClosureParams<Decimal>,
   {
     recoveryMode,
     wouldTriggerRecoveryMode,
@@ -344,12 +342,12 @@ const validateTroveClosure = (
     );
   }
 
-  if (repayLUSD?.gt(lusdBalance)) {
+  if (repaySIM?.gt(lusdBalance)) {
     return (
       <ErrorDescription>
         You need{" "}
         <Amount>
-          {repayLUSD.sub(lusdBalance).prettify()} {COIN}
+          {repaySIM.sub(lusdBalance).prettify()} {COIN}
         </Amount>{" "}
         more to close your Trove.
       </ErrorDescription>

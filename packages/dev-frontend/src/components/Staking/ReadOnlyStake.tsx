@@ -1,7 +1,7 @@
 import { Heading, Box, Card, Flex, Button } from "theme-ui";
 
-import { LiquityStoreState } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { SimStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 
 import { COIN, GT } from "../../strings";
 
@@ -12,14 +12,14 @@ import { Icon } from "../Icon";
 import { useStakingView } from "./context/StakingViewContext";
 import { StakingGainsAction } from "./StakingGainsAction";
 
-const select = ({ lqtyStake, totalStakedLQTY }: LiquityStoreState) => ({
+const select = ({ lqtyStake, totalStakedLQTY }: SimStoreState) => ({
   lqtyStake,
   totalStakedLQTY
 });
 
 export const ReadOnlyStake: React.FC = () => {
   const { changePending, dispatch } = useStakingView();
-  const { lqtyStake, totalStakedLQTY } = useLiquitySelector(select);
+  const { lqtyStake, totalStakedLQTY } = useSimSelector(select);
 
   const poolShare = lqtyStake.stakedLQTY.mulDiv(100, totalStakedLQTY);
 

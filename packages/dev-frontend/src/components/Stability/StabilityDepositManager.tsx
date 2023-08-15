@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from "react";
 import { Button, Flex } from "theme-ui";
 
-import { Decimal, Decimalish, LiquityStoreState } from "@liquity/lib-base";
-import { LiquityStoreUpdate, useLiquityReducer, useLiquitySelector } from "@liquity/lib-react";
+import { Decimal, Decimalish, SimStoreState } from "@sim/lib-base";
+import { SimStoreUpdate, useSimReducer, useSimSelector } from "@sim/lib-react";
 
 import { COIN } from "../../strings";
 
@@ -17,7 +17,7 @@ import {
   validateStabilityDepositChange
 } from "./validation/validateStabilityDepositChange";
 
-const init = ({ stabilityDeposit }: LiquityStoreState) => ({
+const init = ({ stabilityDeposit }: SimStoreState) => ({
   originalDeposit: stabilityDeposit,
   editedLUSD: stabilityDeposit.currentLUSD,
   changePending: false
@@ -25,7 +25,7 @@ const init = ({ stabilityDeposit }: LiquityStoreState) => ({
 
 type StabilityDepositManagerState = ReturnType<typeof init>;
 type StabilityDepositManagerAction =
-  | LiquityStoreUpdate
+  | SimStoreUpdate
   | { type: "startChange" | "finishChange" | "revert" }
   | { type: "setDeposit"; newValue: Decimalish };
 
@@ -92,8 +92,8 @@ const reduce = (
 const transactionId = "stability-deposit";
 
 export const StabilityDepositManager: React.FC = () => {
-  const [{ originalDeposit, editedLUSD, changePending }, dispatch] = useLiquityReducer(reduce, init);
-  const validationContext = useLiquitySelector(selectForStabilityDepositChangeValidation);
+  const [{ originalDeposit, editedLUSD, changePending }, dispatch] = useSimReducer(reduce, init);
+  const validationContext = useSimSelector(selectForStabilityDepositChangeValidation);
   const { dispatchEvent } = useStabilityView();
 
   const handleCancel = useCallback(() => {

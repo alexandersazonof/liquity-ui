@@ -1,39 +1,29 @@
 import { Block, BlockTag } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 
-import { Decimal } from "@liquity/lib-base";
+import { Decimal } from "@sim/lib-base";
 
 import devOrNull from "../deployments/dev.json";
-import goerli from "../deployments/goerli.json";
-import kovan from "../deployments/kovan.json";
-import rinkeby from "../deployments/rinkeby.json";
-import ropsten from "../deployments/ropsten.json";
-import mainnet from "../deployments/mainnet.json";
-import kiln from "../deployments/kiln.json";
+import zkevmTestnet from "../deployments/zkevm-testnet.json";
 
 import { numberify, panic } from "./_utils";
 import { EthersProvider, EthersSigner } from "./types";
 
 import {
   _connectToContracts,
-  _LiquityContractAddresses,
-  _LiquityContracts,
-  _LiquityDeploymentJSON
+  _SimContractAddresses,
+  _SimContracts,
+  _SimDeploymentJSON
 } from "./contracts";
 
 import { _connectToMulticall, _Multicall } from "./_Multicall";
 
-const dev = devOrNull as _LiquityDeploymentJSON | null;
+const dev = devOrNull as _SimDeploymentJSON | null;
 
 const deployments: {
-  [chainId: number]: _LiquityDeploymentJSON | undefined;
+  [chainId: number]: _SimDeploymentJSON | undefined;
 } = {
-  [mainnet.chainId]: mainnet,
-  [ropsten.chainId]: ropsten,
-  [rinkeby.chainId]: rinkeby,
-  [goerli.chainId]: goerli,
-  [kovan.chainId]: kovan,
-  [kiln.chainId]: kiln,
+  [zkevmTestnet.chainId]: zkevmTestnet,
 
   ...(dev !== null ? { [dev.chainId]: dev } : {})
 };
@@ -95,22 +85,22 @@ export interface EthersLiquityConnection extends EthersLiquityConnectionOptional
 
 /** @internal */
 export interface _InternalEthersLiquityConnection extends EthersLiquityConnection {
-  readonly addresses: _LiquityContractAddresses;
-  readonly _contracts: _LiquityContracts;
+  readonly addresses: _SimContractAddresses;
+  readonly _contracts: _SimContracts;
   readonly _multicall?: _Multicall;
 }
 
 const connectionFrom = (
   provider: EthersProvider,
   signer: EthersSigner | undefined,
-  _contracts: _LiquityContracts,
+  _contracts: _SimContracts,
   _multicall: _Multicall | undefined,
   {
     deploymentDate,
     totalStabilityPoolLQTYReward,
     liquidityMiningLQTYRewardRate,
     ...deployment
-  }: _LiquityDeploymentJSON,
+  }: _SimDeploymentJSON,
   optionalParams?: EthersLiquityConnectionOptionalParams
 ): _InternalEthersLiquityConnection => {
   if (
@@ -135,7 +125,7 @@ const connectionFrom = (
 };
 
 /** @internal */
-export const _getContracts = (connection: EthersLiquityConnection): _LiquityContracts =>
+export const _getContracts = (connection: EthersLiquityConnection): _SimContracts =>
   (connection as _InternalEthersLiquityConnection)._contracts;
 
 const getMulticall = (connection: EthersLiquityConnection): _Multicall | undefined =>
@@ -212,7 +202,7 @@ const getProviderAndSigner = (
 
 /** @internal */
 export const _connectToDeployment = (
-  deployment: _LiquityDeploymentJSON,
+  deployment: _SimDeploymentJSON,
   signerOrProvider: EthersSigner | EthersProvider,
   optionalParams?: EthersLiquityConnectionOptionalParams
 ): EthersLiquityConnection =>
@@ -270,7 +260,7 @@ export interface EthersLiquityConnectionOptionalParams {
   readonly frontendTag?: string;
 
   /**
-   * Create a {@link @liquity/lib-base#LiquityStore} and expose it as the `store` property.
+   * Create a {@link @sim/lib-base#LiquityStore} and expose it as the `store` property.
    *
    * @remarks
    * When set to one of the available {@link EthersLiquityStoreOption | options},
@@ -280,7 +270,7 @@ export interface EthersLiquityConnectionOptionalParams {
    * {@link EthersLiquityWithStore}.
    *
    * Note that the store won't start monitoring the blockchain until its
-   * {@link @liquity/lib-base#LiquityStore.start | start()} function is called.
+   * {@link @sim/lib-base#LiquityStore.start | start()} function is called.
    */
   readonly useStore?: EthersLiquityStoreOption;
 }
@@ -308,7 +298,7 @@ export function _connectByChainId(
   chainId: number,
   optionalParams?: EthersLiquityConnectionOptionalParams
 ): EthersLiquityConnection {
-  const deployment: _LiquityDeploymentJSON =
+  const deployment: _SimDeploymentJSON =
     deployments[chainId] ?? panic(new UnsupportedNetworkError(chainId));
 
   return connectionFrom(

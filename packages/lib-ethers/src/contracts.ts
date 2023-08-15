@@ -15,45 +15,51 @@ import {
 import activePoolAbi from "../abi/ActivePool.json";
 import borrowerOperationsAbi from "../abi/BorrowerOperations.json";
 import troveManagerAbi from "../abi/TroveManager.json";
-import lusdTokenAbi from "../abi/LUSDToken.json";
 import collSurplusPoolAbi from "../abi/CollSurplusPool.json";
 import communityIssuanceAbi from "../abi/CommunityIssuance.json";
 import defaultPoolAbi from "../abi/DefaultPool.json";
-import lqtyTokenAbi from "../abi/LQTYToken.json";
 import hintHelpersAbi from "../abi/HintHelpers.json";
 import lockupContractFactoryAbi from "../abi/LockupContractFactory.json";
-import lqtyStakingAbi from "../abi/LQTYStaking.json";
-import multiTroveGetterAbi from "../abi/MultiTroveGetter.json";
 import priceFeedAbi from "../abi/PriceFeed.json";
 import priceFeedTestnetAbi from "../abi/PriceFeedTestnet.json";
 import sortedTrovesAbi from "../abi/SortedTroves.json";
 import stabilityPoolAbi from "../abi/StabilityPool.json";
-import gasPoolAbi from "../abi/GasPool.json";
-import unipoolAbi from "../abi/Unipool.json";
-import iERC20Abi from "../abi/IERC20.json";
-import erc20MockAbi from "../abi/ERC20Mock.json";
+import LiquidityRewardsIssuanceAbi from "../abi/LiquidityRewardsIssuance.json";
+import SHADYTokenAbi from "../abi/SHADYToken.json";
+import SIMTokenAbi from "../abi/SIMToken.json";
+import SIMVeDistributorAbi from "../abi/SIMVeDistributor.json";
+import VeAbi from "../abi/Ve.json";
+import VeDistributorLogicAbi from "../abi/VeDistributorLogic.json";
+import VeLogicAbi from "../abi/VeLogic.json";
+import VeLogoAbi from "../abi/VeLogo.json";
+import WSTETHMockAbi from "../abi/WSTETHMock.json";
+import WSTETHVeDistributorAbi from "../abi/WSTETHVeDistributor.json";
 
 import {
   ActivePool,
   BorrowerOperations,
   TroveManager,
-  LUSDToken,
   CollSurplusPool,
   CommunityIssuance,
   DefaultPool,
-  LQTYToken,
   HintHelpers,
+  LiquidityRewardsIssuance,
   LockupContractFactory,
-  LQTYStaking,
-  MultiTroveGetter,
   PriceFeed,
   PriceFeedTestnet,
+  SHADYToken,
+  SIMToken,
+  SIMVeDistributor,
   SortedTroves,
   StabilityPool,
-  GasPool,
-  Unipool,
   ERC20Mock,
-  IERC20
+  IERC20,
+  Ve,
+  VeDistributorLogic,
+  VeLogic,
+  VeLogo,
+  WSTETHMock,
+  WSTETHVeDistributor
 } from "../types";
 
 import { EthersProvider, EthersSigner } from "./types";
@@ -138,7 +144,7 @@ const buildEstimatedFunctions = <T>(
     ])
   );
 
-export class _LiquityContract extends Contract {
+export class _SimContract extends Contract {
   readonly estimateAndPopulate: Record<string, EstimatedContractFunction<PopulatedTransaction>>;
 
   constructor(
@@ -161,28 +167,31 @@ export class _LiquityContract extends Contract {
 }
 
 /** @internal */
-export type _TypedLiquityContract<T = unknown, U = unknown> = TypedContract<_LiquityContract, T, U>;
+export type _TypedSimContract<T = unknown, U = unknown> = TypedContract<_SimContract, T, U>;
 
 /** @internal */
-export interface _LiquityContracts {
+export interface _SimContracts {
   activePool: ActivePool;
   borrowerOperations: BorrowerOperations;
-  troveManager: TroveManager;
-  lusdToken: LUSDToken;
   collSurplusPool: CollSurplusPool;
   communityIssuance: CommunityIssuance;
   defaultPool: DefaultPool;
-  lqtyToken: LQTYToken;
   hintHelpers: HintHelpers;
+  liquidityRewardsIssuance: LiquidityRewardsIssuance;
   lockupContractFactory: LockupContractFactory;
-  lqtyStaking: LQTYStaking;
-  multiTroveGetter: MultiTroveGetter;
   priceFeed: PriceFeed | PriceFeedTestnet;
+  shadyToken: SHADYToken;
+  simToken: SIMToken;
+  simVeDistributor: SIMVeDistributor;
   sortedTroves: SortedTroves;
   stabilityPool: StabilityPool;
-  gasPool: GasPool;
-  unipool: Unipool;
-  uniToken: IERC20 | ERC20Mock;
+  troveManager: TroveManager;
+  ve: Ve;
+  veDistributorLogic: VeDistributorLogic;
+  veLogic: VeLogic;
+  veLogo: VeLogo;
+  wStEthMock: WSTETHMock;
+  wStEthVeDistributor: WSTETHVeDistributor;
 }
 
 /** @internal */
@@ -194,46 +203,49 @@ export const _priceFeedIsTestnet = (
 export const _uniTokenIsMock = (uniToken: IERC20 | ERC20Mock): uniToken is ERC20Mock =>
   "mint" in uniToken;
 
-type LiquityContractsKey = keyof _LiquityContracts;
+type SimContractsKey = keyof _SimContracts;
 
 /** @internal */
-export type _LiquityContractAddresses = Record<LiquityContractsKey, string>;
+export type _SimContractAddresses = Record<SimContractsKey, string>;
 
-type LiquityContractAbis = Record<LiquityContractsKey, JsonFragment[]>;
+type SimContractAbis = Record<SimContractsKey, JsonFragment[]>;
 
-const getAbi = (priceFeedIsTestnet: boolean, uniTokenIsMock: boolean): LiquityContractAbis => ({
+const getAbi = (priceFeedIsTestnet: boolean): SimContractAbis => ({
   activePool: activePoolAbi,
   borrowerOperations: borrowerOperationsAbi,
   troveManager: troveManagerAbi,
-  lusdToken: lusdTokenAbi,
   communityIssuance: communityIssuanceAbi,
   defaultPool: defaultPoolAbi,
-  lqtyToken: lqtyTokenAbi,
   hintHelpers: hintHelpersAbi,
   lockupContractFactory: lockupContractFactoryAbi,
-  lqtyStaking: lqtyStakingAbi,
-  multiTroveGetter: multiTroveGetterAbi,
   priceFeed: priceFeedIsTestnet ? priceFeedTestnetAbi : priceFeedAbi,
   sortedTroves: sortedTrovesAbi,
   stabilityPool: stabilityPoolAbi,
-  gasPool: gasPoolAbi,
   collSurplusPool: collSurplusPoolAbi,
-  unipool: unipoolAbi,
-  uniToken: uniTokenIsMock ? erc20MockAbi : iERC20Abi
+  liquidityRewardsIssuance: LiquidityRewardsIssuanceAbi,
+  shadyToken: SHADYTokenAbi,
+  simToken: SIMTokenAbi,
+  simVeDistributor: SIMVeDistributorAbi,
+  ve: VeAbi,
+  veDistributorLogic: VeDistributorLogicAbi,
+  veLogic: VeLogicAbi,
+  veLogo: VeLogoAbi,
+  wStEthMock: WSTETHMockAbi,
+  wStEthVeDistributor: WSTETHVeDistributorAbi
 });
 
-const mapLiquityContracts = <T, U>(
-  contracts: Record<LiquityContractsKey, T>,
-  f: (t: T, key: LiquityContractsKey) => U
+const mapSimContracts = <T, U>(
+  contracts: Record<SimContractsKey, T>,
+  f: (t: T, key: SimContractsKey) => U
 ) =>
   Object.fromEntries(
-    Object.entries(contracts).map(([key, t]) => [key, f(t, key as LiquityContractsKey)])
-  ) as Record<LiquityContractsKey, U>;
+    Object.entries(contracts).map(([key, t]) => [key, f(t, key as SimContractsKey)])
+  ) as Record<SimContractsKey, U>;
 
 /** @internal */
-export interface _LiquityDeploymentJSON {
+export interface _SimDeploymentJSON {
   readonly chainId: number;
-  readonly addresses: _LiquityContractAddresses;
+  readonly addresses: _SimContractAddresses;
   readonly version: string;
   readonly deploymentDate: number;
   readonly startBlock: number;
@@ -248,13 +260,13 @@ export interface _LiquityDeploymentJSON {
 /** @internal */
 export const _connectToContracts = (
   signerOrProvider: EthersSigner | EthersProvider,
-  { addresses, _priceFeedIsTestnet, _uniTokenIsMock }: _LiquityDeploymentJSON
-): _LiquityContracts => {
-  const abi = getAbi(_priceFeedIsTestnet, _uniTokenIsMock);
+  { addresses, _priceFeedIsTestnet }: _SimDeploymentJSON
+): _SimContracts => {
+  const abi = getAbi(_priceFeedIsTestnet);
 
-  return mapLiquityContracts(
+  return mapSimContracts(
     addresses,
     (address, key) =>
-      new _LiquityContract(address, abi[key], signerOrProvider) as _TypedLiquityContract
-  ) as _LiquityContracts;
+      new _SimContract(address, abi[key], signerOrProvider) as _TypedSimContract
+  ) as _SimContracts;
 };

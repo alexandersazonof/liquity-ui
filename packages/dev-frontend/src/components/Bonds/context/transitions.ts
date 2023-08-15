@@ -1,4 +1,4 @@
-import { Decimal } from "@liquity/lib-base";
+import { Decimal } from "@sim/lib-base";
 
 type Idle = "IDLE";
 type Creating = "CREATING";
@@ -117,7 +117,7 @@ export type Addresses = {
   BLUSD_TOKEN_ADDRESS: Address;
   BOND_NFT_ADDRESS: Address;
   CHICKEN_BOND_MANAGER_ADDRESS: Address;
-  LUSD_OVERRIDE_ADDRESS: Address;
+  SIM_OVERRIDE_ADDRESS: Address;
   BLUSD_LP_ZAP_ADDRESS: Address;
 };
 

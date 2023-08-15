@@ -7,7 +7,7 @@ import {
   StabilityDeposit,
   Trove,
   TroveWithPendingRedistribution
-} from "@liquity/lib-base";
+} from "@sim/lib-base";
 
 import { _getContracts, _requireAddress } from "./EthersLiquityConnection";
 import { ReadableEthersLiquity } from "./ReadableEthersLiquity";
@@ -167,8 +167,8 @@ export class ObservableEthersLiquity implements ObservableLiquity {
   watchLUSDInStabilityPool(
     onLUSDInStabilityPoolChanged: (lusdInStabilityPool: Decimal) => void
   ): () => void {
-    const { lusdToken, stabilityPool } = _getContracts(this._readable.connection);
-    const { Transfer } = lusdToken.filters;
+    const { simToken, stabilityPool } = _getContracts(this._readable.connection);
+    const { Transfer } = simToken.filters;
 
     const transferLUSDFromStabilityPool = Transfer(stabilityPool.address);
     const transferLUSDToStabilityPool = Transfer(null, stabilityPool.address);
@@ -179,19 +179,19 @@ export class ObservableEthersLiquity implements ObservableLiquity {
       this._readable.getLUSDInStabilityPool({ blockTag }).then(onLUSDInStabilityPoolChanged);
     });
 
-    stabilityPoolLUSDFilters.forEach(filter => lusdToken.on(filter, stabilityPoolLUSDListener));
+    stabilityPoolLUSDFilters.forEach(filter => simToken.on(filter, stabilityPoolLUSDListener));
 
     return () =>
       stabilityPoolLUSDFilters.forEach(filter =>
-        lusdToken.removeListener(filter, stabilityPoolLUSDListener)
+        simToken.removeListener(filter, stabilityPoolLUSDListener)
       );
   }
 
   watchLUSDBalance(onLUSDBalanceChanged: (balance: Decimal) => void, address?: string): () => void {
     address ??= _requireAddress(this._readable.connection);
 
-    const { lusdToken } = _getContracts(this._readable.connection);
-    const { Transfer } = lusdToken.filters;
+    const { simToken } = _getContracts(this._readable.connection);
+    const { Transfer } = simToken.filters;
     const transferLUSDFromUser = Transfer(address);
     const transferLUSDToUser = Transfer(null, address);
 
@@ -201,9 +201,9 @@ export class ObservableEthersLiquity implements ObservableLiquity {
       this._readable.getLUSDBalance(address, { blockTag }).then(onLUSDBalanceChanged);
     });
 
-    lusdTransferFilters.forEach(filter => lusdToken.on(filter, lusdTransferListener));
+    lusdTransferFilters.forEach(filter => simToken.on(filter, lusdTransferListener));
 
     return () =>
-      lusdTransferFilters.forEach(filter => lusdToken.removeListener(filter, lusdTransferListener));
+      lusdTransferFilters.forEach(filter => simToken.removeListener(filter, lusdTransferListener));
   }
 }

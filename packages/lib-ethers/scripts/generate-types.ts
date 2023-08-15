@@ -3,26 +3,33 @@ import path from "path";
 
 import { Interface, ParamType } from "@ethersproject/abi";
 
-import ActivePool from "../../../.remove/contracts/artifacts/contracts/ActivePool.sol/ActivePool.json";
-import BorrowerOperations from "../../../.remove/contracts/artifacts/contracts/BorrowerOperations.sol/BorrowerOperations.json";
-import CollSurplusPool from "../../../.remove/contracts/artifacts/contracts/CollSurplusPool.sol/CollSurplusPool.json";
-import CommunityIssuance from "../../../.remove/contracts/artifacts/contracts/LQTY/CommunityIssuance.sol/CommunityIssuance.json";
-import DefaultPool from "../../../.remove/contracts/artifacts/contracts/DefaultPool.sol/DefaultPool.json";
-import ERC20Mock from "../../../.remove/contracts/artifacts/contracts/LPRewards/TestContracts/ERC20Mock.sol/ERC20Mock.json";
-import GasPool from "../../../.remove/contracts/artifacts/contracts/GasPool.sol/GasPool.json";
-import HintHelpers from "../../../.remove/contracts/artifacts/contracts/HintHelpers.sol/HintHelpers.json";
-import IERC20 from "../../../.remove/contracts/artifacts/@openzeppelin/contracts/token/ERC20/IERC20.sol/IERC20.json";
-import LockupContractFactory from "../../../.remove/contracts/artifacts/contracts/LQTY/LockupContractFactory.sol/LockupContractFactory.json";
-import LUSDToken from "../../../.remove/contracts/artifacts/contracts/LUSDToken.sol/LUSDToken.json";
-import LQTYStaking from "../../../.remove/contracts/artifacts/contracts/LQTY/LQTYStaking.sol/LQTYStaking.json";
-import LQTYToken from "../../../.remove/contracts/artifacts/contracts/LQTY/LQTYToken.sol/LQTYToken.json";
-import MultiTroveGetter from "../../../.remove/contracts/artifacts/contracts/MultiTroveGetter.sol/MultiTroveGetter.json";
-import PriceFeed from "../../../.remove/contracts/artifacts/contracts/PriceFeed.sol/PriceFeed.json";
-import PriceFeedTestnet from "../../../.remove/contracts/artifacts/contracts/TestContracts/PriceFeedTestnet.sol/PriceFeedTestnet.json";
-import SortedTroves from "../../../.remove/contracts/artifacts/contracts/SortedTroves.sol/SortedTroves.json";
-import StabilityPool from "../../../.remove/contracts/artifacts/contracts/StabilityPool.sol/StabilityPool.json";
-import TroveManager from "../../../.remove/contracts/artifacts/contracts/TroveManager.sol/TroveManager.json";
-import Unipool from "../../../.remove/contracts/artifacts/contracts/LPRewards/Unipool.sol/Unipool.json";
+import ActivePool from "../../../client/src/contracts/ActivePool.json";
+import BorrowerOperations from "../../../client/src/contracts/BorrowerOperations.json";
+import CollSurplusPool from "../../../client/src/contracts/CollSurplusPool.json";
+import CommunityIssuance from "../../../client/src/contracts/CommunityIssuance.json";
+import DefaultPool from "../../../client/src/contracts/DefaultPool.json";
+import ERC20Mock from "../../../client/src/contracts/ERC20Mock.json";
+import GasPool from "../../../client/src/contracts/GasPool.json";
+import HintHelpers from "../../../client/src/contracts/HintHelpers.json";
+import IERC20 from "../../../client/src/contracts/IERC20.json";
+import LiquidityRewardsIssuance from "../../../client/src/contracts/LiquidityRewardsIssuance.json";
+import LockupContractFactory from "../../../client/src/contracts/LockupContractFactory.json";
+import MultiTroveGetter from "../../../client/src/contracts/MultiTroveGetter.json";
+import PriceFeed from "../../../client/src/contracts/PriceFeed.json";
+import PriceFeedTestnet from "../../../client/src/contracts/PriceFeedTestnet.json";
+import SHADYToken from "../../../client/src/contracts/SHADYToken.json";
+import SIMToken from "../../../client/src/contracts/SIMToken.json";
+import SIMVeDistributor from "../../../client/src/contracts/SIMVeDistributor.json";
+import SortedTroves from "../../../client/src/contracts/SortedTroves.json";
+import StabilityPool from "../../../client/src/contracts/StabilityPool.json";
+import TroveManager from "../../../client/src/contracts/TroveManager.json";
+import Unipool from "../../../client/src/contracts/Unipool.json";
+import Ve from "../../../client/src/contracts/Ve.json";
+import VeDistributorLogic from "../../../client/src/contracts/VeDistributorLogic.json";
+import VeLogic from "../../../client/src/contracts/VeLogic.json";
+import VeLogo from "../../../client/src/contracts/VeLogo.json";
+import WSTETHMock from "../../../client/src/contracts/WSTETHMock.json";
+import WSTETHVeDistributor from "../../../client/src/contracts/WSTETHVeDistributor.json";
 
 const getTupleType = (components: ParamType[], flexible: boolean) => {
   if (components.every(component => component.name)) {
@@ -119,7 +126,7 @@ const declareInterface = ({
     "}\n",
 
     `export interface ${contractName}`,
-    `  extends _TypedLiquityContract<${contractName}Calls, ${contractName}Transactions> {`,
+    `  extends _TypedSimContract<${contractName}Calls, ${contractName}Transactions> {`,
 
     "  readonly filters: {",
     ...Object.values(events).map(({ name, inputs }) => {
@@ -152,17 +159,24 @@ const contractArtifacts = [
   GasPool,
   HintHelpers,
   IERC20,
+  LiquidityRewardsIssuance,
   LockupContractFactory,
-  LUSDToken,
-  LQTYStaking,
-  LQTYToken,
   MultiTroveGetter,
   PriceFeed,
   PriceFeedTestnet,
+  SHADYToken,
+  SIMToken,
+  SIMVeDistributor,
   SortedTroves,
   StabilityPool,
   TroveManager,
-  Unipool
+  Unipool,
+  Ve,
+  VeDistributorLogic,
+  VeLogic,
+  VeLogo,
+  WSTETHMock,
+  WSTETHVeDistributor
 ];
 
 const contracts = contractArtifacts.map(({ contractName, abi }) => ({
@@ -181,7 +195,7 @@ import {
   EventFilter
 } from "@ethersproject/contracts";
 
-import { _TypedLiquityContract, _TypedLogDescription } from "../src/contracts";
+import { _TypedSimContract, _TypedLogDescription } from "../src/contracts";
 
 ${contracts.map(declareInterface).join("\n\n")}
 `;

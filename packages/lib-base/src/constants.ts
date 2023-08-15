@@ -19,18 +19,18 @@ export const MINIMUM_COLLATERAL_RATIO = Decimal.from(1.1);
  *
  * @public
  */
-export const LUSD_LIQUIDATION_RESERVE = Decimal.from(200);
+export const SIM_LIQUIDATION_RESERVE = Decimal.from(200);
 
 /**
  * A Trove must always have at least this much debt on top of the
- * {@link LUSD_LIQUIDATION_RESERVE | liquidation reserve}.
+ * {@link SIM_LIQUIDATION_RESERVE | liquidation reserve}.
  *
  * @remarks
  * Any transaction that would result in a Trove with less net debt than this will be reverted.
  *
  * @public
  */
-export const LUSD_MINIMUM_NET_DEBT = Decimal.from(1800);
+export const SIM_MINIMUM_NET_DEBT = Decimal.from(1800);
 
 /**
  * A Trove must always have at least this much debt.
@@ -40,7 +40,7 @@ export const LUSD_MINIMUM_NET_DEBT = Decimal.from(1800);
  *
  * @public
  */
-export const LUSD_MINIMUM_DEBT = LUSD_LIQUIDATION_RESERVE.add(LUSD_MINIMUM_NET_DEBT);
+export const SIM_MINIMUM_DEBT = SIM_LIQUIDATION_RESERVE.add(SIM_MINIMUM_NET_DEBT);
 
 /**
  * Value that the {@link Fees.borrowingRate | borrowing rate} will never decay below.

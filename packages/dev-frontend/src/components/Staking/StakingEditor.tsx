@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Heading, Box, Card, Button } from "theme-ui";
 
-import { Decimal, Decimalish, Difference, LiquityStoreState, LQTYStake } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { Decimal, Decimalish, Difference, SimStoreState, LQTYStake } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 
 import { COIN, GT } from "../../strings";
 
@@ -12,7 +12,7 @@ import { LoadingOverlay } from "../LoadingOverlay";
 
 import { useStakingView } from "./context/StakingViewContext";
 
-const select = ({ lqtyBalance, totalStakedLQTY }: LiquityStoreState) => ({
+const select = ({ lqtyBalance, totalStakedLQTY }: SimStoreState) => ({
   lqtyBalance,
   totalStakedLQTY
 });
@@ -31,7 +31,7 @@ export const StakingEditor: React.FC<StakingEditorProps> = ({
   editedLQTY,
   dispatch
 }) => {
-  const { lqtyBalance, totalStakedLQTY } = useLiquitySelector(select);
+  const { lqtyBalance, totalStakedLQTY } = useSimSelector(select);
   const { changePending } = useStakingView();
   const editingState = useState<string>();
 

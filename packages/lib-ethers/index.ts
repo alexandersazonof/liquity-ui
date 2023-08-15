@@ -9,7 +9,7 @@ export {
 export * from "./src/types";
 export * from "./src/ReadableEthersLiquity";
 export * from "./src/ObservableEthersLiquity";
-export * from "./src/BlockPolledLiquityStore";
+export * from "./src/BlockPolledSimStore";
 export * from "./src/PopulatableEthersLiquity";
 export * from "./src/SendableEthersLiquity";
 export * from "./src/EthersLiquity";

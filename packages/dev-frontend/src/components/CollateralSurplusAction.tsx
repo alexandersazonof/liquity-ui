@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
 import { Button, Flex, Spinner } from "theme-ui";
 
-import { LiquityStoreState } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { SimStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 
-import { useLiquity } from "../hooks/LiquityContext";
+import { useSim } from "../hooks/SimContext";
 
 import { Transaction, useMyTransactionState } from "./Transaction";
 import { useTroveView } from "./Trove/context/TroveViewContext";
 
-const select = ({ collateralSurplusBalance }: LiquityStoreState) => ({
+const select = ({ collateralSurplusBalance }: SimStoreState) => ({
   collateralSurplusBalance
 });
 
 export const CollateralSurplusAction: React.FC = () => {
-  const { collateralSurplusBalance } = useLiquitySelector(select);
+  const { collateralSurplusBalance } = useSimSelector(select);
   const {
-    liquity: { send: liquity }
-  } = useLiquity();
+    sim: { send: liquity }
+  } = useSim();
 
   const myTransactionId = "claim-coll-surplus";
   const myTransactionState = useMyTransactionState(myTransactionId);

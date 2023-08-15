@@ -1,8 +1,8 @@
 import { Button } from "theme-ui";
-import { Decimal, LiquityStoreState, StabilityDepositChange } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { Decimal, SimStoreState, StabilityDepositChange } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 
-import { useLiquity } from "../../hooks/LiquityContext";
+import { useSim } from "../../hooks/SimContext";
 import { useTransactionFunction } from "../Transaction";
 
 type StabilityDepositActionProps = {
@@ -10,7 +10,7 @@ type StabilityDepositActionProps = {
   change: StabilityDepositChange<Decimal>;
 };
 
-const selectFrontendRegistered = ({ frontend }: LiquityStoreState) =>
+const selectFrontendRegistered = ({ frontend }: SimStoreState) =>
   frontend.status === "registered";
 
 export const StabilityDepositAction: React.FC<StabilityDepositActionProps> = ({
@@ -18,16 +18,16 @@ export const StabilityDepositAction: React.FC<StabilityDepositActionProps> = ({
   transactionId,
   change
 }) => {
-  const { config, liquity } = useLiquity();
-  const frontendRegistered = useLiquitySelector(selectFrontendRegistered);
+  const { config, sim } = useSim();
+  const frontendRegistered = useSimSelector(selectFrontendRegistered);
 
   const frontendTag = frontendRegistered ? config.frontendTag : undefined;
 
   const [sendTransaction] = useTransactionFunction(
     transactionId,
     change.depositLUSD
-      ? liquity.send.depositLUSDInStabilityPool.bind(liquity.send, change.depositLUSD, frontendTag)
-      : liquity.send.withdrawLUSDFromStabilityPool.bind(liquity.send, change.withdrawLUSD)
+      ? sim.send.depositLUSDInStabilityPool.bind(sim.send, change.depositLUSD, frontendTag)
+      : sim.send.withdrawLUSDFromStabilityPool.bind(sim.send, change.withdrawLUSD)
   );
 
   return <Button onClick={sendTransaction}>{children}</Button>;

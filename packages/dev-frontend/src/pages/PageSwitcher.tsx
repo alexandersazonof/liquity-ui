@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
 import { AddressZero } from "@ethersproject/constants";
 
-import { LiquityStoreState } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { SimStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 
-import { useLiquity } from "../hooks/LiquityContext";
+import { useSim } from "../hooks/SimContext";
 
 import { Dashboard } from "./Dashboard";
 import { UnregisteredFrontend } from "./UnregisteredFrontend";
 import { FrontendRegistration } from "./FrontendRegistration";
 import { FrontendRegistrationSuccess } from "./FrontendRegistrationSuccess";
 
-const selectFrontend = ({ frontend }: LiquityStoreState) => frontend;
+const selectFrontend = ({ frontend }: SimStoreState) => frontend;
 
 export const PageSwitcher: React.FC = () => {
   const {
     account,
     config: { frontendTag }
-  } = useLiquity();
+  } = useSim();
 
-  const frontend = useLiquitySelector(selectFrontend);
+  const frontend = useSimSelector(selectFrontend);
   const unregistered = frontendTag !== AddressZero && frontend.status === "unregistered";
 
   const [registering, setRegistering] = useState(false);

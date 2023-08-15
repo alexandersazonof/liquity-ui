@@ -1,31 +1,25 @@
 import React from "react";
 import { Text, Flex, Box, Heading, Button } from "theme-ui";
 
-import { Decimal, LiquityStoreState } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { Decimal, SimStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 
-import { COIN, GT } from "../strings";
-import { useLiquity } from "../hooks/LiquityContext";
+import { COIN, GT, NETWORK } from '../strings';
+import { useSim } from "../hooks/SimContext";
 import { shortenAddress } from "../utils/shortenAddress";
 
 import { Icon } from "./Icon";
-import { useBondView } from "./Bonds/context/BondViewContext";
-import { useBondAddresses } from "./Bonds/context/BondAddressesContext";
 import { ConnectKitButton } from "connectkit";
 
-const select = ({ accountBalance, lusdBalance, lqtyBalance }: LiquityStoreState) => ({
+const select = ({ accountBalance, lusdBalance, lqtyBalance }: SimStoreState) => ({
   accountBalance,
   lusdBalance,
   lqtyBalance
 });
 
 export const UserAccount: React.FC = () => {
-  const { account } = useLiquity();
-  const { accountBalance, lusdBalance: realLusdBalance, lqtyBalance } = useLiquitySelector(select);
-  const { bLusdBalance, lusdBalance: customLusdBalance } = useBondView();
-  const { LUSD_OVERRIDE_ADDRESS } = useBondAddresses();
-
-  const lusdBalance = LUSD_OVERRIDE_ADDRESS === null ? realLusdBalance : customLusdBalance;
+  const { account } = useSim();
+  const { accountBalance, lqtyBalance } = useSimSelector(select);
 
   return (
     <Flex>
@@ -53,10 +47,9 @@ export const UserAccount: React.FC = () => {
         <Icon name="wallet" size="lg" />
 
         {([
-          ["ETH", accountBalance],
-          [COIN, Decimal.from(lusdBalance || 0)],
+          [NETWORK, accountBalance],
+          [COIN, Decimal.from(0)],
           [GT, Decimal.from(lqtyBalance)],
-          ["bLUSD", Decimal.from(bLusdBalance || 0)]
         ] as const).map(([currency, balance], i) => (
           <Flex key={i} sx={{ ml: 3, flexDirection: "column" }}>
             <Heading sx={{ fontSize: 1 }}>{currency}</Heading>

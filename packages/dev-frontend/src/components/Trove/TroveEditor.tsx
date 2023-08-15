@@ -7,10 +7,9 @@ import {
   Decimalish,
   Decimal,
   Trove,
-  LiquityStoreState,
-  LUSD_LIQUIDATION_RESERVE
-} from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+  SimStoreState, SIM_LIQUIDATION_RESERVE,
+} from '@sim/lib-base';
+import { useSimSelector } from "@sim/lib-react";
 
 import { COIN } from "../../strings";
 
@@ -30,7 +29,7 @@ type TroveEditorProps = {
   ) => void;
 };
 
-const select = ({ price }: LiquityStoreState) => ({ price });
+const select = ({ price }: SimStoreState) => ({ price });
 
 export const TroveEditor: React.FC<TroveEditorProps> = ({
   children,
@@ -40,7 +39,7 @@ export const TroveEditor: React.FC<TroveEditorProps> = ({
   borrowingRate,
   changePending
 }) => {
-  const { price } = useLiquitySelector(select);
+  const { price } = useSimSelector(select);
 
   const feePct = new Percent(borrowingRate);
 
@@ -66,7 +65,7 @@ export const TroveEditor: React.FC<TroveEditorProps> = ({
           <StaticRow
             label="Liquidation Reserve"
             inputId="trove-liquidation-reserve"
-            amount={`${LUSD_LIQUIDATION_RESERVE}`}
+            amount={`${SIM_LIQUIDATION_RESERVE}`}
             unit={COIN}
             infoIcon={
               <InfoIcon

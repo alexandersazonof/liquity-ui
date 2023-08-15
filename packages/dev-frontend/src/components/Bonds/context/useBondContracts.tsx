@@ -1,27 +1,26 @@
-import { Decimal } from "@liquity/lib-base";
+import { Decimal } from "@sim/lib-base";
 import {
   BLUSDLPZap,
   BLUSDLPZap__factory,
-  BLUSDToken,
   BondNFT,
   ChickenBondManager,
   ERC20Faucet,
   ERC20Faucet__factory
-} from "@liquity/chicken-bonds/lusd/types";
+} from "@sim/chicken-bonds/lusd/types";
 import {
   CurveCryptoSwap2ETH,
   CurveLiquidityGaugeV5__factory
-} from "@liquity/chicken-bonds/lusd/types/external";
-import { CurveCryptoSwap2ETH__factory } from "@liquity/chicken-bonds/lusd/types/external";
+} from "@sim/chicken-bonds/lusd/types/external";
+import { CurveCryptoSwap2ETH__factory } from "@sim/chicken-bonds/lusd/types/external";
 import {
   BLUSDToken__factory,
   BondNFT__factory,
   ChickenBondManager__factory
-} from "@liquity/chicken-bonds/lusd/types";
-import type { LUSDToken } from "@liquity/lib-ethers/dist/types";
-import LUSDTokenAbi from "@liquity/lib-ethers/abi/LUSDToken.json";
+} from "@sim/chicken-bonds/lusd/types";
+import type { SIMToken } from "@sim/lib-ethers/dist/types";
+import SIMTokenAbi from "@sim/lib-ethers/abi/SIMToken.json";
 import { useContract } from "../../../hooks/useContract";
-import { useLiquity } from "../../../hooks/LiquityContext";
+import { useSim } from "../../../hooks/SimContext";
 import { useCallback } from "react";
 import type { BondsApi } from "./api";
 import type { BLusdLpRewards, Bond, ProtocolInfo, Stats } from "./transitions";
@@ -29,7 +28,8 @@ import { BLusdAmmTokenIndex } from "./transitions";
 import type { Addresses } from "./transitions";
 import { useChainId } from "wagmi";
 import { useBondAddresses } from "./BondAddressesContext";
-import type { CurveLiquidityGaugeV5 } from "@liquity/chicken-bonds/lusd/types/external/CurveLiquidityGaugeV5";
+import type { CurveLiquidityGaugeV5 } from "@sim/chicken-bonds/lusd/types/external/CurveLiquidityGaugeV5";
+import { SHADYToken } from '@sim/lib-ethers/types';
 
 type BondsInformation = {
   protocolInfo: ProtocolInfo;
@@ -47,8 +47,8 @@ type BondsInformation = {
 
 type BondContracts = {
   addresses: Addresses;
-  lusdToken: LUSDToken | undefined;
-  bLusdToken: BLUSDToken | undefined;
+  simToken: SIMToken | undefined;
+  shadyToken: SHADYToken | undefined;
   bondNft: BondNFT | undefined;
   chickenBondManager: ChickenBondManager | undefined;
   bLusdAmm: CurveCryptoSwap2ETH | undefined;
@@ -59,7 +59,7 @@ type BondContracts = {
 };
 
 export const useBondContracts = (): BondContracts => {
-  const { liquity } = useLiquity();
+  const { sim } = useSim();
   const chainId = useChainId();
   const isMainnet = chainId === 1;
 
@@ -70,70 +70,73 @@ export const useBondContracts = (): BondContracts => {
     BLUSD_TOKEN_ADDRESS,
     BOND_NFT_ADDRESS,
     CHICKEN_BOND_MANAGER_ADDRESS,
-    LUSD_OVERRIDE_ADDRESS,
+    SIM_OVERRIDE_ADDRESS,
     BLUSD_LP_ZAP_ADDRESS,
     BLUSD_AMM_STAKING_ADDRESS
   } = addresses;
 
-  const [lusdTokenDefault, lusdTokenDefaultStatus] = useContract<LUSDToken>(
-    liquity.connection.addresses.lusdToken,
-    LUSDTokenAbi
+  const [simTokenDefault, simTokenDefaultStatus] = useContract<SIMToken>(
+    sim.connection.addresses.simToken,
+    SIMTokenAbi
   );
 
-  const [lusdTokenOverride, lusdTokenOverrideStatus] = useContract<ERC20Faucet>(
-    LUSD_OVERRIDE_ADDRESS,
+  const [simTokenOverride, simTokenOverrideStatus] = useContract<ERC20Faucet>(
+    SIM_OVERRIDE_ADDRESS,
     ERC20Faucet__factory.abi
   );
 
-  const [lusdToken, lusdTokenStatus] =
-    LUSD_OVERRIDE_ADDRESS === null
-      ? [lusdTokenDefault, lusdTokenDefaultStatus]
-      : [(lusdTokenOverride as unknown) as LUSDToken, lusdTokenOverrideStatus];
+  const [simToken] =
+    SIM_OVERRIDE_ADDRESS === null
+      ? [simTokenDefault, simTokenDefaultStatus]
+      : [(simTokenOverride as unknown) as SIMToken, simTokenOverrideStatus];
 
-  const [bLusdToken, bLusdTokenStatus] = useContract<BLUSDToken>(
+  const [shadyToken] = useContract<SHADYToken>(
     BLUSD_TOKEN_ADDRESS,
     BLUSDToken__factory.abi
   );
 
-  const [bondNft, bondNftStatus] = useContract<BondNFT>(BOND_NFT_ADDRESS, BondNFT__factory.abi);
-  const [chickenBondManager, chickenBondManagerStatus] = useContract<ChickenBondManager>(
+  // TODO ve
+  const [bondNft] = useContract<BondNFT>(BOND_NFT_ADDRESS, BondNFT__factory.abi);
+  const [chickenBondManager] = useContract<ChickenBondManager>(
     CHICKEN_BOND_MANAGER_ADDRESS,
     ChickenBondManager__factory.abi
   );
 
-  const [bLusdAmm, bLusdAmmStatus] = useContract<CurveCryptoSwap2ETH>(
+  const [bLusdAmm] = useContract<CurveCryptoSwap2ETH>(
     BLUSD_AMM_ADDRESS,
     CurveCryptoSwap2ETH__factory.abi
   );
 
-  const [bLusdAmmZapper, bLusdAmmZapperStatus] = useContract<BLUSDLPZap>(
+  const [bLusdAmmZapper] = useContract<BLUSDLPZap>(
     BLUSD_LP_ZAP_ADDRESS,
     BLUSDLPZap__factory.abi
   );
 
-  const [bLusdGauge, bLusdGaugeStatus] = useContract<CurveLiquidityGaugeV5>(
+  const [bLusdGauge] = useContract<CurveLiquidityGaugeV5>(
     BLUSD_AMM_STAKING_ADDRESS,
     CurveLiquidityGaugeV5__factory.abi
   );
 
-  const hasFoundContracts =
-    [
-      lusdTokenStatus,
-      bondNftStatus,
-      chickenBondManagerStatus,
-      bLusdTokenStatus,
-      bLusdAmmStatus,
-      ...(isMainnet ? [bLusdAmmZapperStatus] : []),
-      bLusdGaugeStatus
-    ].find(status => status === "FAILED") === undefined;
+  // TODO change logic for bouds
+  // const hasFoundContracts =
+  //   [
+  //     simTokenStatus,
+  //     bondNftStatus,
+  //     chickenBondManagerStatus,
+  //     bLusdTokenStatus,
+  //     bLusdAmmStatus,
+  //     ...(isMainnet ? [bLusdAmmZapperStatus] : []),
+  //     bLusdGaugeStatus
+  //   ].find(status => status === "FAILED") === undefined;
+  const hasFoundContracts = true;
 
   const getLatestData = useCallback(
     async (account: string, api: BondsApi): Promise<BondsInformation | undefined> => {
       if (
-        lusdToken === undefined ||
+        simToken === undefined ||
         bondNft === undefined ||
         chickenBondManager === undefined ||
-        bLusdToken === undefined ||
+        shadyToken === undefined ||
         bLusdAmm === undefined ||
         bLusdGauge === undefined
       ) {
@@ -141,7 +144,7 @@ export const useBondContracts = (): BondContracts => {
       }
 
       const protocolInfoPromise = api.getProtocolInfo(
-        bLusdToken,
+        simToken,
         bLusdAmm,
         chickenBondManager,
         isMainnet
@@ -169,8 +172,8 @@ export const useBondContracts = (): BondContracts => {
         bLusdAmmCoinBalances,
         lpRewards
       ] = await Promise.all([
-        api.getTokenBalance(account, bLusdToken),
-        api.getTokenBalance(account, lusdToken),
+        api.getTokenBalance(account, shadyToken),
+        api.getTokenBalance(account, simToken),
         api.getTokenBalance(account, lpToken),
         isMainnet ? api.getTokenBalance(account, bLusdGauge) : Decimal.ZERO,
         api.getTokenTotalSupply(lpToken),
@@ -194,13 +197,13 @@ export const useBondContracts = (): BondContracts => {
         lpRewards
       };
     },
-    [chickenBondManager, bondNft, bLusdToken, lusdToken, bLusdAmm, isMainnet, bLusdGauge]
+    [chickenBondManager, bondNft, shadyToken, simToken, bLusdAmm, isMainnet, bLusdGauge]
   );
 
   return {
     addresses,
-    lusdToken,
-    bLusdToken,
+    simToken: simToken,
+    shadyToken: shadyToken,
     bondNft,
     chickenBondManager,
     bLusdAmm,

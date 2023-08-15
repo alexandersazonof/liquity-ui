@@ -4,12 +4,12 @@ import { Button, Flex } from "theme-ui";
 import {
   Decimal,
   Decimalish,
-  LiquityStoreState,
+  SimStoreState,
   LQTYStake,
   LQTYStakeChange
-} from "@liquity/lib-base";
+} from "@sim/lib-base";
 
-import { LiquityStoreUpdate, useLiquityReducer, useLiquitySelector } from "@liquity/lib-react";
+import { SimStoreUpdate, useSimReducer, useSimSelector } from "@sim/lib-react";
 
 import { GT, COIN } from "../../strings";
 
@@ -19,14 +19,14 @@ import { StakingManagerAction } from "./StakingManagerAction";
 import { ActionDescription, Amount } from "../ActionDescription";
 import { ErrorDescription } from "../ErrorDescription";
 
-const init = ({ lqtyStake }: LiquityStoreState) => ({
+const init = ({ lqtyStake }: SimStoreState) => ({
   originalStake: lqtyStake,
   editedLQTY: lqtyStake.stakedLQTY
 });
 
 type StakeManagerState = ReturnType<typeof init>;
 type StakeManagerAction =
-  | LiquityStoreUpdate
+  | SimStoreUpdate
   | { type: "revert" }
   | { type: "setStake"; newValue: Decimalish };
 
@@ -60,7 +60,7 @@ const reduce = (state: StakeManagerState, action: StakeManagerAction): StakeMana
   return state;
 };
 
-const selectLQTYBalance = ({ lqtyBalance }: LiquityStoreState) => lqtyBalance;
+const selectLQTYBalance = ({ lqtyBalance }: SimStoreState) => lqtyBalance;
 
 type StakingManagerActionDescriptionProps = {
   originalStake: LQTYStake;
@@ -118,8 +118,8 @@ const StakingManagerActionDescription: React.FC<StakingManagerActionDescriptionP
 
 export const StakingManager: React.FC = () => {
   const { dispatch: dispatchStakingViewAction } = useStakingView();
-  const [{ originalStake, editedLQTY }, dispatch] = useLiquityReducer(reduce, init);
-  const lqtyBalance = useLiquitySelector(selectLQTYBalance);
+  const [{ originalStake, editedLQTY }, dispatch] = useSimReducer(reduce, init);
+  const lqtyBalance = useSimSelector(selectLQTYBalance);
 
   const change = originalStake.whatChanged(editedLQTY);
   const [validChange, description] = !change

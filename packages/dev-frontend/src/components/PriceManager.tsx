@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Card, Box, Heading, Flex, Button, Label, Input } from "theme-ui";
 
-import { Decimal, LiquityStoreState } from "@liquity/lib-base";
-import { useLiquitySelector } from "@liquity/lib-react";
+import { Decimal, SimStoreState } from "@sim/lib-base";
+import { useSimSelector } from "@sim/lib-react";
 
-import { useLiquity } from "../hooks/LiquityContext";
+import { useSim } from "../hooks/SimContext";
 
 import { Icon } from "./Icon";
 import { Transaction } from "./Transaction";
 
-const selectPrice = ({ price }: LiquityStoreState) => price;
+const selectPrice = ({ price }: SimStoreState) => price;
 
 export const PriceManager: React.FC = () => {
   const {
-    liquity: {
-      send: liquity,
+    sim: {
+      send: sim,
       connection: { _priceFeedIsTestnet: canSetPrice }
     }
-  } = useLiquity();
+  } = useSim();
 
-  const price = useLiquitySelector(selectPrice);
+  const price = useSimSelector(selectPrice);
   const [editedPrice, setEditedPrice] = useState(price.toString(2));
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export const PriceManager: React.FC = () => {
                   if (!editedPrice) {
                     throw new Error("Invalid price");
                   }
-                  return liquity.setPrice(Decimal.from(editedPrice), overrides);
+                  return sim.setPrice(Decimal.from(editedPrice), overrides);
                 }}
               >
                 <Button variant="icon">

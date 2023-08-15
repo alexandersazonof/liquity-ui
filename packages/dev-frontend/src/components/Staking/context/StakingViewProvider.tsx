@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 
-import { LiquityStoreState, LQTYStake } from "@liquity/lib-base";
-import { LiquityStoreUpdate, useLiquityReducer } from "@liquity/lib-react";
+import { SimStoreState, LQTYStake } from "@sim/lib-base";
+import { SimStoreUpdate, useSimReducer } from "@sim/lib-react";
 
 import { useMyTransactionState } from "../../Transaction";
 
 import { StakingViewAction, StakingViewContext } from "./StakingViewContext";
 
 type StakingViewProviderAction =
-  | LiquityStoreUpdate
+  | SimStoreUpdate
   | StakingViewAction
   | { type: "startChange" | "abortChange" };
 
@@ -18,7 +18,7 @@ type StakingViewProviderState = {
   adjusting: boolean;
 };
 
-const init = ({ lqtyStake }: LiquityStoreState): StakingViewProviderState => ({
+const init = ({ lqtyStake }: SimStoreState): StakingViewProviderState => ({
   lqtyStake,
   changePending: false,
   adjusting: false
@@ -71,7 +71,7 @@ const reduce = (
 
 export const StakingViewProvider: React.FC = ({ children }) => {
   const stakingTransactionState = useMyTransactionState("stake");
-  const [{ adjusting, changePending, lqtyStake }, dispatch] = useLiquityReducer(reduce, init);
+  const [{ adjusting, changePending, lqtyStake }, dispatch] = useSimReducer(reduce, init);
 
   useEffect(() => {
     if (

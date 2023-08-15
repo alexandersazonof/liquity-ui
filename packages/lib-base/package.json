@@ -1,7 +1,7 @@
 {
-  "name": "@liquity/lib-base",
+  "name": "@sim/lib-base",
   "version": "0.0.0-semantic-release",
-  "description": "Liquity SDK shared interfaces",
+  "description": "SIM SDK shared interfaces",
   "keywords": [
     "protocol",
     "DeFi",

@@ -17,7 +17,7 @@ import {
  * A transaction that has been prepared for sending.
  *
  * @remarks
- * Implemented by {@link @liquity/lib-ethers#PopulatedEthersLiquityTransaction}.
+ * Implemented by {@link @sim/lib-ethers#PopulatedEthersLiquityTransaction}.
  *
  * @public
  */
@@ -31,7 +31,7 @@ export interface PopulatedLiquityTransaction<
   /**
    * Send the transaction.
    *
-   * @returns An object that implements {@link @liquity/lib-base#SentLiquityTransaction}.
+   * @returns An object that implements {@link @sim/lib-base#SentLiquityTransaction}.
    */
   send(): Promise<T>;
 }
@@ -42,16 +42,16 @@ export interface PopulatedLiquityTransaction<
  * @remarks
  * The Liquity protocol fulfills redemptions by repaying the debt of Troves in ascending order of
  * their collateralization ratio, and taking a portion of their collateral in exchange. Due to the
- * {@link @liquity/lib-base#LUSD_MINIMUM_DEBT | minimum debt} requirement that Troves must fulfill,
+ * {@link @sim/lib-base#LUSD_MINIMUM_DEBT | minimum debt} requirement that Troves must fulfill,
  * some LUSD amounts are not possible to redeem exactly.
  *
- * When {@link @liquity/lib-base#PopulatableLiquity.redeemLUSD | redeemLUSD()} is called with an
+ * When {@link @sim/lib-base#PopulatableLiquity.redeemLUSD | redeemLUSD()} is called with an
  * amount that can't be fully redeemed, the amount will be truncated (see the `redeemableLUSDAmount`
  * property). When this happens, the redeemer can either redeem the truncated amount by sending the
  * transaction unchanged, or prepare a new transaction by
- * {@link @liquity/lib-base#PopulatedRedemption.increaseAmountByMinimumNetDebt | increasing the amount}
+ * {@link @sim/lib-base#PopulatedRedemption.increaseAmountByMinimumNetDebt | increasing the amount}
  * to the next lowest possible value, which is the sum of the truncated amount and
- * {@link @liquity/lib-base#LUSD_MINIMUM_NET_DEBT}.
+ * {@link @sim/lib-base#LUSD_MINIMUM_NET_DEBT}.
  *
  * @public
  */
@@ -74,7 +74,7 @@ export interface PopulatedRedemption<P = unknown, S = unknown, R = unknown>
    * value.
    *
    * @param maxRedemptionRate - Maximum acceptable
-   *                            {@link @liquity/lib-base#Fees.redemptionRate | redemption rate} to
+   *                            {@link @sim/lib-base#Fees.redemptionRate | redemption rate} to
    *                            use in the new transaction.
    *
    * @remarks
@@ -103,7 +103,7 @@ export type _PopulatableFrom<T, P> = {
  * The functions return an object implementing {@link PopulatedLiquityTransaction}, which can be
  * used to send the transaction and get a {@link SentLiquityTransaction}.
  *
- * Implemented by {@link @liquity/lib-ethers#PopulatableEthersLiquity}.
+ * Implemented by {@link @sim/lib-ethers#PopulatableEthersLiquity}.
  *
  * @public
  */
@@ -259,34 +259,34 @@ export interface PopulatableLiquity<R = unknown, S = unknown, P = unknown>
   >;
 
   /** {@inheritDoc TransactableLiquity.stakeLQTY} */
-  stakeLQTY(
-    amount: Decimalish
-  ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
+  // stakeLQTY(
+  //   amount: Decimalish
+  // ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
 
   /** {@inheritDoc TransactableLiquity.unstakeLQTY} */
-  unstakeLQTY(
-    amount: Decimalish
-  ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
+  // unstakeLQTY(
+  //   amount: Decimalish
+  // ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
 
   /** {@inheritDoc TransactableLiquity.withdrawGainsFromStaking} */
-  withdrawGainsFromStaking(): Promise<
-    PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>
-  >;
+  // withdrawGainsFromStaking(): Promise<
+  //   PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>
+  // >;
 
-  /** {@inheritDoc TransactableLiquity.approveUniTokens} */
-  approveUniTokens(
+  /** {@inheritDoc TransactableLiquity.approveWstEthTokens} */
+  approveWstEthTokens(
     allowance?: Decimalish
   ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
 
   /** {@inheritDoc TransactableLiquity.stakeUniTokens} */
-  stakeUniTokens(
-    amount: Decimalish
-  ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
+  // stakeUniTokens(
+  //   amount: Decimalish
+  // ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
 
   /** {@inheritDoc TransactableLiquity.unstakeUniTokens} */
-  unstakeUniTokens(
-    amount: Decimalish
-  ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
+  // unstakeUniTokens(
+  //   amount: Decimalish
+  // ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
 
   /** {@inheritDoc TransactableLiquity.withdrawLQTYRewardFromLiquidityMining} */
   withdrawLQTYRewardFromLiquidityMining(): Promise<
@@ -299,7 +299,7 @@ export interface PopulatableLiquity<R = unknown, S = unknown, P = unknown>
   >;
 
   /** {@inheritDoc TransactableLiquity.registerFrontend} */
-  registerFrontend(
-    kickbackRate: Decimalish
-  ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
+  // registerFrontend(
+  //   kickbackRate: Decimalish
+  // ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
 }

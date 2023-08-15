@@ -129,17 +129,17 @@ export class _CachedReadableLiquity<T extends unknown[]>
     );
   }
 
-  async getUniTokenBalance(address?: string, ...extraParams: T): Promise<Decimal> {
+  async getWstEthBalance(address?: string, ...extraParams: T): Promise<Decimal> {
     return (
-      this._cache.getUniTokenBalance(address, ...extraParams) ??
-      this._readable.getUniTokenBalance(address, ...extraParams)
+      this._cache.getWstEthBalance(address, ...extraParams) ??
+      this._readable.getWstEthBalance(address, ...extraParams)
     );
   }
 
-  async getUniTokenAllowance(address?: string, ...extraParams: T): Promise<Decimal> {
+  async getWstEthAllowance(address?: string, ...extraParams: T): Promise<Decimal> {
     return (
-      this._cache.getUniTokenAllowance(address, ...extraParams) ??
-      this._readable.getUniTokenAllowance(address, ...extraParams)
+      this._cache.getWstEthAllowance(address, ...extraParams) ??
+      this._readable.getWstEthAllowance(address, ...extraParams)
     );
   }
 
