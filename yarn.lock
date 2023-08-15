@@ -1434,6 +1434,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-common-types@npm:6.4.2":
+  version: 6.4.2
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.4.2"
+  checksum: 4a22932bd0cac65be1d35b739624f366b6c247b60eb5b8f66218957f54ce1cae56e2a20ea88789ede45d1e1c0c1014f160e01c1752122ec174ad0823e60f94bf
+  languageName: node
+  linkType: hard
+
 "@fortawesome/fontawesome-common-types@npm:^0.2.34":
   version: 0.2.34
   resolution: "@fortawesome/fontawesome-common-types@npm:0.2.34"
@@ -1459,12 +1466,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/free-solid-svg-icons@npm:5.15.2":
-  version: 5.15.2
-  resolution: "@fortawesome/free-solid-svg-icons@npm:5.15.2"
+"@fortawesome/free-solid-svg-icons@npm:6.4.2":
+  version: 6.4.2
+  resolution: "@fortawesome/free-solid-svg-icons@npm:6.4.2"
   dependencies:
-    "@fortawesome/fontawesome-common-types": ^0.2.34
-  checksum: 6437216c224eede9dd811058fae2fce1f4acdc8d0cfcf866cf8a943ee9f24ad1f391c365c1c1d41241cec3b01bc304a71038e21710912054acc213242967a6ea
+    "@fortawesome/fontawesome-common-types": 6.4.2
+  checksum: 4a365004990d5b1c970fb30c11b284b0b807903d0ecb193eb9b5a5e41ea7c0b8fff5c60480c580a1e44535cf23c5d9c90cb698189741e40ea3e10ac66290709c
   languageName: node
   linkType: hard
 
@@ -2642,7 +2649,7 @@ __metadata:
     "@ethersproject/experimental": 5.7.0
     "@fortawesome/fontawesome-svg-core": 1.2.34
     "@fortawesome/free-regular-svg-icons": 5.15.2
-    "@fortawesome/free-solid-svg-icons": 5.15.2
+    "@fortawesome/free-solid-svg-icons": 6.4.2
     "@fortawesome/react-fontawesome": 0.1.14
     "@metamask/eth-sig-util": 5.0.1
     "@sim/chicken-bonds": "file:.yalc/@sim/chicken-bonds"
