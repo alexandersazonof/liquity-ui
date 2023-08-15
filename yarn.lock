@@ -363,12 +363,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-conventional@npm:^12.0.1":
-  version: 12.0.1
-  resolution: "@commitlint/config-conventional@npm:12.0.1"
+"@commitlint/config-conventional@npm:^17.7.0":
+  version: 17.7.0
+  resolution: "@commitlint/config-conventional@npm:17.7.0"
   dependencies:
-    conventional-changelog-conventionalcommits: ^4.3.1
-  checksum: 67d9129414d507e328d7560cf8c5bcda23e671df38e9fd9ec6d627a0a8f8dcb4640c53c1ba05a2f7fe40acedaaa52d15fb668635a00ff243f9ce8688adbe2252
+    conventional-changelog-conventionalcommits: ^6.1.0
+  checksum: 932cf35c12855e360c750bc19ffedc0925f8658f316aaacdf5441ce775712934386643a9ac418f18e24e5bb1bf71ed721b8ae452a13d04908b0e55cd3d2d988f
   languageName: node
   linkType: hard
 
@@ -7030,14 +7030,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-conventionalcommits@npm:^4.3.1":
-  version: 4.5.0
-  resolution: "conventional-changelog-conventionalcommits@npm:4.5.0"
+"conventional-changelog-conventionalcommits@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "conventional-changelog-conventionalcommits@npm:6.1.0"
   dependencies:
     compare-func: ^2.0.0
-    lodash: ^4.17.15
-    q: ^1.5.1
-  checksum: e11944881f123f26a92e823a96e4d921b03203a312da9d539773c424103b49917f59fa717a079738f4d5b0e9709b0336ec323a86a56df7d008663b01e5f8b3b9
+  checksum: 4383a35cdf72f5964e194a1146e7f78276e301f73bd993b71627bb93586b6470d411b9613507ceb37e0fed0b023199c95e941541fa47172b4e6a7916fc3a53ff
   languageName: node
   linkType: hard
 
@@ -16159,7 +16157,7 @@ __metadata:
   resolution: "sim@workspace:."
   dependencies:
     "@commitlint/cli": ^12.0.1
-    "@commitlint/config-conventional": ^12.0.1
+    "@commitlint/config-conventional": ^17.7.0
     "@microsoft/api-documenter": ^7.12.6
     fs-extra: ^9.1.0
     npm-run-all: ^4.1.5
