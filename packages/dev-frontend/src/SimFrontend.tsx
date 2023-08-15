@@ -18,7 +18,8 @@ import { RiskyTrovesPage } from "./pages/RiskyTrovesPage";
 import { TroveViewProvider } from "./components/Trove/context/TroveViewProvider";
 import { StabilityViewProvider } from "./components/Stability/context/StabilityViewProvider";
 import { StakingViewProvider } from "./components/Staking/context/StakingViewProvider";
-import "tippy.js/dist/tippy.css"; // Tooltip default style
+import "tippy.js/dist/tippy.css";
+import { BondsProvider } from './components/Bonds/context/BondsProvider'; // Tooltip default style
 
 type SimFrontendProps = {
   loader?: React.ReactNode;
@@ -43,6 +44,7 @@ export const SimFrontend: React.FC<SimFrontendProps> = ({ loader }) => {
         <TroveViewProvider>
           <StabilityViewProvider>
             <StakingViewProvider>
+              <BondsProvider>
                 <Flex sx={{ flexDirection: "column", minHeight: "100%" }}>
                   <Header>
                     <UserAccount />
@@ -68,6 +70,7 @@ export const SimFrontend: React.FC<SimFrontendProps> = ({ loader }) => {
                     </Switch>
                   </Container>
                 </Flex>
+              </BondsProvider>
             </StakingViewProvider>
           </StabilityViewProvider>
         </TroveViewProvider>
