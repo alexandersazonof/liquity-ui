@@ -17,9 +17,9 @@ export declare class PopulatedEthersRedemption extends PopulatedEthersLiquityTra
 
 ## Remarks
 
-The Liquity protocol fulfills redemptions by repaying the debt of Troves in ascending order of their collateralization ratio, and taking a portion of their collateral in exchange. Due to the [minimum debt](./lib-base.lusd_minimum_debt.md) requirement that Troves must fulfill, some LUSD amounts are not possible to redeem exactly.
+The Liquity protocol fulfills redemptions by repaying the debt of Troves in ascending order of their collateralization ratio, and taking a portion of their collateral in exchange. Due to the  requirement that Troves must fulfill, some LUSD amounts are not possible to redeem exactly.
 
-When [redeemLUSD()](./lib-base.populatableliquity.redeemlusd.md) is called with an amount that can't be fully redeemed, the amount will be truncated (see the `redeemableLUSDAmount` property). When this happens, the redeemer can either redeem the truncated amount by sending the transaction unchanged, or prepare a new transaction by [increasing the amount](./lib-base.populatedredemption.increaseamountbyminimumnetdebt.md) to the next lowest possible value, which is the sum of the truncated amount and [LUSD\_MINIMUM\_NET\_DEBT](./lib-base.lusd_minimum_net_debt.md)<!-- -->.
+When [redeemLUSD()](./lib-base.populatableliquity.redeemlusd.md) is called with an amount that can't be fully redeemed, the amount will be truncated (see the `redeemableLUSDAmount` property). When this happens, the redeemer can either redeem the truncated amount by sending the transaction unchanged, or prepare a new transaction by [increasing the amount](./lib-base.populatedredemption.increaseamountbyminimumnetdebt.md) to the next lowest possible value, which is the sum of the truncated amount and .
 
 ## Properties
 

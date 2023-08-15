@@ -101,6 +101,12 @@ export interface SimStoreBaseState {
 
   /** @internal */
   _riskiestTroveBeforeRedistribution: TroveWithPendingRedistribution;
+
+  /** wstETH Balance **/
+  wstETHBalance: Decimal;
+
+  /** wstETH Token Allowance **/
+  wstETHTokenAllowance: Decimal;
 }
 
 /**
@@ -357,6 +363,20 @@ export abstract class SimStore<T = unknown> {
         "lusdBalance",
         baseState.lusdBalance,
         baseStateUpdate.lusdBalance
+      ),
+
+      wstETHBalance: this._updateIfChanged(
+        eq,
+        "wstETHBalance",
+        baseState.wstETHBalance,
+        baseStateUpdate.wstETHBalance
+      ),
+
+      wstETHTokenAllowance: this._updateIfChanged(
+        eq,
+        "wstETHTokenAllowance",
+        baseState.wstETHTokenAllowance,
+        baseStateUpdate.wstETHTokenAllowance
       ),
 
       lqtyBalance: this._updateIfChanged(

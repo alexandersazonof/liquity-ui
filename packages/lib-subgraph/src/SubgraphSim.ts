@@ -340,11 +340,11 @@ export class SubgraphSim implements ReadableLiquity, ObservableLiquity {
     throw new Error("Method not implemented.");
   }
 
-  getUniTokenBalance(address?: string): Promise<Decimal> {
+  getWstEthBalance(address?: string): Promise<Decimal> {
     throw new Error("Method not implemented.");
   }
 
-  getUniTokenAllowance(address?: string): Promise<Decimal> {
+  getWstEthAllowance(address?: string): Promise<Decimal> {
     throw new Error("Method not implemented.");
   }
 

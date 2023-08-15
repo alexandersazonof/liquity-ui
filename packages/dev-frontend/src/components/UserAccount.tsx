@@ -9,8 +9,6 @@ import { useSim } from "../hooks/SimContext";
 import { shortenAddress } from "../utils/shortenAddress";
 
 import { Icon } from "./Icon";
-import { useBondView } from "./Bonds/context/BondViewContext";
-import { useBondAddresses } from "./Bonds/context/BondAddressesContext";
 import { ConnectKitButton } from "connectkit";
 
 const select = ({ accountBalance, lusdBalance, lqtyBalance }: SimStoreState) => ({
@@ -21,11 +19,7 @@ const select = ({ accountBalance, lusdBalance, lqtyBalance }: SimStoreState) => 
 
 export const UserAccount: React.FC = () => {
   const { account } = useSim();
-  const { accountBalance, lusdBalance: realLusdBalance, lqtyBalance } = useSimSelector(select);
-  const { bLusdBalance, lusdBalance: customLusdBalance } = useBondView();
-  const { SIM_OVERRIDE_ADDRESS } = useBondAddresses();
-
-  const lusdBalance = SIM_OVERRIDE_ADDRESS === null ? realLusdBalance : customLusdBalance;
+  const { accountBalance, lqtyBalance } = useSimSelector(select);
 
   return (
     <Flex>
@@ -54,9 +48,8 @@ export const UserAccount: React.FC = () => {
 
         {([
           [NETWORK, accountBalance],
-          [COIN, Decimal.from(lusdBalance || 0)],
+          [COIN, Decimal.from(0)],
           [GT, Decimal.from(lqtyBalance)],
-          ["bLUSD", Decimal.from(bLusdBalance || 0)]
         ] as const).map(([currency, balance], i) => (
           <Flex key={i} sx={{ ml: 3, flexDirection: "column" }}>
             <Heading sx={{ fontSize: 1 }}>{currency}</Heading>

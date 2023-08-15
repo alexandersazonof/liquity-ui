@@ -204,9 +204,8 @@ export const BondViewProvider: React.FC = props => {
         return;
       }
 
-      const isApproved = await (isMainnet
-        ? api.isTokenApprovedWithBLusdAmmMainnet(account, contracts.shadyToken)
-        : api.isTokenApprovedWithBLusdAmm(account, contracts.shadyToken, BLUSD_AMM_ADDRESS));
+      // TODO
+      const isApproved = false;
 
       setIsBLusdApprovedWithBlusdAmm(isApproved);
     })();
@@ -363,9 +362,9 @@ export const BondViewProvider: React.FC = props => {
       for (const token of tokensNeedingApproval) {
         if (token === BLusdAmmTokenIndex.BLUSD) {
           await (isMainnet
-            ? api.approveTokenWithBLusdAmmMainnet(contracts.shadyToken, sim.connection.signer)
+            ? api.approveTokenWithBLusdAmmMainnet(contracts.simToken, sim.connection.signer)
             : api.approveTokenWithBLusdAmm(
-                contracts.shadyToken,
+                contracts.simToken,
                 BLUSD_AMM_ADDRESS,
                 sim.connection.signer
               ));

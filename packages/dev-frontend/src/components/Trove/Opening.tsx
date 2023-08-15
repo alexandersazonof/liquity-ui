@@ -4,10 +4,8 @@ import {
   SimStoreState,
   Decimal,
   Trove,
-  LUSD_LIQUIDATION_RESERVE,
-  LUSD_MINIMUM_NET_DEBT,
-  Percent
-} from "@sim/lib-base";
+  Percent, SIM_MINIMUM_NET_DEBT, SIM_LIQUIDATION_RESERVE,
+} from '@sim/lib-base';
 import { useSimSelector } from "@sim/lib-react";
 
 import { useStableTroveChange } from "../../hooks/useStableTroveChange";
@@ -26,13 +24,15 @@ import {
   selectForTroveChangeValidation,
   validateTroveChange
 } from "./validation/validateTroveChange";
+import { useSim } from '../../hooks/SimContext';
 
 const selector = (state: SimStoreState) => {
-  const { fees, price, accountBalance } = state;
+  const { fees, price, wstETHBalance, wstETHTokenAllowance } = state;
   return {
     fees,
     price,
-    accountBalance,
+    wstETHBalance,
+    wstETHTokenAllowance,
     validationContext: selectForTroveChangeValidation(state)
   };
 };
@@ -43,7 +43,8 @@ const GAS_ROOM_ETH = Decimal.from(0.1);
 
 export const Opening: React.FC = () => {
   const { dispatchEvent } = useTroveView();
-  const { fees, price, accountBalance, validationContext } = useSimSelector(selector);
+  const { sim } = useSim();
+  const { fees, price, validationContext, wstETHBalance, wstETHTokenAllowance } = useSimSelector(selector);
   const borrowingRate = fees.borrowingRate();
   const editingState = useState<string>();
 
@@ -54,11 +55,11 @@ export const Opening: React.FC = () => {
 
   const fee = borrowAmount.mul(borrowingRate);
   const feePct = new Percent(borrowingRate);
-  const totalDebt = borrowAmount.add(LUSD_LIQUIDATION_RESERVE).add(fee);
+  const totalDebt = borrowAmount.add(SIM_LIQUIDATION_RESERVE).add(fee);
   const isDirty = !collateral.isZero || !borrowAmount.isZero;
   const trove = isDirty ? new Trove(collateral, totalDebt) : EMPTY_TROVE;
-  const maxCollateral = accountBalance.gt(GAS_ROOM_ETH)
-    ? accountBalance.sub(GAS_ROOM_ETH)
+  const maxCollateral = wstETHBalance.gt(GAS_ROOM_ETH)
+    ? wstETHBalance.sub(GAS_ROOM_ETH)
     : Decimal.ZERO;
   const collateralMaxedOut = collateral.eq(maxCollateral);
   const collateralRatio =
@@ -83,6 +84,10 @@ export const Opening: React.FC = () => {
     dispatchEvent("CANCEL_ADJUST_TROVE_PRESSED");
   }, [dispatchEvent]);
 
+  const handleApprove = useCallback(() => {
+    sim.approveWstEthTokens(Decimal.INFINITY).then(() => gasEstimationState.type = 'idle')
+  }, [dispatchEvent]);
+
   const reset = useCallback(() => {
     setCollateral(Decimal.ZERO);
     setBorrowAmount(Decimal.ZERO);
@@ -90,7 +95,7 @@ export const Opening: React.FC = () => {
 
   useEffect(() => {
     if (!collateral.isZero && borrowAmount.isZero) {
-      setBorrowAmount(LUSD_MINIMUM_NET_DEBT);
+      setBorrowAmount(SIM_MINIMUM_NET_DEBT);
     }
   }, [collateral, borrowAmount]);
 
@@ -113,7 +118,7 @@ export const Opening: React.FC = () => {
           maxAmount={maxCollateral.toString()}
           maxedOut={collateralMaxedOut}
           editingState={editingState}
-          unit="ETH"
+          unit="wstETH"
           editedAmount={collateral.toString(4)}
           setEditedAmount={(amount: string) => setCollateral(Decimal.from(amount))}
         />
@@ -131,7 +136,7 @@ export const Opening: React.FC = () => {
         <StaticRow
           label="Liquidation Reserve"
           inputId="trove-liquidation-reserve"
-          amount={`${LUSD_LIQUIDATION_RESERVE}`}
+          amount={`${SIM_LIQUIDATION_RESERVE}`}
           unit={COIN}
           infoIcon={
             <InfoIcon
@@ -173,11 +178,11 @@ export const Opening: React.FC = () => {
             <InfoIcon
               tooltip={
                 <Card variant="tooltip" sx={{ width: "240px" }}>
-                  The total amount of LUSD your Trove will hold.{" "}
+                  The total amount of SIM your Trove will hold.{" "}
                   {isDirty && (
                     <>
-                      You will need to repay {totalDebt.sub(LUSD_LIQUIDATION_RESERVE).prettify(2)}{" "}
-                      LUSD to reclaim your collateral ({LUSD_LIQUIDATION_RESERVE.toString()} LUSD
+                      You will need to repay {totalDebt.sub(SIM_LIQUIDATION_RESERVE).prettify(2)}{" "}
+                      SIM to reclaim your collateral ({SIM_LIQUIDATION_RESERVE.toString()} SIM
                       Liquidation Reserve excluded).
                     </>
                   )}
@@ -191,7 +196,7 @@ export const Opening: React.FC = () => {
 
         {description ?? (
           <ActionDescription>
-            Start by entering the amount of ETH you'd like to deposit as collateral.
+            Start by entering the amount of wstETH you'd like to deposit as collateral.
           </ActionDescription>
         )}
 
@@ -208,7 +213,11 @@ export const Opening: React.FC = () => {
             Cancel
           </Button>
 
-          {gasEstimationState.type === "inProgress" ? (
+          {wstETHTokenAllowance < collateral ? (
+            <Button onClick={handleApprove}>
+              Approve
+            </Button>
+          ) : gasEstimationState.type === "inProgress" ? (
             <Button disabled>
               <Spinner size="24px" sx={{ color: "background" }} />
             </Button>

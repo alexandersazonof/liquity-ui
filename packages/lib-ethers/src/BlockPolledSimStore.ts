@@ -85,7 +85,8 @@ export class BlockPolledSimStore extends SimStore<BlockPolledSimStoreExtraState>
   private async _get(
     blockTag?: number
   ): Promise<[baseState: SimStoreBaseState, extraState: BlockPolledSimStoreExtraState]> {
-    const { userAddress, frontendTag } = this.connection;
+    const { userAddress } = this.connection;
+
 
     const {
       blockTimestamp,
@@ -122,6 +123,8 @@ export class BlockPolledSimStore extends SimStore<BlockPolledSimStoreExtraState>
             accountBalance: this._provider.getBalance(userAddress, blockTag).then(decimalify),
             lusdBalance: this._readable.getLUSDBalance(userAddress, { blockTag }),
             lqtyBalance: this._readable.getLQTYBalance(userAddress, { blockTag }),
+            wstETHBalance: this._readable.getWstEthBalance(userAddress, { blockTag }),
+            wstETHTokenAllowance: this._readable.getWstEthAllowance(userAddress),
             uniTokenBalance: Decimal.ZERO,
             uniTokenAllowance: Decimal.ZERO,
             liquidityMiningStake: Decimal.ZERO,
@@ -148,6 +151,8 @@ export class BlockPolledSimStore extends SimStore<BlockPolledSimStoreExtraState>
             lusdBalance: Decimal.ZERO,
             lqtyBalance: Decimal.ZERO,
             uniTokenBalance: Decimal.ZERO,
+            wstETHBalance: Decimal.ZERO,
+            wstETHTokenAllowance: Decimal.ZERO,
             uniTokenAllowance: Decimal.ZERO,
             liquidityMiningStake: Decimal.ZERO,
             liquidityMiningLQTYReward: Decimal.ZERO,

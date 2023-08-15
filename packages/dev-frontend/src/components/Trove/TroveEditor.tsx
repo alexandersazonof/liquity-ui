@@ -7,9 +7,8 @@ import {
   Decimalish,
   Decimal,
   Trove,
-  SimStoreState,
-  LUSD_LIQUIDATION_RESERVE
-} from "@sim/lib-base";
+  SimStoreState, SIM_LIQUIDATION_RESERVE,
+} from '@sim/lib-base';
 import { useSimSelector } from "@sim/lib-react";
 
 import { COIN } from "../../strings";
@@ -66,7 +65,7 @@ export const TroveEditor: React.FC<TroveEditorProps> = ({
           <StaticRow
             label="Liquidation Reserve"
             inputId="trove-liquidation-reserve"
-            amount={`${LUSD_LIQUIDATION_RESERVE}`}
+            amount={`${SIM_LIQUIDATION_RESERVE}`}
             unit={COIN}
             infoIcon={
               <InfoIcon

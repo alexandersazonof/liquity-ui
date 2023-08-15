@@ -49,8 +49,8 @@ The constructor for this class is marked as internal. Third-party code should no
 |  [getTrove(address, overrides)](./lib-ethers.readableethersliquity.gettrove.md) |  | Get the current state of a Trove. |
 |  [getTroveBeforeRedistribution(address, overrides)](./lib-ethers.readableethersliquity.gettrovebeforeredistribution.md) |  | Get a Trove in its state after the last direct modification. |
 |  [getTroves(params, overrides)](./lib-ethers.readableethersliquity.gettroves_1.md) |  | Get a slice from the list of Troves. |
-|  [getUniTokenAllowance(address, overrides)](./lib-ethers.readableethersliquity.getunitokenallowance.md) |  | Get the liquidity mining contract's allowance of a holder's Uniswap ETH/LUSD LP tokens. |
-|  [getUniTokenBalance(address, overrides)](./lib-ethers.readableethersliquity.getunitokenbalance.md) |  | Get the amount of Uniswap ETH/LUSD LP tokens held by an address. |
+|  [getWstEthAllowance(address, overrides)](./lib-ethers.readableethersliquity.getwstethallowance.md) |  |  |
+|  [getWstEthBalance(address, overrides)](./lib-ethers.readableethersliquity.getwstethbalance.md) |  |  |
 |  [hasStore()](./lib-ethers.readableethersliquity.hasstore.md) |  | Check whether this <code>ReadableEthersLiquity</code> is a [ReadableEthersLiquityWithStore](./lib-ethers.readableethersliquitywithstore.md)<!-- -->. |
 |  [hasStore(store)](./lib-ethers.readableethersliquity.hasstore_1.md) |  | Check whether this <code>ReadableEthersLiquity</code> is a [ReadableEthersLiquityWithStore](./lib-ethers.readableethersliquitywithstore.md)<!-- -->&lt;[BlockPolledSimStore](./lib-ethers.blockpolledsimstore.md)<!-- -->&gt;<!-- -->. |
 

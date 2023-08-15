@@ -312,23 +312,19 @@ export class ReadableEthersLiquity implements ReadableLiquity {
   }
 
   /** {@inheritDoc @sim/lib-base#ReadableLiquity.getUniTokenBalance} */
-  getUniTokenBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
+  getWstEthBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
     address ??= _requireAddress(this.connection);
-    // TODO find funtion
-    // const { uniToken } = _getContracts(this.connection);
+    const { wStEthMock } = _getContracts(this.connection);
 
-    // return uniToken.balanceOf(address, { ...overrides }).then(decimalify);
-    return new Promise(() => Decimal.ZERO);
+    return wStEthMock.balanceOf(address, { ...overrides }).then(decimalify);
   }
 
   /** {@inheritDoc @sim/lib-base#ReadableLiquity.getUniTokenAllowance} */
-  getUniTokenAllowance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
+  getWstEthAllowance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
     address ??= _requireAddress(this.connection);
-    // TODO find funtion
-    // const { uniToken, unipool } = _getContracts(this.connection);
+    const { wStEthMock, borrowerOperations } = _getContracts(this.connection);
 
-    // return uniToken.allowance(address, unipool.address, { ...overrides }).then(decimalify);
-    return new Promise(() => Decimal.ZERO);
+    return wStEthMock.allowance(address, borrowerOperations.address, { ...overrides }).then(decimalify);
   }
 
   /** @internal */
@@ -664,16 +660,16 @@ class _BlockPolledReadableEthersLiquity
       : this._readable.getLQTYBalance(address, overrides);
   }
 
-  async getUniTokenBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
+  async getWstEthBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
     return this._userHit(address, overrides)
-      ? this.store.state.uniTokenBalance
-      : this._readable.getUniTokenBalance(address, overrides);
+      ? this.store.state.wstETHBalance
+      : this._readable.getWstEthBalance(address, overrides);
   }
 
-  async getUniTokenAllowance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
+  async getWstEthAllowance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
     return this._userHit(address, overrides)
-      ? this.store.state.uniTokenAllowance
-      : this._readable.getUniTokenAllowance(address, overrides);
+      ? this.store.state.wstETHTokenAllowance
+      : this._readable.getWstEthAllowance(address, overrides);
   }
 
   async getRemainingLiquidityMiningLQTYReward(overrides?: EthersCallOverrides): Promise<Decimal> {

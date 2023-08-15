@@ -9,7 +9,7 @@ Parameters of an [openTrove()](./lib-base.transactableliquity.opentrove.md) tran
 <b>Signature:</b>
 
 ```typescript
-export declare type TroveCreationParams<T = unknown> = _CollateralDeposit<T> & _NoCollateralWithdrawal & _LUSDBorrowing<T> & _NoLUSDRepayment;
+export declare type TroveCreationParams<T = unknown> = _CollateralDeposit<T> & _NoCollateralWithdrawal & _SIMBorrowing<T> & _NoSIMRepayment;
 ```
 
 ## Remarks

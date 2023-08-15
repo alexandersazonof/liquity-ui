@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { Flex, Button } from "theme-ui";
 
-import { SimStoreState, Decimal, Trove, Decimalish, LUSD_MINIMUM_DEBT } from "@sim/lib-base";
+import { SimStoreState, Decimal, Trove, Decimalish, SIM_MINIMUM_DEBT } from '@sim/lib-base';
 
 import { SimStoreUpdate, useSimReducer, useSimSelector } from "@sim/lib-react";
 
@@ -84,7 +84,7 @@ const reduce = (state: TroveManagerState, action: TroveManagerAction): TroveMana
     case "addMinimumDebt":
       return {
         ...state,
-        edited: edited.setDebt(LUSD_MINIMUM_DEBT),
+        edited: edited.setDebt(SIM_MINIMUM_DEBT),
         addedMinimumDebt: true
       };
 
@@ -135,14 +135,14 @@ const reduce = (state: TroveManagerState, action: TroveManagerAction): TroveMana
 const feeFrom = (original: Trove, edited: Trove, borrowingRate: Decimal): Decimal => {
   const change = original.whatChanged(edited, borrowingRate);
 
-  if (change && change.type !== "invalidCreation" && change.params.borrowLUSD) {
-    return change.params.borrowLUSD.mul(borrowingRate);
+  if (change && change.type !== "invalidCreation" && change.params.borrowSIM) {
+    return change.params.borrowSIM.mul(borrowingRate);
   } else {
     return Decimal.ZERO;
   }
 };
 
-const select = (state: useSimReducer) => ({
+const select = (state: SimStoreState) => ({
   fees: state.fees,
   validationContext: selectForTroveChangeValidation(state)
 });

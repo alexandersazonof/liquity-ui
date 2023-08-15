@@ -1,6 +1,6 @@
 import {
   Decimal,
-  LiquityStoreState,
+  SimStoreState,
   StabilityDeposit,
   StabilityDepositChange
 } from "@sim/lib-base";
@@ -15,7 +15,7 @@ export const selectForStabilityDepositChangeValidation = ({
   lusdBalance,
   ownFrontend,
   haveUndercollateralizedTroves
-}: LiquityStoreState) => ({
+}: SimStoreState) => ({
   trove,
   lusdBalance,
   haveOwnFrontend: ownFrontend.status === "registered",

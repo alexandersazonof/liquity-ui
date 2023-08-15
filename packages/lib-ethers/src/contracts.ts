@@ -210,7 +210,7 @@ export type _SimContractAddresses = Record<SimContractsKey, string>;
 
 type SimContractAbis = Record<SimContractsKey, JsonFragment[]>;
 
-const getAbi = (priceFeedIsTestnet: boolean, uniTokenIsMock: boolean): SimContractAbis => ({
+const getAbi = (priceFeedIsTestnet: boolean): SimContractAbis => ({
   activePool: activePoolAbi,
   borrowerOperations: borrowerOperationsAbi,
   troveManager: troveManagerAbi,
@@ -260,9 +260,9 @@ export interface _SimDeploymentJSON {
 /** @internal */
 export const _connectToContracts = (
   signerOrProvider: EthersSigner | EthersProvider,
-  { addresses, _priceFeedIsTestnet, _uniTokenIsMock }: _SimDeploymentJSON
+  { addresses, _priceFeedIsTestnet }: _SimDeploymentJSON
 ): _SimContracts => {
-  const abi = getAbi(_priceFeedIsTestnet, _uniTokenIsMock);
+  const abi = getAbi(_priceFeedIsTestnet);
 
   return mapSimContracts(
     addresses,

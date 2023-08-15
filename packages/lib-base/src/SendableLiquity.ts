@@ -244,8 +244,8 @@ export interface SendableLiquity<R = unknown, S = unknown>
   /** {@inheritDoc TransactableLiquity.withdrawGainsFromStaking} */
   // withdrawGainsFromStaking(): Promise<SentLiquityTransaction<S, LiquityReceipt<R, void>>>;
 
-  /** {@inheritDoc TransactableLiquity.approveUniTokens} */
-  approveUniTokens(
+  /** {@inheritDoc TransactableLiquity.approveWstEthTokens} */
+  approveWstEthTokens(
     allowance?: Decimalish
   ): Promise<SentLiquityTransaction<S, LiquityReceipt<R, void>>>;
 

@@ -38,4 +38,6 @@ export interface SimStoreBaseState
 |  [troveBeforeRedistribution](./lib-base.simstorebasestate.trovebeforeredistribution.md) | [TroveWithPendingRedistribution](./lib-base.trovewithpendingredistribution.md) | User's Trove in its state after the last direct modification. |
 |  [uniTokenAllowance](./lib-base.simstorebasestate.unitokenallowance.md) | [Decimal](./lib-base.decimal.md) | The liquidity mining contract's allowance of user's Uniswap ETH/LUSD LP tokens. |
 |  [uniTokenBalance](./lib-base.simstorebasestate.unitokenbalance.md) | [Decimal](./lib-base.decimal.md) | User's Uniswap ETH/LUSD LP token balance. |
+|  [wstETHBalance](./lib-base.simstorebasestate.wstethbalance.md) | [Decimal](./lib-base.decimal.md) | wstETH Balance \* |
+|  [wstETHTokenAllowance](./lib-base.simstorebasestate.wstethtokenallowance.md) | [Decimal](./lib-base.decimal.md) | wstETH Token Allowance \* |
 

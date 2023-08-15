@@ -85,34 +85,34 @@ export const useBondContracts = (): BondContracts => {
     ERC20Faucet__factory.abi
   );
 
-  const [simToken, simTokenStatus] =
+  const [simToken] =
     SIM_OVERRIDE_ADDRESS === null
       ? [simTokenDefault, simTokenDefaultStatus]
       : [(simTokenOverride as unknown) as SIMToken, simTokenOverrideStatus];
 
-  const [shadyToken, bLusdTokenStatus] = useContract<SHADYToken>(
+  const [shadyToken] = useContract<SHADYToken>(
     BLUSD_TOKEN_ADDRESS,
     BLUSDToken__factory.abi
   );
 
   // TODO ve
-  const [bondNft, bondNftStatus] = useContract<BondNFT>(BOND_NFT_ADDRESS, BondNFT__factory.abi);
-  const [chickenBondManager, chickenBondManagerStatus] = useContract<ChickenBondManager>(
+  const [bondNft] = useContract<BondNFT>(BOND_NFT_ADDRESS, BondNFT__factory.abi);
+  const [chickenBondManager] = useContract<ChickenBondManager>(
     CHICKEN_BOND_MANAGER_ADDRESS,
     ChickenBondManager__factory.abi
   );
 
-  const [bLusdAmm, bLusdAmmStatus] = useContract<CurveCryptoSwap2ETH>(
+  const [bLusdAmm] = useContract<CurveCryptoSwap2ETH>(
     BLUSD_AMM_ADDRESS,
     CurveCryptoSwap2ETH__factory.abi
   );
 
-  const [bLusdAmmZapper, bLusdAmmZapperStatus] = useContract<BLUSDLPZap>(
+  const [bLusdAmmZapper] = useContract<BLUSDLPZap>(
     BLUSD_LP_ZAP_ADDRESS,
     BLUSDLPZap__factory.abi
   );
 
-  const [bLusdGauge, bLusdGaugeStatus] = useContract<CurveLiquidityGaugeV5>(
+  const [bLusdGauge] = useContract<CurveLiquidityGaugeV5>(
     BLUSD_AMM_STAKING_ADDRESS,
     CurveLiquidityGaugeV5__factory.abi
   );

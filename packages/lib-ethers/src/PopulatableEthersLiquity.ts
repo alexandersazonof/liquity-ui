@@ -12,8 +12,6 @@ import {
   Decimalish,
   LiquidationDetails,
   LiquityReceipt,
-  LUSD_MINIMUM_DEBT,
-  LUSD_MINIMUM_NET_DEBT,
   MinedReceipt,
   PopulatableLiquity,
   PopulatedLiquityTransaction,
@@ -33,8 +31,8 @@ import {
   _normalizeTroveAdjustment,
   _normalizeTroveCreation,
   _pendingReceipt,
-  _successfulReceipt
-} from "@sim/lib-base";
+  _successfulReceipt, SIM_MINIMUM_DEBT, SIM_MINIMUM_NET_DEBT,
+} from '@sim/lib-base';
 
 import {
   EthersPopulatedTransaction,
@@ -823,7 +821,7 @@ export class PopulatableEthersLiquity
     const { borrowerOperations } = _getContracts(this._readable.connection);
 
     const normalizedParams = _normalizeTroveCreation(params);
-    const { depositCollateral, borrowLUSD } = normalizedParams;
+    const { depositCollateral, borrowSIM } = normalizedParams;
 
     const [fees, blockTimestamp, total, price] = await Promise.all([
       this._readable._getFeesFactory(),
@@ -848,14 +846,14 @@ export class PopulatableEthersLiquity
       maxBorrowingRateOrOptionalParams,
       currentBorrowingRate
     );
+    console.log(depositCollateral.toString(18));
 
     // TODO param
-    const txParams = (borrowLUSD: Decimal): Parameters<typeof borrowerOperations.openTrove> => [
+    const txParams = (borrowSIM: Decimal): Parameters<typeof borrowerOperations.openTrove> => [
+      depositCollateral.hex,
       maxBorrowingRate.hex,
-      borrowLUSD.hex,
-      Decimal.ZERO.hex,
+      borrowSIM.hex,
       ...hints,
-      { value: depositCollateral.hex, ...overrides }
     ];
 
     let gasHeadroom: number | undefined;
@@ -863,21 +861,21 @@ export class PopulatableEthersLiquity
     if (overrides?.gasLimit === undefined) {
       const decayedBorrowingRate = decayBorrowingRate(60 * borrowingFeeDecayToleranceMinutes);
       const decayedTrove = Trove.create(normalizedParams, decayedBorrowingRate);
-      const { borrowLUSD: borrowLUSDSimulatingDecay } = Trove.recreate(
+      const { borrowSIM: borrowSIMSimulatingDecay } = Trove.recreate(
         decayedTrove,
         currentBorrowingRate
       );
 
-      if (decayedTrove.debt.lt(LUSD_MINIMUM_DEBT)) {
+      if (decayedTrove.debt.lt(SIM_MINIMUM_DEBT)) {
         throw new Error(
-          `Trove's debt might fall below ${LUSD_MINIMUM_DEBT} ` +
+          `Trove's debt might fall below ${SIM_MINIMUM_DEBT} ` +
             `within ${borrowingFeeDecayToleranceMinutes} minutes`
         );
       }
 
       const [gasNow, gasLater] = await Promise.all([
-        borrowerOperations.estimateGas.openTrove(...txParams(borrowLUSD)),
-        borrowerOperations.estimateGas.openTrove(...txParams(borrowLUSDSimulatingDecay))
+        borrowerOperations.estimateGas.openTrove(...txParams(borrowSIM)),
+        borrowerOperations.estimateGas.openTrove(...txParams(borrowSIMSimulatingDecay))
       ]);
 
       const gasLimit = addGasForBaseRateUpdate(borrowingFeeDecayToleranceMinutes)(
@@ -890,7 +888,7 @@ export class PopulatableEthersLiquity
 
     return this._wrapTroveChangeWithFees(
       normalizedParams,
-      await borrowerOperations.populateTransaction.openTrove(...txParams(borrowLUSD)),
+      await borrowerOperations.populateTransaction.openTrove(...txParams(borrowSIM)),
       gasHeadroom
     );
   }
@@ -929,7 +927,7 @@ export class PopulatableEthersLiquity
     maxBorrowingRate?: Decimalish,
     overrides?: EthersTransactionOverrides
   ): Promise<PopulatedEthersLiquityTransaction<TroveAdjustmentDetails>> {
-    return this.adjustTrove({ borrowLUSD: amount }, maxBorrowingRate, overrides);
+    return this.adjustTrove({ borrowSIM: amount }, maxBorrowingRate, overrides);
   }
 
   /** {@inheritDoc @sim/lib-base#PopulatableLiquity.repayLUSD} */
@@ -937,7 +935,7 @@ export class PopulatableEthersLiquity
     amount: Decimalish,
     overrides?: EthersTransactionOverrides
   ): Promise<PopulatedEthersLiquityTransaction<TroveAdjustmentDetails>> {
-    return this.adjustTrove({ repayLUSD: amount }, undefined, overrides);
+    return this.adjustTrove({ repaySIM: amount }, undefined, overrides);
   }
 
   /** {@inheritDoc @sim/lib-base#PopulatableLiquity.adjustTrove} */
@@ -950,11 +948,11 @@ export class PopulatableEthersLiquity
     const { borrowerOperations } = _getContracts(this._readable.connection);
 
     const normalizedParams = _normalizeTroveAdjustment(params);
-    const { depositCollateral, withdrawCollateral, borrowLUSD, repayLUSD } = normalizedParams;
+    const { depositCollateral, withdrawCollateral, borrowSIM, repaySIM } = normalizedParams;
 
     const [trove, feeVars] = await Promise.all([
       this._readable.getTrove(overrides.from),
-      borrowLUSD &&
+      borrowSIM &&
         promiseAllValues({
           fees: this._readable._getFeesFactory(),
           blockTimestamp: this._readable._getBlockTimestamp(),
@@ -983,15 +981,14 @@ export class PopulatableEthersLiquity
       currentBorrowingRate
     );
 
-    // TODO chec params
-    const txParams = (borrowLUSD?: Decimal): Parameters<typeof borrowerOperations.adjustTrove> => [
+    // TODO check params
+    const txParams = (borrowSIM?: Decimal): Parameters<typeof borrowerOperations.adjustTrove> => [
+      (depositCollateral ?? Decimal.ZERO).hex,
       maxBorrowingRate.hex,
       (withdrawCollateral ?? Decimal.ZERO).hex,
-      (borrowLUSD ?? repayLUSD ?? Decimal.ZERO).hex,
-      Decimal.ZERO.hex,
-      true,
+      (borrowSIM ?? repaySIM ?? Decimal.ZERO).hex,
+      !!borrowSIM,
       ...hints,
-      { value: depositCollateral?.hex, ...overrides }
     ];
 
     let gasHeadroom: number | undefined;
@@ -999,27 +996,27 @@ export class PopulatableEthersLiquity
     if (overrides.gasLimit === undefined) {
       const decayedBorrowingRate = decayBorrowingRate(60 * borrowingFeeDecayToleranceMinutes);
       const decayedTrove = trove.adjust(normalizedParams, decayedBorrowingRate);
-      const { borrowLUSD: borrowLUSDSimulatingDecay } = trove.adjustTo(
+      const { borrowSIM: borrowLUSDSimulatingDecay } = trove.adjustTo(
         decayedTrove,
         currentBorrowingRate
       );
 
-      if (decayedTrove.debt.lt(LUSD_MINIMUM_DEBT)) {
+      if (decayedTrove.debt.lt(SIM_MINIMUM_DEBT)) {
         throw new Error(
-          `Trove's debt might fall below ${LUSD_MINIMUM_DEBT} ` +
+          `Trove's debt might fall below ${SIM_MINIMUM_DEBT} ` +
             `within ${borrowingFeeDecayToleranceMinutes} minutes`
         );
       }
 
       const [gasNow, gasLater] = await Promise.all([
-        borrowerOperations.estimateGas.adjustTrove(...txParams(borrowLUSD)),
-        borrowLUSD &&
+        borrowerOperations.estimateGas.adjustTrove(...txParams(borrowSIM)),
+        borrowSIM &&
           borrowerOperations.estimateGas.adjustTrove(...txParams(borrowLUSDSimulatingDecay))
       ]);
 
       let gasLimit = bigNumberMax(addGasForPotentialListTraversal(gasNow), gasLater);
 
-      if (borrowLUSD) {
+      if (borrowSIM) {
         gasLimit = addGasForBaseRateUpdate(borrowingFeeDecayToleranceMinutes)(gasLimit);
       }
 
@@ -1029,7 +1026,7 @@ export class PopulatableEthersLiquity
 
     return this._wrapTroveChangeWithFees(
       normalizedParams,
-      await borrowerOperations.populateTransaction.adjustTrove(...txParams(borrowLUSD)),
+      await borrowerOperations.populateTransaction.adjustTrove(...txParams(borrowSIM)),
       gasHeadroom
     );
   }
@@ -1240,7 +1237,7 @@ export class PopulatableEthersLiquity
 
     if (truncatedAmount.isZero) {
       throw new Error(
-        `redeemLUSD: amount too low to redeem (try at least ${LUSD_MINIMUM_NET_DEBT})`
+        `redeemLUSD: amount too low to redeem (try at least ${SIM_MINIMUM_NET_DEBT})`
       );
     }
 
@@ -1279,7 +1276,7 @@ export class PopulatableEthersLiquity
         truncatedAmount.lt(attemptedLUSDAmount)
           ? newMaxRedemptionRate =>
               populateRedemption(
-                truncatedAmount.add(LUSD_MINIMUM_NET_DEBT),
+                truncatedAmount.add(SIM_MINIMUM_NET_DEBT),
                 newMaxRedemptionRate ?? maxRedemptionRate
               )
           : undefined
@@ -1363,32 +1360,26 @@ export class PopulatableEthersLiquity
   ): Promise<PopulatedEthersLiquityTransaction<void>> {
     address ??= _requireAddress(this._readable.connection, overrides);
     overrides = this._prepareOverrides(overrides);
-    // TODO check token
-    const { simToken } = _getContracts(this._readable.connection);
-
-    if (!_uniTokenIsMock(simToken)) {
-      throw new Error("_mintUniToken() unavailable on this deployment of Liquity");
-    }
+    const { wStEthMock } = _getContracts(this._readable.connection);
 
     return this._wrapSimpleTransaction(
-      await simToken.estimateAndPopulate.mint(overrides, id, address, Decimal.from(amount).hex)
+      await wStEthMock.estimateAndPopulate.mint(overrides, id, address, Decimal.from(amount).hex)
     );
   }
 
-  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.approveUniTokens} */
-  async approveUniTokens(
+  /** {@inheritDoc @sim/lib-base#PopulatableLiquity.approveWstEthTokens} */
+  async approveWstEthTokens(
     allowance?: Decimalish,
     overrides?: EthersTransactionOverrides
   ): Promise<PopulatedEthersLiquityTransaction<void>> {
     overrides = this._prepareOverrides(overrides);
-    const { simToken, ve } = _getContracts(this._readable.connection);
-    // TODO
+    const { wStEthMock, borrowerOperations } = _getContracts(this._readable.connection);
 
     return this._wrapSimpleTransaction(
-      await simToken.estimateAndPopulate.approve(
+      await wStEthMock.estimateAndPopulate.approve(
         overrides,
         id,
-        ve.address,
+        borrowerOperations.address,
         Decimal.from(allowance ?? Decimal.INFINITY).hex
       )
     );

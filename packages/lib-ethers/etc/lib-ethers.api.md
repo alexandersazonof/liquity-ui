@@ -98,7 +98,7 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
     // (undocumented)
     adjustTrove(params: TroveAdjustmentParams<Decimalish>, maxBorrowingRateOrOptionalParams?: Decimalish | BorrowingOperationOptionalParams, overrides?: EthersTransactionOverrides): Promise<TroveAdjustmentDetails>;
     // (undocumented)
-    approveUniTokens(allowance?: Decimalish, overrides?: EthersTransactionOverrides): Promise<void>;
+    approveWstEthTokens(allowance?: Decimalish, overrides?: EthersTransactionOverrides): Promise<void>;
     // (undocumented)
     borrowLUSD(amount: Decimalish, maxBorrowingRate?: Decimalish, overrides?: EthersTransactionOverrides): Promise<TroveAdjustmentDetails>;
     // (undocumented)
@@ -180,9 +180,9 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
     // (undocumented)
     getTroves(params: TroveListingParams, overrides?: EthersCallOverrides): Promise<UserTrove[]>;
     // (undocumented)
-    getUniTokenAllowance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
+    getWstEthAllowance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
     // (undocumented)
-    getUniTokenBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
+    getWstEthBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
     hasStore(): this is EthersLiquityWithStore;
     hasStore(store: "blockPolled"): this is EthersLiquityWithStore<BlockPolledSimStore>;
     // (undocumented)
@@ -333,7 +333,7 @@ export class PopulatableEthersLiquity implements PopulatableLiquity<EthersTransa
     // (undocumented)
     adjustTrove(params: TroveAdjustmentParams<Decimalish>, maxBorrowingRateOrOptionalParams?: Decimalish | BorrowingOperationOptionalParams, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)
-    approveUniTokens(allowance?: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
+    approveWstEthTokens(allowance?: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // (undocumented)
     borrowLUSD(amount: Decimalish, maxBorrowingRate?: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)
@@ -515,9 +515,9 @@ export class ReadableEthersLiquity implements ReadableLiquity {
     // (undocumented)
     getTroves(params: TroveListingParams, overrides?: EthersCallOverrides): Promise<UserTrove[]>;
     // (undocumented)
-    getUniTokenAllowance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
+    getWstEthAllowance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
     // (undocumented)
-    getUniTokenBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
+    getWstEthBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
     hasStore(): this is ReadableEthersLiquityWithStore;
     hasStore(store: "blockPolled"): this is ReadableEthersLiquityWithStore<BlockPolledSimStore>;
 }
@@ -536,7 +536,7 @@ export class SendableEthersLiquity implements SendableLiquity<EthersTransactionR
     // (undocumented)
     adjustTrove(params: TroveAdjustmentParams<Decimalish>, maxBorrowingRateOrOptionalParams?: Decimalish | BorrowingOperationOptionalParams, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)
-    approveUniTokens(allowance?: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
+    approveWstEthTokens(allowance?: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // (undocumented)
     borrowLUSD(amount: Decimalish, maxBorrowingRate?: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)

@@ -54,9 +54,9 @@ export class _CachedReadableLiquity<T extends unknown[]> implements _ReadableLiq
     // (undocumented)
     getTroves(params: TroveListingParams, ...extraParams: T): Promise<UserTrove[]>;
     // (undocumented)
-    getUniTokenAllowance(address?: string, ...extraParams: T): Promise<Decimal>;
+    getWstEthAllowance(address?: string, ...extraParams: T): Promise<Decimal>;
     // (undocumented)
-    getUniTokenBalance(address?: string, ...extraParams: T): Promise<Decimal>;
+    getWstEthBalance(address?: string, ...extraParams: T): Promise<Decimal>;
     }
 
 // @internal (undocumented)
@@ -81,7 +81,7 @@ export type _CollateralWithdrawal<T> = {
 export const CRITICAL_COLLATERAL_RATIO: Decimal;
 
 // @internal (undocumented)
-export type _DebtChange<T> = (_LUSDBorrowing<T> & _NoLUSDRepayment) | (_LUSDRepayment<T> & _NoLUSDBorrowing);
+export type _DebtChange<T> = (_SIMBorrowing<T> & _NoSIMRepayment) | (_SIMRepayment<T> & _NoSIMBorrowing);
 
 // @public
 export class Decimal {
@@ -263,25 +263,6 @@ export type LQTYStakeChange<T> = {
 };
 
 // @public
-export const LUSD_LIQUIDATION_RESERVE: Decimal;
-
-// @public
-export const LUSD_MINIMUM_DEBT: Decimal;
-
-// @public
-export const LUSD_MINIMUM_NET_DEBT: Decimal;
-
-// @internal (undocumented)
-export type _LUSDBorrowing<T> = {
-    borrowLUSD: T;
-};
-
-// @internal (undocumented)
-export type _LUSDRepayment<T> = {
-    repayLUSD: T;
-};
-
-// @public
 export const MAXIMUM_BORROWING_RATE: Decimal;
 
 // @public
@@ -306,19 +287,19 @@ export type _NoCollateralDeposit = Partial<_CollateralDeposit<undefined>>;
 export type _NoCollateralWithdrawal = Partial<_CollateralWithdrawal<undefined>>;
 
 // @internal (undocumented)
-export type _NoDebtChange = _NoLUSDBorrowing & _NoLUSDRepayment;
-
-// @internal (undocumented)
-export type _NoLUSDBorrowing = Partial<_LUSDBorrowing<undefined>>;
-
-// @internal (undocumented)
-export type _NoLUSDRepayment = Partial<_LUSDRepayment<undefined>>;
+export type _NoDebtChange = _NoSIMBorrowing & _NoSIMRepayment;
 
 // @internal (undocumented)
 export const _normalizeTroveAdjustment: (params: Record<string, Decimalish | undefined>) => TroveAdjustmentParams<Decimal>;
 
 // @internal (undocumented)
 export const _normalizeTroveCreation: (params: Record<string, Decimalish | undefined>) => TroveCreationParams<Decimal>;
+
+// @internal (undocumented)
+export type _NoSIMBorrowing = Partial<_SIMBorrowing<undefined>>;
+
+// @internal (undocumented)
+export type _NoSIMRepayment = Partial<_SIMRepayment<undefined>>;
 
 // @alpha (undocumented)
 export interface ObservableLiquity {
@@ -376,7 +357,7 @@ export type _PopulatableFrom<T, P> = {
 // @public
 export interface PopulatableLiquity<R = unknown, S = unknown, P = unknown> extends _PopulatableFrom<SendableLiquity<R, S>, P> {
     adjustTrove(params: TroveAdjustmentParams<Decimalish>, maxBorrowingRate?: Decimalish): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, TroveAdjustmentDetails>>>>;
-    approveUniTokens(allowance?: Decimalish): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
+    approveWstEthTokens(allowance?: Decimalish): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
     borrowLUSD(amount: Decimalish, maxBorrowingRate?: Decimalish): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, TroveAdjustmentDetails>>>>;
     claimCollateralSurplus(): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
     closeTrove(): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, TroveClosureDetails>>>>;
@@ -440,8 +421,8 @@ export interface ReadableLiquity {
         beforeRedistribution: true;
     }): Promise<TroveWithPendingRedistribution[]>;
     getTroves(params: TroveListingParams): Promise<UserTrove[]>;
-    getUniTokenAllowance(address?: string): Promise<Decimal>;
-    getUniTokenBalance(address?: string): Promise<Decimal>;
+    getWstEthAllowance(address?: string): Promise<Decimal>;
+    getWstEthBalance(address?: string): Promise<Decimal>;
 }
 
 // @internal (undocumented)
@@ -477,7 +458,7 @@ export type _SendableFrom<T, R, S> = {
 // @public
 export interface SendableLiquity<R = unknown, S = unknown> extends _SendableFrom<TransactableLiquity, R, S> {
     adjustTrove(params: TroveAdjustmentParams<Decimalish>, maxBorrowingRate?: Decimalish): Promise<SentLiquityTransaction<S, LiquityReceipt<R, TroveAdjustmentDetails>>>;
-    approveUniTokens(allowance?: Decimalish): Promise<SentLiquityTransaction<S, LiquityReceipt<R, void>>>;
+    approveWstEthTokens(allowance?: Decimalish): Promise<SentLiquityTransaction<S, LiquityReceipt<R, void>>>;
     borrowLUSD(amount: Decimalish, maxBorrowingRate?: Decimalish): Promise<SentLiquityTransaction<S, LiquityReceipt<R, TroveAdjustmentDetails>>>;
     claimCollateralSurplus(): Promise<SentLiquityTransaction<S, LiquityReceipt<R, void>>>;
     closeTrove(): Promise<SentLiquityTransaction<S, LiquityReceipt<R, TroveClosureDetails>>>;
@@ -506,6 +487,25 @@ export interface SentLiquityTransaction<S = unknown, T extends LiquityReceipt = 
     readonly rawSentTransaction: S;
     waitForReceipt(): Promise<Extract<T, MinedReceipt>>;
 }
+
+// @public
+export const SIM_LIQUIDATION_RESERVE: Decimal;
+
+// @public
+export const SIM_MINIMUM_DEBT: Decimal;
+
+// @public
+export const SIM_MINIMUM_NET_DEBT: Decimal;
+
+// @internal (undocumented)
+export type _SIMBorrowing<T> = {
+    borrowSIM: T;
+};
+
+// @internal (undocumented)
+export type _SIMRepayment<T> = {
+    repaySIM: T;
+};
 
 // @public
 export abstract class SimStore<T = unknown> {
@@ -554,6 +554,8 @@ export interface SimStoreBaseState {
     troveBeforeRedistribution: TroveWithPendingRedistribution;
     uniTokenAllowance: Decimal;
     uniTokenBalance: Decimal;
+    wstETHBalance: Decimal;
+    wstETHTokenAllowance: Decimal;
 }
 
 // @public
@@ -629,7 +631,7 @@ export const _successfulReceipt: <R, D>(rawReceipt: R, details: D, toString?: ((
 // @public
 export interface TransactableLiquity {
     adjustTrove(params: TroveAdjustmentParams<Decimalish>, maxBorrowingRate?: Decimalish): Promise<TroveAdjustmentDetails>;
-    approveUniTokens(allowance?: Decimalish): Promise<void>;
+    approveWstEthTokens(allowance?: Decimalish): Promise<void>;
     borrowLUSD(amount: Decimalish, maxBorrowingRate?: Decimalish): Promise<TroveAdjustmentDetails>;
     claimCollateralSurplus(): Promise<void>;
     closeTrove(): Promise<TroveClosureDetails>;
@@ -750,11 +752,11 @@ export interface TroveClosureDetails {
 
 // Warning: (ae-incompatible-release-tags) The symbol "TroveClosureParams" is marked as @public, but its signature references "_CollateralWithdrawal" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "TroveClosureParams" is marked as @public, but its signature references "_NoCollateralDeposit" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "TroveClosureParams" is marked as @public, but its signature references "_LUSDRepayment" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "TroveClosureParams" is marked as @public, but its signature references "_NoLUSDBorrowing" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "TroveClosureParams" is marked as @public, but its signature references "_SIMRepayment" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "TroveClosureParams" is marked as @public, but its signature references "_NoSIMBorrowing" which is marked as @internal
 //
 // @public
-export type TroveClosureParams<T> = _CollateralWithdrawal<T> & _NoCollateralDeposit & Partial<_LUSDRepayment<T>> & _NoLUSDBorrowing;
+export type TroveClosureParams<T> = _CollateralWithdrawal<T> & _NoCollateralDeposit & Partial<_SIMRepayment<T>> & _NoSIMBorrowing;
 
 // @public
 export interface TroveCreationDetails {
@@ -768,11 +770,11 @@ export type TroveCreationError = "missingLiquidationReserve";
 
 // Warning: (ae-incompatible-release-tags) The symbol "TroveCreationParams" is marked as @public, but its signature references "_CollateralDeposit" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "TroveCreationParams" is marked as @public, but its signature references "_NoCollateralWithdrawal" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "TroveCreationParams" is marked as @public, but its signature references "_LUSDBorrowing" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "TroveCreationParams" is marked as @public, but its signature references "_NoLUSDRepayment" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "TroveCreationParams" is marked as @public, but its signature references "_SIMBorrowing" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "TroveCreationParams" is marked as @public, but its signature references "_NoSIMRepayment" which is marked as @internal
 //
 // @public
-export type TroveCreationParams<T = unknown> = _CollateralDeposit<T> & _NoCollateralWithdrawal & _LUSDBorrowing<T> & _NoLUSDRepayment;
+export type TroveCreationParams<T = unknown> = _CollateralDeposit<T> & _NoCollateralWithdrawal & _SIMBorrowing<T> & _NoSIMRepayment;
 
 // @public
 export interface TroveListingParams {

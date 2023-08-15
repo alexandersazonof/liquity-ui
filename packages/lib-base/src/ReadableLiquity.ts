@@ -130,14 +130,14 @@ export interface ReadableLiquity {
    *
    * @param address - Address whose balance should be retrieved.
    */
-  getUniTokenBalance(address?: string): Promise<Decimal>;
+  getWstEthBalance(address?: string): Promise<Decimal>;
 
   /**
    * Get the liquidity mining contract's allowance of a holder's Uniswap ETH/LUSD LP tokens.
    *
    * @param address - Address holding the Uniswap ETH/LUSD LP tokens.
    */
-  getUniTokenAllowance(address?: string): Promise<Decimal>;
+  getWstEthAllowance(address?: string): Promise<Decimal>;
 
   /**
    * Get the remaining LQTY that will be collectively rewarded to liquidity miners.

@@ -9,7 +9,7 @@ Parameters of a [closeTrove()](./lib-base.transactableliquity.closetrove.md) tra
 <b>Signature:</b>
 
 ```typescript
-export declare type TroveClosureParams<T> = _CollateralWithdrawal<T> & _NoCollateralDeposit & Partial<_LUSDRepayment<T>> & _NoLUSDBorrowing;
+export declare type TroveClosureParams<T> = _CollateralWithdrawal<T> & _NoCollateralDeposit & Partial<_SIMRepayment<T>> & _NoSIMBorrowing;
 ```
 
 ## Remarks

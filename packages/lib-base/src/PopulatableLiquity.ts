@@ -273,8 +273,8 @@ export interface PopulatableLiquity<R = unknown, S = unknown, P = unknown>
   //   PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>
   // >;
 
-  /** {@inheritDoc TransactableLiquity.approveUniTokens} */
-  approveUniTokens(
+  /** {@inheritDoc TransactableLiquity.approveWstEthTokens} */
+  approveWstEthTokens(
     allowance?: Decimalish
   ): Promise<PopulatedLiquityTransaction<P, SentLiquityTransaction<S, LiquityReceipt<R, void>>>>;
 

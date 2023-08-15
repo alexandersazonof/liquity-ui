@@ -1,6 +1,5 @@
 import { Flex, Text, Slider as ThemeUiSlider, Button } from "theme-ui";
 import { Decimal } from "@sim/lib-base";
-import { toFloat } from "./Bonds/utils";
 import { InfoIcon } from "./InfoIcon";
 
 type SliderProps = {
@@ -64,7 +63,7 @@ export const HorizontalSlider: React.FC<SliderProps> = ({
           {min}
         </Text>
         <ThemeUiSlider
-          value={toFloat(value)}
+          value={+value}
           min={min}
           max={max}
           step={step}

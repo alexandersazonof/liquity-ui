@@ -472,7 +472,7 @@ export interface TransactableLiquity {
    * @throws
    * Throws {@link TransactionFailedError} in case of transaction failure.
    */
-  approveUniTokens(allowance?: Decimalish): Promise<void>;
+  approveWstEthTokens(allowance?: Decimalish): Promise<void>;
 
   /**
    * Stake Uniswap ETH/LUSD LP tokens to participate in liquidity mining and earn LQTY.

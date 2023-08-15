@@ -5,19 +5,19 @@ import { Decimal, Decimalish } from "./Decimal";
 import {
   MINIMUM_COLLATERAL_RATIO,
   CRITICAL_COLLATERAL_RATIO,
-  LUSD_LIQUIDATION_RESERVE,
+  SIM_LIQUIDATION_RESERVE,
   MINIMUM_BORROWING_RATE
 } from "./constants";
 
 /** @internal */ export type _CollateralDeposit<T> = { depositCollateral: T };
 /** @internal */ export type _CollateralWithdrawal<T> = { withdrawCollateral: T };
-/** @internal */ export type _LUSDBorrowing<T> = { borrowLUSD: T };
-/** @internal */ export type _LUSDRepayment<T> = { repayLUSD: T };
+/** @internal */ export type _SIMBorrowing<T> = { borrowSIM: T };
+/** @internal */ export type _SIMRepayment<T> = { repaySIM: T };
 
 /** @internal */ export type _NoCollateralDeposit = Partial<_CollateralDeposit<undefined>>;
 /** @internal */ export type _NoCollateralWithdrawal = Partial<_CollateralWithdrawal<undefined>>;
-/** @internal */ export type _NoLUSDBorrowing = Partial<_LUSDBorrowing<undefined>>;
-/** @internal */ export type _NoLUSDRepayment = Partial<_LUSDRepayment<undefined>>;
+/** @internal */ export type _NoSIMBorrowing = Partial<_SIMBorrowing<undefined>>;
+/** @internal */ export type _NoSIMRepayment = Partial<_SIMRepayment<undefined>>;
 
 /** @internal */
 export type _CollateralChange<T> =
@@ -29,11 +29,11 @@ export type _NoCollateralChange = _NoCollateralDeposit & _NoCollateralWithdrawal
 
 /** @internal */
 export type _DebtChange<T> =
-  | (_LUSDBorrowing<T> & _NoLUSDRepayment)
-  | (_LUSDRepayment<T> & _NoLUSDBorrowing);
+  | (_SIMBorrowing<T> & _NoSIMRepayment)
+  | (_SIMRepayment<T> & _NoSIMBorrowing);
 
 /** @internal */
-export type _NoDebtChange = _NoLUSDBorrowing & _NoLUSDRepayment;
+export type _NoDebtChange = _NoSIMBorrowing & _NoSIMRepayment;
 
 /**
  * Parameters of an {@link TransactableLiquity.openTrove | openTrove()} transaction.
@@ -70,8 +70,8 @@ export type _NoDebtChange = _NoLUSDBorrowing & _NoLUSDRepayment;
  */
 export type TroveCreationParams<T = unknown> = _CollateralDeposit<T> &
   _NoCollateralWithdrawal &
-  _LUSDBorrowing<T> &
-  _NoLUSDRepayment;
+  _SIMBorrowing<T> &
+  _NoSIMRepayment;
 
 /**
  * Parameters of a {@link TransactableLiquity.closeTrove | closeTrove()} transaction.
@@ -108,8 +108,8 @@ export type TroveCreationParams<T = unknown> = _CollateralDeposit<T> &
  */
 export type TroveClosureParams<T> = _CollateralWithdrawal<T> &
   _NoCollateralDeposit &
-  Partial<_LUSDRepayment<T>> &
-  _NoLUSDBorrowing;
+  Partial<_SIMRepayment<T>> &
+  _NoSIMBorrowing;
 
 /**
  * Parameters of an {@link TransactableLiquity.adjustTrove | adjustTrove()} transaction.
@@ -257,7 +257,7 @@ type AllowedKey<T> = Exclude<
 
 const allowedTroveCreationKeys: AllowedKey<TroveCreationParams>[] = [
   "depositCollateral",
-  "borrowLUSD"
+  "borrowSIM"
 ];
 
 function checkAllowedTroveCreationKeys<T>(
@@ -302,8 +302,8 @@ export const _normalizeTroveCreation = (
 const allowedTroveAdjustmentKeys: AllowedKey<TroveAdjustmentParams>[] = [
   "depositCollateral",
   "withdrawCollateral",
-  "borrowLUSD",
-  "repayLUSD"
+  "borrowSIM",
+  "repaySIM"
 ];
 
 function checkAllowedTroveAdjustmentKeys<T>(
@@ -339,21 +339,21 @@ const collateralChangeFrom = <T>({
 };
 
 const debtChangeFrom = <T>({
-  borrowLUSD,
-  repayLUSD
+  borrowSIM,
+  repaySIM
 }: Partial<Record<AllowedKey<TroveAdjustmentParams>, T>>): _DebtChange<T> | undefined => {
-  if (borrowLUSD !== undefined && repayLUSD !== undefined) {
+  if (borrowSIM !== undefined && repaySIM !== undefined) {
     throw new Error(
       "TroveAdjustmentParams: 'borrowLUSD' and 'repayLUSD' can't be present at the same time"
     );
   }
 
-  if (borrowLUSD !== undefined) {
-    return { borrowLUSD };
+  if (borrowSIM !== undefined) {
+    return { borrowSIM: borrowSIM };
   }
 
-  if (repayLUSD !== undefined) {
-    return { repayLUSD };
+  if (repaySIM !== undefined) {
+    return { repaySIM: repaySIM };
   }
 };
 
@@ -430,11 +430,11 @@ export class Trove {
    * This doesn't include the liquidation reserve, which is refunded in case of normal closure.
    */
   get netDebt(): Decimal {
-    if (this.debt.lt(LUSD_LIQUIDATION_RESERVE)) {
-      throw new Error(`netDebt should not be used when debt < ${LUSD_LIQUIDATION_RESERVE}`);
+    if (this.debt.lt(SIM_LIQUIDATION_RESERVE)) {
+      throw new Error(`netDebt should not be used when debt < ${SIM_LIQUIDATION_RESERVE}`);
     }
 
-    return this.debt.sub(LUSD_LIQUIDATION_RESERVE);
+    return this.debt.sub(SIM_LIQUIDATION_RESERVE);
   }
 
   /** @internal */
@@ -539,8 +539,8 @@ export class Trove {
 
   private _debtChange({ debt }: Trove, borrowingRate: Decimalish): _DebtChange<Decimal> {
     return debt.gt(this.debt)
-      ? { borrowLUSD: unapplyFee(borrowingRate, debt.sub(this.debt)) }
-      : { repayLUSD: this.debt.sub(debt) };
+      ? { borrowSIM: unapplyFee(borrowingRate, debt.sub(this.debt)) }
+      : { repaySIM: this.debt.sub(debt) };
   }
 
   private _collateralChange({ collateral }: Trove): _CollateralChange<Decimal> {
@@ -567,20 +567,20 @@ export class Trove {
     }
 
     if (this.isEmpty) {
-      if (that.debt.lt(LUSD_LIQUIDATION_RESERVE)) {
+      if (that.debt.lt(SIM_LIQUIDATION_RESERVE)) {
         return invalidTroveCreation(that, "missingLiquidationReserve");
       }
 
       return troveCreation({
         depositCollateral: that.collateral,
-        borrowLUSD: unapplyFee(borrowingRate, that.netDebt)
+        borrowSIM: unapplyFee(borrowingRate, that.netDebt)
       });
     }
 
     if (that.isEmpty) {
       return troveClosure(
         this.netDebt.nonZero
-          ? { withdrawCollateral: this.collateral, repayLUSD: this.netDebt }
+          ? { withdrawCollateral: this.collateral, repaySIM: this.netDebt }
           : { withdrawCollateral: this.collateral }
       );
     }
@@ -625,11 +625,11 @@ export class Trove {
           throw new Error("Can't create onto existing Trove");
         }
 
-        const { depositCollateral, borrowLUSD } = change.params;
+        const { depositCollateral, borrowSIM } = change.params;
 
         return new Trove(
           depositCollateral,
-          LUSD_LIQUIDATION_RESERVE.add(applyFee(borrowingRate, borrowLUSD))
+          SIM_LIQUIDATION_RESERVE.add(applyFee(borrowingRate, borrowSIM))
         );
       }
 
@@ -643,13 +643,13 @@ export class Trove {
       case "adjustment": {
         const {
           setToZero,
-          params: { depositCollateral, withdrawCollateral, borrowLUSD, repayLUSD }
+          params: { depositCollateral, withdrawCollateral, borrowSIM, repaySIM }
         } = change;
 
         const collateralDecrease = withdrawCollateral ?? Decimal.ZERO;
         const collateralIncrease = depositCollateral ?? Decimal.ZERO;
-        const debtDecrease = repayLUSD ?? Decimal.ZERO;
-        const debtIncrease = borrowLUSD ? applyFee(borrowingRate, borrowLUSD) : Decimal.ZERO;
+        const debtDecrease = repaySIM ?? Decimal.ZERO;
+        const debtIncrease = borrowSIM ? applyFee(borrowingRate, borrowSIM) : Decimal.ZERO;
 
         return setToZero === "collateral"
           ? this.setCollateral(Decimal.ZERO).addDebt(debtIncrease).subtractDebt(debtDecrease)
