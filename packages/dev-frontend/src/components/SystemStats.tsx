@@ -5,23 +5,23 @@ import { useSimSelector } from "@sim/lib-react";
 
 import { Statistic } from "./Statistic";
 import * as l from "../lexicon";
-import { NETWORK } from '../strings';
+import { COLLATERAL } from '../strings';
 
-const selectBalances = ({ accountBalance, lusdBalance, lqtyBalance }: SimStoreState) => ({
+const selectBalances = ({ accountBalance, simBalance, shadyBalance }: SimStoreState) => ({
   accountBalance,
-  lusdBalance,
-  lqtyBalance
+  simBalance,
+  shadyBalance
 });
 
 const Balances: React.FC = () => {
-  const { accountBalance, lusdBalance, lqtyBalance } = useSimSelector(selectBalances);
+  const { accountBalance, simBalance, shadyBalance } = useSimSelector(selectBalances);
 
   return (
     <Box sx={{ mb: 3 }}>
       <Heading>My Account Balances</Heading>
       <Statistic lexicon={l.MATIC}>{accountBalance.prettify(4)}</Statistic>
-      <Statistic lexicon={l.SIM}>{lusdBalance.prettify()}</Statistic>
-      <Statistic lexicon={l.SHADY}>{lqtyBalance.prettify()}</Statistic>
+      <Statistic lexicon={l.SIM}>{simBalance.prettify()}</Statistic>
+      <Statistic lexicon={l.SHADY}>{shadyBalance.prettify()}</Statistic>
     </Box>
   );
 };
@@ -80,7 +80,7 @@ export const SystemStats: React.FC<SystemStatsProps> = ({ variant = "info", show
       <Statistic lexicon={l.BORROW_FEE}>{borrowingFeePct.toString(2)}</Statistic>
 
       <Statistic lexicon={l.TVL}>
-        {total.collateral.shorten()} <Text sx={{ fontSize: 1 }}>&nbsp;{NETWORK}</Text>
+        {total.collateral.shorten()} <Text sx={{ fontSize: 1 }}>&nbsp;{COLLATERAL}</Text>
         <Text sx={{ fontSize: 1 }}>
           &nbsp;(${Decimal.from(total.collateral.mul(price)).shorten()})
         </Text>

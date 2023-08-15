@@ -4,22 +4,22 @@ import { Text, Flex, Box, Heading, Button } from "theme-ui";
 import { Decimal, SimStoreState } from "@sim/lib-base";
 import { useSimSelector } from "@sim/lib-react";
 
-import { COIN, GT, NETWORK } from '../strings';
+import { COIN, GT, COLLATERAL } from '../strings';
 import { useSim } from "../hooks/SimContext";
 import { shortenAddress } from "../utils/shortenAddress";
 
 import { Icon } from "./Icon";
 import { ConnectKitButton } from "connectkit";
 
-const select = ({ accountBalance, lusdBalance, lqtyBalance }: SimStoreState) => ({
-  accountBalance,
-  lusdBalance,
-  lqtyBalance
+const select = ({ wstETHBalance, simBalance, shadyBalance }: SimStoreState) => ({
+  wstETHBalance,
+  simBalance,
+  shadyBalance
 });
 
 export const UserAccount: React.FC = () => {
   const { account } = useSim();
-  const { accountBalance, lqtyBalance } = useSimSelector(select);
+  const { wstETHBalance, shadyBalance, simBalance } = useSimSelector(select);
 
   return (
     <Flex>
@@ -47,9 +47,9 @@ export const UserAccount: React.FC = () => {
         <Icon name="wallet" size="lg" />
 
         {([
-          [NETWORK, accountBalance],
-          [COIN, Decimal.from(0)],
-          [GT, Decimal.from(lqtyBalance)],
+          [COLLATERAL, Decimal.from(wstETHBalance)],
+          [COIN, Decimal.from(simBalance)],
+          [GT, Decimal.from(shadyBalance)],
         ] as const).map(([currency, balance], i) => (
           <Flex key={i} sx={{ ml: 3, flexDirection: "column" }}>
             <Heading sx={{ fontSize: 1 }}>{currency}</Heading>

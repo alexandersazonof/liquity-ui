@@ -121,8 +121,8 @@ export class BlockPolledSimStore extends SimStore<BlockPolledSimStoreExtraState>
         userAddress
         ? {
             accountBalance: this._provider.getBalance(userAddress, blockTag).then(decimalify),
-            lusdBalance: this._readable.getLUSDBalance(userAddress, { blockTag }),
-            lqtyBalance: this._readable.getLQTYBalance(userAddress, { blockTag }),
+            simBalance: this._readable.getSIMBalance(userAddress, { blockTag }),
+            shadyBalance: this._readable.getSHADYBalance(userAddress, { blockTag }),
             wstETHBalance: this._readable.getWstEthBalance(userAddress, { blockTag }),
             wstETHTokenAllowance: this._readable.getWstEthAllowance(userAddress),
             uniTokenBalance: Decimal.ZERO,
@@ -148,8 +148,8 @@ export class BlockPolledSimStore extends SimStore<BlockPolledSimStoreExtraState>
         :
         {
             accountBalance: Decimal.ZERO,
-            lusdBalance: Decimal.ZERO,
-            lqtyBalance: Decimal.ZERO,
+            simBalance: Decimal.ZERO,
+            shadyBalance: Decimal.ZERO,
             uniTokenBalance: Decimal.ZERO,
             wstETHBalance: Decimal.ZERO,
             wstETHTokenAllowance: Decimal.ZERO,

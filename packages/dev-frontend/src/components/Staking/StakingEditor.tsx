@@ -12,8 +12,8 @@ import { LoadingOverlay } from "../LoadingOverlay";
 
 import { useStakingView } from "./context/StakingViewContext";
 
-const select = ({ lqtyBalance, totalStakedLQTY }: SimStoreState) => ({
-  lqtyBalance,
+const select = ({ shadyBalance, totalStakedLQTY }: SimStoreState) => ({
+  shadyBalance,
   totalStakedLQTY
 });
 
@@ -31,13 +31,13 @@ export const StakingEditor: React.FC<StakingEditorProps> = ({
   editedLQTY,
   dispatch
 }) => {
-  const { lqtyBalance, totalStakedLQTY } = useSimSelector(select);
+  const { shadyBalance, totalStakedLQTY } = useSimSelector(select);
   const { changePending } = useStakingView();
   const editingState = useState<string>();
 
   const edited = !editedLQTY.eq(originalStake.stakedLQTY);
 
-  const maxAmount = originalStake.stakedLQTY.add(lqtyBalance);
+  const maxAmount = originalStake.stakedLQTY.add(shadyBalance);
   const maxedOut = editedLQTY.eq(maxAmount);
 
   const totalStakedLQTYAfterChange = totalStakedLQTY.sub(originalStake.stakedLQTY).add(editedLQTY);

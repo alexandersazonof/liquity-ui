@@ -112,18 +112,18 @@ export interface ReadableLiquity {
   getLUSDInStabilityPool(): Promise<Decimal>;
 
   /**
-   * Get the amount of LUSD held by an address.
+   * Get the amount of SIM held by an address.
    *
    * @param address - Address whose balance should be retrieved.
    */
-  getLUSDBalance(address?: string): Promise<Decimal>;
+  getSIMBalance(address?: string): Promise<Decimal>;
 
   /**
-   * Get the amount of LQTY held by an address.
+   * Get the amount of SHADY held by an address.
    *
    * @param address - Address whose balance should be retrieved.
    */
-  getLQTYBalance(address?: string): Promise<Decimal>;
+  getSHADYBalance(address?: string): Promise<Decimal>;
 
   /**
    * Get the amount of Uniswap ETH/LUSD LP tokens held by an address.

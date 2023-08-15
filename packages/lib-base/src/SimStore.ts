@@ -25,11 +25,11 @@ export interface SimStoreBaseState {
   /** User's native currency balance (e.g. Ether). */
   accountBalance: Decimal;
 
-  /** User's LUSD token balance. */
-  lusdBalance: Decimal;
+  /** User's SIM token balance. */
+  simBalance: Decimal;
 
-  /** User's LQTY token balance. */
-  lqtyBalance: Decimal;
+  /** User's SHADY token balance. */
+  shadyBalance: Decimal;
 
   /** User's Uniswap ETH/LUSD LP token balance. */
   uniTokenBalance: Decimal;
@@ -358,11 +358,11 @@ export abstract class SimStore<T = unknown> {
         baseStateUpdate.accountBalance
       ),
 
-      lusdBalance: this._updateIfChanged(
+      simBalance: this._updateIfChanged(
         eq,
-        "lusdBalance",
-        baseState.lusdBalance,
-        baseStateUpdate.lusdBalance
+        "simBalance",
+        baseState.simBalance,
+        baseStateUpdate.simBalance
       ),
 
       wstETHBalance: this._updateIfChanged(
@@ -379,11 +379,11 @@ export abstract class SimStore<T = unknown> {
         baseStateUpdate.wstETHTokenAllowance
       ),
 
-      lqtyBalance: this._updateIfChanged(
+      shadyBalance: this._updateIfChanged(
         eq,
-        "lqtyBalance",
-        baseState.lqtyBalance,
-        baseStateUpdate.lqtyBalance
+        "shadyBalance",
+        baseState.shadyBalance,
+        baseStateUpdate.shadyBalance
       ),
 
       uniTokenBalance: this._updateIfChanged(

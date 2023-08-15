@@ -56,7 +56,7 @@ export const TroveEditor: React.FC<TroveEditorProps> = ({
           label="Collateral"
           inputId="trove-collateral"
           amount={edited.collateral.prettify(4)}
-          unit="ETH"
+          unit="wstETH"
         />
 
         <StaticRow label="Debt" inputId="trove-debt" amount={edited.debt.prettify()} unit={COIN} />
