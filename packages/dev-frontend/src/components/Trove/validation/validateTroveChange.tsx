@@ -27,7 +27,7 @@ const TroveChangeDescription: React.FC<TroveAdjustmentDescriptionParams> = ({ pa
   <ActionDescription>
     {params.depositCollateral && params.borrowSIM ? (
       <>
-        You will deposit <Amount>{params.depositCollateral.prettify()} ETH</Amount> and receive{" "}
+        You will deposit <Amount>{params.depositCollateral.prettify()} wstETH</Amount> and receive{" "}
         <Amount>
           {params.borrowSIM.prettify()} {COIN}
         </Amount>
@@ -42,7 +42,7 @@ const TroveChangeDescription: React.FC<TroveAdjustmentDescriptionParams> = ({ pa
       </>
     ) : params.depositCollateral && params.repaySIM ? (
       <>
-        You will deposit <Amount>{params.depositCollateral.prettify()} ETH</Amount> and pay{" "}
+        You will deposit <Amount>{params.depositCollateral.prettify()} wstETH</Amount> and pay{" "}
         <Amount>
           {params.repaySIM.prettify()} {COIN}
         </Amount>
@@ -56,7 +56,7 @@ const TroveChangeDescription: React.FC<TroveAdjustmentDescriptionParams> = ({ pa
       </>
     ) : params.depositCollateral ? (
       <>
-        You will deposit <Amount>{params.depositCollateral.prettify()} ETH</Amount>
+        You will deposit <Amount>{params.depositCollateral.prettify()} wstETH</Amount>
       </>
     ) : params.withdrawCollateral ? (
       <>

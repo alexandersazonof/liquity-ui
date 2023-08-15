@@ -846,14 +846,13 @@ export class PopulatableEthersLiquity
       maxBorrowingRateOrOptionalParams,
       currentBorrowingRate
     );
-    console.log(depositCollateral.toString(18));
 
-    // TODO param
     const txParams = (borrowSIM: Decimal): Parameters<typeof borrowerOperations.openTrove> => [
       depositCollateral.hex,
       maxBorrowingRate.hex,
       borrowSIM.hex,
       ...hints,
+      overrides,
     ];
 
     let gasHeadroom: number | undefined;
