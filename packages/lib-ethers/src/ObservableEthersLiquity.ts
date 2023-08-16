@@ -164,26 +164,26 @@ export class ObservableEthersLiquity implements ObservableLiquity {
     };
   }
 
-  watchLUSDInStabilityPool(
+  watchSIMInStabilityPool(
     onLUSDInStabilityPoolChanged: (lusdInStabilityPool: Decimal) => void
   ): () => void {
     const { simToken, stabilityPool } = _getContracts(this._readable.connection);
     const { Transfer } = simToken.filters;
 
-    const transferLUSDFromStabilityPool = Transfer(stabilityPool.address);
-    const transferLUSDToStabilityPool = Transfer(null, stabilityPool.address);
+    const transferSIMFromStabilityPool = Transfer(stabilityPool.address);
+    const transferSIMToStabilityPool = Transfer(null, stabilityPool.address);
 
-    const stabilityPoolLUSDFilters = [transferLUSDFromStabilityPool, transferLUSDToStabilityPool];
+    const stabilityPoolSIMFilters = [transferSIMFromStabilityPool, transferSIMToStabilityPool];
 
-    const stabilityPoolLUSDListener = debounce((blockTag: number) => {
-      this._readable.getLUSDInStabilityPool({ blockTag }).then(onLUSDInStabilityPoolChanged);
+    const stabilityPoolSIMListener = debounce((blockTag: number) => {
+      this._readable.getSIMInStabilityPool({ blockTag }).then(onLUSDInStabilityPoolChanged);
     });
 
-    stabilityPoolLUSDFilters.forEach(filter => simToken.on(filter, stabilityPoolLUSDListener));
+    stabilityPoolSIMFilters.forEach(filter => simToken.on(filter, stabilityPoolSIMListener));
 
     return () =>
-      stabilityPoolLUSDFilters.forEach(filter =>
-        simToken.removeListener(filter, stabilityPoolLUSDListener)
+      stabilityPoolSIMFilters.forEach(filter =>
+        simToken.removeListener(filter, stabilityPoolSIMListener)
       );
   }
 

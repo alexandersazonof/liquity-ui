@@ -16,23 +16,23 @@ import { RemainingSHADY } from "./RemainingSHADY";
 import { Yield } from "./Yield";
 import { InfoIcon } from "../InfoIcon";
 
-const selector = ({ stabilityDeposit, trove, lusdInStabilityPool }: SimStoreState) => ({
+const selector = ({ stabilityDeposit, trove, simInStabilityPool }: SimStoreState) => ({
   stabilityDeposit,
   trove,
-  lusdInStabilityPool
+  simInStabilityPool
 });
 
 export const ActiveDeposit: React.FC = () => {
   const { dispatchEvent } = useStabilityView();
-  const { stabilityDeposit, trove, lusdInStabilityPool } = useSimSelector(selector);
+  const { stabilityDeposit, trove, simInStabilityPool } = useSimSelector(selector);
 
-  const poolShare = stabilityDeposit.currentLUSD.mulDiv(100, lusdInStabilityPool);
+  const poolShare = stabilityDeposit.currentSIM.mulDiv(100, simInStabilityPool);
 
   const handleAdjustDeposit = useCallback(() => {
     dispatchEvent("ADJUST_DEPOSIT_PRESSED");
   }, [dispatchEvent]);
 
-  const hasReward = !stabilityDeposit.lqtyReward.isZero;
+  const hasReward = !stabilityDeposit.shadyReward.isZero;
   const hasGain = !stabilityDeposit.collateralGain.isZero;
   const hasTrove = !trove.isEmpty;
 
@@ -63,7 +63,7 @@ export const ActiveDeposit: React.FC = () => {
           <DisabledEditableRow
             label="Deposit"
             inputId="deposit-lusd"
-            amount={stabilityDeposit.currentLUSD.prettify()}
+            amount={stabilityDeposit.currentSIM.prettify()}
             unit={COIN}
           />
 
@@ -86,8 +86,8 @@ export const ActiveDeposit: React.FC = () => {
             <StaticRow
               label="Reward"
               inputId="deposit-reward"
-              amount={stabilityDeposit.lqtyReward.prettify()}
-              color={stabilityDeposit.lqtyReward.nonZero && "success"}
+              amount={stabilityDeposit.shadyReward.prettify()}
+              color={stabilityDeposit.shadyReward.nonZero && "success"}
               unit={GT}
               infoIcon={
                 <InfoIcon

@@ -12,9 +12,9 @@ import { LoadingOverlay } from "../LoadingOverlay";
 
 import { useStakingView } from "./context/StakingViewContext";
 
-const select = ({ shadyBalance, totalStakedLQTY }: SimStoreState) => ({
+const select = ({ shadyBalance, totalStakedSHADY }: SimStoreState) => ({
   shadyBalance,
-  totalStakedLQTY
+  totalStakedSHADY
 });
 
 type StakingEditorProps = {
@@ -31,7 +31,7 @@ export const StakingEditor: React.FC<StakingEditorProps> = ({
   editedLQTY,
   dispatch
 }) => {
-  const { shadyBalance, totalStakedLQTY } = useSimSelector(select);
+  const { shadyBalance, totalStakedSHADY } = useSimSelector(select);
   const { changePending } = useStakingView();
   const editingState = useState<string>();
 
@@ -40,9 +40,9 @@ export const StakingEditor: React.FC<StakingEditorProps> = ({
   const maxAmount = originalStake.stakedLQTY.add(shadyBalance);
   const maxedOut = editedLQTY.eq(maxAmount);
 
-  const totalStakedLQTYAfterChange = totalStakedLQTY.sub(originalStake.stakedLQTY).add(editedLQTY);
+  const totalStakedLQTYAfterChange = totalStakedSHADY.sub(originalStake.stakedLQTY).add(editedLQTY);
 
-  const originalPoolShare = originalStake.stakedLQTY.mulDiv(100, totalStakedLQTY);
+  const originalPoolShare = originalStake.stakedLQTY.mulDiv(100, totalStakedSHADY);
   const newPoolShare = editedLQTY.mulDiv(100, totalStakedLQTYAfterChange);
   const poolShareChange =
     originalStake.stakedLQTY.nonZero && Difference.between(newPoolShare, originalPoolShare).nonZero;
