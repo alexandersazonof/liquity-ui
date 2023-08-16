@@ -210,9 +210,9 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
     return this._readable.getRemainingStabilityPoolLQTYReward(overrides);
   }
 
-  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getLUSDInStabilityPool} */
-  getLUSDInStabilityPool(overrides?: EthersCallOverrides): Promise<Decimal> {
-    return this._readable.getLUSDInStabilityPool(overrides);
+  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getSIMInStabilityPool} */
+  getSIMInStabilityPool(overrides?: EthersCallOverrides): Promise<Decimal> {
+    return this._readable.getSIMInStabilityPool(overrides);
   }
 
   /** {@inheritDoc @sim/lib-base#ReadableLiquity.getSIMBalance} */
@@ -302,9 +302,9 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
     return this._readable.getLQTYStake(address, overrides);
   }
 
-  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getTotalStakedLQTY} */
-  getTotalStakedLQTY(overrides?: EthersCallOverrides): Promise<Decimal> {
-    return this._readable.getTotalStakedLQTY(overrides);
+  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getTotalStakedSHADY} */
+  getTotalStakedSHADY(overrides?: EthersCallOverrides): Promise<Decimal> {
+    return this._readable.getTotalStakedSHADY(overrides);
   }
 
   /** {@inheritDoc @sim/lib-base#ReadableLiquity.getFrontendStatus} */

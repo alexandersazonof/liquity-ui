@@ -629,7 +629,7 @@ export class PopulatableEthersLiquity
   }
 
   private _wrapStabilityDepositTopup(
-    change: { depositLUSD: Decimal },
+    change: { depositSIM: Decimal },
     rawPopulatedTransaction: EthersPopulatedTransaction
   ): PopulatedEthersLiquityTransaction<StabilityDepositChangeDetails> {
     return new PopulatedEthersLiquityTransaction(
@@ -655,14 +655,14 @@ export class PopulatableEthersLiquity
       ({ logs, from: userAddress }) => {
         const gainsWithdrawalDetails = this._extractStabilityPoolGainsWithdrawalDetails(logs);
 
-        const [withdrawLUSD] = simToken
+        const [withdrawSIM] = simToken
           .extractEvents(logs, "Transfer")
           .filter(({ args: { from, to } }) => from === stabilityPool.address && to === userAddress)
           .map(({ args: { value } }) => decimalify(value));
 
         return {
           ...gainsWithdrawalDetails,
-          change: { withdrawLUSD, withdrawAllLUSD: gainsWithdrawalDetails.newLUSDDeposit.isZero }
+          change: { withdrawSIM, withdrawAllSIM: gainsWithdrawalDetails.newLUSDDeposit.isZero }
         };
       }
     );
@@ -1107,14 +1107,14 @@ export class PopulatableEthersLiquity
   ): Promise<PopulatedEthersLiquityTransaction<StabilityDepositChangeDetails>> {
     overrides = this._prepareOverrides(overrides);
     const { stabilityPool } = _getContracts(this._readable.connection);
-    const depositLUSD = Decimal.from(amount);
+    const depositSIM = Decimal.from(amount);
 
     return this._wrapStabilityDepositTopup(
-      { depositLUSD },
+      { depositSIM },
       await stabilityPool.estimateAndPopulate.provideToSP(
         overrides,
         addGasForLQTYIssuance,
-        depositLUSD.hex,
+        depositSIM.hex,
         frontendTag ?? this._readable.connection.frontendTag ?? AddressZero
       )
     );
@@ -1286,7 +1286,6 @@ export class PopulatableEthersLiquity
   }
 
   /** {@inheritDoc @sim/lib-base#PopulatableLiquity.stakeLQTY} */
-  // TODO stake logic
   async stakeLQTY(
     amount: Decimalish,
     overrides?: EthersTransactionOverrides

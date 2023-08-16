@@ -19,7 +19,7 @@ import {
 
 const init = ({ stabilityDeposit }: SimStoreState) => ({
   originalDeposit: stabilityDeposit,
-  editedLUSD: stabilityDeposit.currentLUSD,
+  editedSIM: stabilityDeposit.currentSIM,
   changePending: false
 });
 
@@ -43,7 +43,7 @@ const reduce = (
   // console.log(state);
   // console.log(action);
 
-  const { originalDeposit, editedLUSD, changePending } = state;
+  const { originalDeposit, editedSIM, changePending } = state;
 
   switch (action.type) {
     case "startChange": {
@@ -55,10 +55,10 @@ const reduce = (
       return { ...state, changePending: false };
 
     case "setDeposit":
-      return { ...state, editedLUSD: Decimal.from(action.newValue) };
+      return { ...state, editedSIM: Decimal.from(action.newValue) };
 
     case "revert":
-      return { ...state, editedLUSD: originalDeposit.currentLUSD };
+      return { ...state, editedSIM: originalDeposit.currentSIM };
 
     case "updateStore": {
       const {
@@ -72,10 +72,10 @@ const reduce = (
       const newState = { ...state, originalDeposit: updatedDeposit };
 
       const changeCommitted =
-        !updatedDeposit.initialLUSD.eq(originalDeposit.initialLUSD) ||
-        updatedDeposit.currentLUSD.gt(originalDeposit.currentLUSD) ||
+        !updatedDeposit.initialSIM.eq(originalDeposit.initialSIM) ||
+        updatedDeposit.currentSIM.gt(originalDeposit.currentSIM) ||
         updatedDeposit.collateralGain.lt(originalDeposit.collateralGain) ||
-        updatedDeposit.lqtyReward.lt(originalDeposit.lqtyReward);
+        updatedDeposit.shadyReward.lt(originalDeposit.shadyReward);
 
       if (changePending && changeCommitted) {
         return finishChange(revert(newState));
@@ -83,7 +83,7 @@ const reduce = (
 
       return {
         ...newState,
-        editedLUSD: updatedDeposit.apply(originalDeposit.whatChanged(editedLUSD))
+        editedSIM: updatedDeposit.apply(originalDeposit.whatChanged(editedSIM))
       };
     }
   }
@@ -92,7 +92,7 @@ const reduce = (
 const transactionId = "stability-deposit";
 
 export const StabilityDepositManager: React.FC = () => {
-  const [{ originalDeposit, editedLUSD, changePending }, dispatch] = useSimReducer(reduce, init);
+  const [{ originalDeposit, editedSIM, changePending }, dispatch] = useSimReducer(reduce, init);
   const validationContext = useSimSelector(selectForStabilityDepositChangeValidation);
   const { dispatchEvent } = useStabilityView();
 
@@ -102,7 +102,7 @@ export const StabilityDepositManager: React.FC = () => {
 
   const [validChange, description] = validateStabilityDepositChange(
     originalDeposit,
-    editedLUSD,
+    editedSIM,
     validationContext
   );
 
@@ -126,7 +126,7 @@ export const StabilityDepositManager: React.FC = () => {
   return (
     <StabilityDepositEditor
       originalDeposit={originalDeposit}
-      editedLUSD={editedLUSD}
+      editedSIM={editedSIM}
       changePending={changePending}
       dispatch={dispatch}
     >

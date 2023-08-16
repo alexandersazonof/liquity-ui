@@ -6,8 +6,8 @@ import { Decimal, Decimalish } from "./Decimal";
  * @public
  */
 export type StabilityDepositChange<T> =
-  | { depositLUSD: T; withdrawLUSD?: undefined }
-  | { depositLUSD?: undefined; withdrawLUSD: T; withdrawAllLUSD: boolean };
+  | { depositSIM: T; withdrawSIM?: undefined }
+  | { depositSIM?: undefined; withdrawSIM: T; withdrawAllSIM: boolean };
 
 /**
  * A Stability Deposit and its accrued gains.
@@ -15,17 +15,17 @@ export type StabilityDepositChange<T> =
  * @public
  */
 export class StabilityDeposit {
-  /** Amount of LUSD in the Stability Deposit at the time of the last direct modification. */
-  readonly initialLUSD: Decimal;
+  /** Amount of SIM in the Stability Deposit at the time of the last direct modification. */
+  readonly initialSIM: Decimal;
 
-  /** Amount of LUSD left in the Stability Deposit. */
-  readonly currentLUSD: Decimal;
+  /** Amount of SIM left in the Stability Deposit. */
+  readonly currentSIM: Decimal;
 
   /** Amount of native currency (e.g. Ether) received in exchange for the used-up LUSD. */
   readonly collateralGain: Decimal;
 
-  /** Amount of LQTY rewarded since the last modification of the Stability Deposit. */
-  readonly lqtyReward: Decimal;
+  /** Amount of SHADY rewarded since the last modification of the Stability Deposit. */
+  readonly shadyReward: Decimal;
 
   /**
    * Address of frontend through which this Stability Deposit was made.
@@ -38,39 +38,39 @@ export class StabilityDeposit {
 
   /** @internal */
   constructor(
-    initialLUSD: Decimal,
-    currentLUSD: Decimal,
+    initialSIM: Decimal,
+    currentSIM: Decimal,
     collateralGain: Decimal,
-    lqtyReward: Decimal,
+    shadyReward: Decimal,
     frontendTag: string
   ) {
-    this.initialLUSD = initialLUSD;
-    this.currentLUSD = currentLUSD;
+    this.initialSIM = initialSIM;
+    this.currentSIM = currentSIM;
     this.collateralGain = collateralGain;
-    this.lqtyReward = lqtyReward;
+    this.shadyReward = shadyReward;
     this.frontendTag = frontendTag;
 
-    if (this.currentLUSD.gt(this.initialLUSD)) {
-      throw new Error("currentLUSD can't be greater than initialLUSD");
+    if (this.currentSIM.gt(this.initialSIM)) {
+      throw new Error("currentSIM can't be greater than initialSIM");
     }
   }
 
   get isEmpty(): boolean {
     return (
-      this.initialLUSD.isZero &&
-      this.currentLUSD.isZero &&
+      this.initialSIM.isZero &&
+      this.currentSIM.isZero &&
       this.collateralGain.isZero &&
-      this.lqtyReward.isZero
+      this.shadyReward.isZero
     );
   }
 
   /** @internal */
   toString(): string {
     return (
-      `{ initialLUSD: ${this.initialLUSD}` +
-      `, currentLUSD: ${this.currentLUSD}` +
+      `{ initialSIM: ${this.initialSIM}` +
+      `, currentSIM: ${this.currentSIM}` +
       `, collateralGain: ${this.collateralGain}` +
-      `, lqtyReward: ${this.lqtyReward}` +
+      `, shadyReward: ${this.shadyReward}` +
       `, frontendTag: "${this.frontendTag}" }`
     );
   }
@@ -80,47 +80,47 @@ export class StabilityDeposit {
    */
   equals(that: StabilityDeposit): boolean {
     return (
-      this.initialLUSD.eq(that.initialLUSD) &&
-      this.currentLUSD.eq(that.currentLUSD) &&
+      this.initialSIM.eq(that.initialSIM) &&
+      this.currentSIM.eq(that.currentSIM) &&
       this.collateralGain.eq(that.collateralGain) &&
-      this.lqtyReward.eq(that.lqtyReward) &&
+      this.shadyReward.eq(that.shadyReward) &&
       this.frontendTag === that.frontendTag
     );
   }
 
   /**
-   * Calculate the difference between the `currentLUSD` in this Stability Deposit and `thatLUSD`.
+   * Calculate the difference between the `currentSIM` in this Stability Deposit and `thatSIM`.
    *
    * @returns An object representing the change, or `undefined` if the deposited amounts are equal.
    */
-  whatChanged(thatLUSD: Decimalish): StabilityDepositChange<Decimal> | undefined {
-    thatLUSD = Decimal.from(thatLUSD);
+  whatChanged(thatSIM: Decimalish): StabilityDepositChange<Decimal> | undefined {
+    thatSIM = Decimal.from(thatSIM);
 
-    if (thatLUSD.lt(this.currentLUSD)) {
-      return { withdrawLUSD: this.currentLUSD.sub(thatLUSD), withdrawAllLUSD: thatLUSD.isZero };
+    if (thatSIM.lt(this.currentSIM)) {
+      return { withdrawSIM: this.currentSIM.sub(thatSIM), withdrawAllSIM: thatSIM.isZero };
     }
 
-    if (thatLUSD.gt(this.currentLUSD)) {
-      return { depositLUSD: thatLUSD.sub(this.currentLUSD) };
+    if (thatSIM.gt(this.currentSIM)) {
+      return { depositSIM: thatSIM.sub(this.currentSIM) };
     }
   }
 
   /**
    * Apply a {@link StabilityDepositChange} to this Stability Deposit.
    *
-   * @returns The new deposited LUSD amount.
+   * @returns The new deposited SIM amount.
    */
   apply(change: StabilityDepositChange<Decimalish> | undefined): Decimal {
     if (!change) {
-      return this.currentLUSD;
+      return this.currentSIM;
     }
 
-    if (change.withdrawLUSD !== undefined) {
-      return change.withdrawAllLUSD || this.currentLUSD.lte(change.withdrawLUSD)
+    if (change.withdrawSIM !== undefined) {
+      return change.withdrawAllSIM || this.currentSIM.lte(change.withdrawSIM)
         ? Decimal.ZERO
-        : this.currentLUSD.sub(change.withdrawLUSD);
+        : this.currentSIM.sub(change.withdrawSIM);
     } else {
-      return this.currentLUSD.add(change.depositLUSD);
+      return this.currentSIM.add(change.depositSIM);
     }
   }
 }

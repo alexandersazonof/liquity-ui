@@ -107,9 +107,9 @@ export interface ReadableLiquity {
   getRemainingStabilityPoolLQTYReward(): Promise<Decimal>;
 
   /**
-   * Get the total amount of LUSD currently deposited in the Stability Pool.
+   * Get the total amount of SIM currently deposited in the Stability Pool.
    */
-  getLUSDInStabilityPool(): Promise<Decimal>;
+  getSIMInStabilityPool(): Promise<Decimal>;
 
   /**
    * Get the amount of SIM held by an address.
@@ -200,9 +200,9 @@ export interface ReadableLiquity {
   getLQTYStake(address?: string): Promise<LQTYStake>;
 
   /**
-   * Get the total amount of LQTY currently staked.
+   * Get the total amount of SHADY currently staked.
    */
-  getTotalStakedLQTY(): Promise<Decimal>;
+  getTotalStakedSHADY(): Promise<Decimal>;
 
   /**
    * Check whether an address is registered as a Liquity frontend, and what its kickback rate is.

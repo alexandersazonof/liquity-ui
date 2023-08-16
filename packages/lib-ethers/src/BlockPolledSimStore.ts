@@ -104,11 +104,9 @@ export class BlockPolledSimStore extends SimStore<BlockPolledSimStoreExtraState>
       numberOfTroves: this._readable.getNumberOfTroves({ blockTag }),
       totalRedistributed: this._readable.getTotalRedistributed({ blockTag }),
       total: this._readable.getTotal({ blockTag }),
-      lusdInStabilityPool: Decimal.ZERO,
-      totalStakedLQTY: Decimal.ZERO,
       totalStakedUniTokens: Decimal.ZERO,
-      // lusdInStabilityPool: this._readable.getLUSDInStabilityPool({ blockTag }),
-      // totalStakedLQTY: this._readable.getTotalStakedLQTY({ blockTag }),
+      simInStabilityPool: this._readable.getSIMInStabilityPool({ blockTag }),
+      totalStakedSHADY: this._readable.getTotalStakedSHADY({ blockTag }),
       _riskiestTroveBeforeRedistribution: this._getRiskiestTroveBeforeRedistribution({ blockTag }),
       // totalStakedUniTokens: this._readable.getTotalStakedUniTokens({ blockTag }),
       remainingStabilityPoolLQTYReward: this._readable.getRemainingStabilityPoolLQTYReward({
@@ -129,12 +127,6 @@ export class BlockPolledSimStore extends SimStore<BlockPolledSimStoreExtraState>
             uniTokenAllowance: Decimal.ZERO,
             liquidityMiningStake: Decimal.ZERO,
             liquidityMiningLQTYReward: Decimal.ZERO,
-            // uniTokenBalance: this._readable.getUniTokenBalance(userAddress, { blockTag }),
-            // uniTokenAllowance: this._readable.getUniTokenAllowance(userAddress, { blockTag }),
-            // liquidityMiningStake: this._readable.getLiquidityMiningStake(userAddress, { blockTag }),
-            // liquidityMiningLQTYReward: this._readable.getLiquidityMiningLQTYReward(userAddress, {
-            //   blockTag
-            // }),
             collateralSurplusBalance: this._readable.getCollateralSurplusBalance(userAddress, {
               blockTag
             }),

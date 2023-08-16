@@ -18,41 +18,46 @@ import { EditableRow, StaticRow } from "../Trove/Editor";
 import { LoadingOverlay } from "../LoadingOverlay";
 import { InfoIcon } from "../InfoIcon";
 
-const select = ({ simBalance, lusdInStabilityPool }: SimStoreState) => ({
+const select = ({ simBalance, simInStabilityPool }: SimStoreState) => ({
   simBalance,
-  lusdInStabilityPool
+  simInStabilityPool
 });
 
 type StabilityDepositEditorProps = {
   originalDeposit: StabilityDeposit;
-  editedLUSD: Decimal;
+  editedSIM: Decimal;
   changePending: boolean;
   dispatch: (action: { type: "setDeposit"; newValue: Decimalish } | { type: "revert" }) => void;
 };
 
 export const StabilityDepositEditor: React.FC<StabilityDepositEditorProps> = ({
   originalDeposit,
-  editedLUSD,
+  editedSIM,
   changePending,
   dispatch,
   children
 }) => {
-  const { simBalance, lusdInStabilityPool } = useSimSelector(select);
+  const { simBalance, simInStabilityPool } = useSimSelector(select);
   const editingState = useState<string>();
 
-  const edited = !editedLUSD.eq(originalDeposit.currentLUSD);
+  const edited = !editedSIM.eq(originalDeposit.currentSIM);
 
-  const maxAmount = originalDeposit.currentLUSD.add(simBalance);
-  const maxedOut = editedLUSD.eq(maxAmount);
+  const maxAmount = originalDeposit.currentSIM.add(simBalance);
+  const maxedOut = editedSIM.eq(maxAmount);
 
-  const lusdInStabilityPoolAfterChange = lusdInStabilityPool
-    .sub(originalDeposit.currentLUSD)
-    .add(editedLUSD);
+  let simInStabilityPoolAfterChange = Decimal.ZERO;
+  if (originalDeposit.currentSIM.gt(simInStabilityPool)) {
+    simInStabilityPoolAfterChange = originalDeposit.currentSIM;
+  } else {
+    simInStabilityPoolAfterChange = simInStabilityPool
+      .sub(originalDeposit.currentSIM)
+      .add(editedSIM);
+  }
 
-  const originalPoolShare = originalDeposit.currentLUSD.mulDiv(100, lusdInStabilityPool);
-  const newPoolShare = editedLUSD.mulDiv(100, lusdInStabilityPoolAfterChange);
+  const originalPoolShare = originalDeposit.currentSIM.mulDiv(100, simInStabilityPool);
+  const newPoolShare = editedSIM.mulDiv(100, simInStabilityPoolAfterChange);
   const poolShareChange =
-    originalDeposit.currentLUSD.nonZero &&
+    originalDeposit.currentSIM.nonZero &&
     Difference.between(newPoolShare, originalPoolShare).nonZero;
 
   return (
@@ -74,12 +79,12 @@ export const StabilityDepositEditor: React.FC<StabilityDepositEditorProps> = ({
         <EditableRow
           label="Deposit"
           inputId="deposit-lqty"
-          amount={editedLUSD.prettify()}
+          amount={editedSIM.prettify()}
           maxAmount={maxAmount.toString()}
           maxedOut={maxedOut}
           unit={COIN}
           {...{ editingState }}
-          editedAmount={editedLUSD.toString(2)}
+          editedAmount={editedSIM.toString(2)}
           setEditedAmount={newValue => dispatch({ type: "setDeposit", newValue })}
         />
 
@@ -109,8 +114,8 @@ export const StabilityDepositEditor: React.FC<StabilityDepositEditorProps> = ({
             <StaticRow
               label="Reward"
               inputId="deposit-reward"
-              amount={originalDeposit.lqtyReward.prettify()}
-              color={originalDeposit.lqtyReward.nonZero && "success"}
+              amount={originalDeposit.shadyReward.prettify()}
+              color={originalDeposit.shadyReward.nonZero && "success"}
               unit={GT}
               infoIcon={
                 <InfoIcon

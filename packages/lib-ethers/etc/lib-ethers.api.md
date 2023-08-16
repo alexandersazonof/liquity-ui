@@ -144,8 +144,6 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
     // (undocumented)
     getLQTYStake(address?: string, overrides?: EthersCallOverrides): Promise<LQTYStake>;
     // (undocumented)
-    getLUSDInStabilityPool(overrides?: EthersCallOverrides): Promise<Decimal>;
-    // (undocumented)
     getNumberOfTroves(overrides?: EthersCallOverrides): Promise<number>;
     // (undocumented)
     getPrice(overrides?: EthersCallOverrides): Promise<Decimal>;
@@ -160,13 +158,15 @@ export class EthersLiquity implements ReadableEthersLiquity, TransactableLiquity
     // (undocumented)
     getSIMBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
     // (undocumented)
+    getSIMInStabilityPool(overrides?: EthersCallOverrides): Promise<Decimal>;
+    // (undocumented)
     getStabilityDeposit(address?: string, overrides?: EthersCallOverrides): Promise<StabilityDeposit>;
     // (undocumented)
     getTotal(overrides?: EthersCallOverrides): Promise<Trove>;
     // (undocumented)
     getTotalRedistributed(overrides?: EthersCallOverrides): Promise<Trove>;
     // (undocumented)
-    getTotalStakedLQTY(overrides?: EthersCallOverrides): Promise<Decimal>;
+    getTotalStakedSHADY(overrides?: EthersCallOverrides): Promise<Decimal>;
     // (undocumented)
     getTotalStakedUniTokens(overrides?: EthersCallOverrides): Promise<Decimal>;
     // (undocumented)
@@ -312,11 +312,11 @@ export class ObservableEthersLiquity implements ObservableLiquity {
     // (undocumented)
     watchLUSDBalance(onLUSDBalanceChanged: (balance: Decimal) => void, address?: string): () => void;
     // (undocumented)
-    watchLUSDInStabilityPool(onLUSDInStabilityPoolChanged: (lusdInStabilityPool: Decimal) => void): () => void;
-    // (undocumented)
     watchNumberOfTroves(onNumberOfTrovesChanged: (numberOfTroves: number) => void): () => void;
     // (undocumented)
     watchPrice(onPriceChanged: (price: Decimal) => void): () => void;
+    // (undocumented)
+    watchSIMInStabilityPool(onLUSDInStabilityPoolChanged: (lusdInStabilityPool: Decimal) => void): () => void;
     // (undocumented)
     watchStabilityDeposit(onStabilityDepositChanged: (stabilityDeposit: StabilityDeposit) => void, address?: string): () => void;
     // (undocumented)
@@ -479,8 +479,6 @@ export class ReadableEthersLiquity implements ReadableLiquity {
     // (undocumented)
     getLQTYStake(address?: string, overrides?: EthersCallOverrides): Promise<LQTYStake>;
     // (undocumented)
-    getLUSDInStabilityPool(overrides?: EthersCallOverrides): Promise<Decimal>;
-    // (undocumented)
     getNumberOfTroves(overrides?: EthersCallOverrides): Promise<number>;
     // (undocumented)
     getPrice(overrides?: EthersCallOverrides): Promise<Decimal>;
@@ -495,13 +493,15 @@ export class ReadableEthersLiquity implements ReadableLiquity {
     // (undocumented)
     getSIMBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal>;
     // (undocumented)
+    getSIMInStabilityPool(overrides?: EthersCallOverrides): Promise<Decimal>;
+    // (undocumented)
     getStabilityDeposit(address?: string, overrides?: EthersCallOverrides): Promise<StabilityDeposit>;
     // (undocumented)
     getTotal(overrides?: EthersCallOverrides): Promise<Trove>;
     // (undocumented)
     getTotalRedistributed(overrides?: EthersCallOverrides): Promise<Trove>;
     // (undocumented)
-    getTotalStakedLQTY(overrides?: EthersCallOverrides): Promise<Decimal>;
+    getTotalStakedSHADY(overrides?: EthersCallOverrides): Promise<Decimal>;
     // (undocumented)
     getTotalStakedUniTokens(overrides?: EthersCallOverrides): Promise<Decimal>;
     // (undocumented)

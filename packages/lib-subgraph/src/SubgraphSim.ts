@@ -262,11 +262,11 @@ export class SubgraphSim implements ReadableLiquity, ObservableLiquity {
     throw new Error("Method not implemented.");
   }
 
-  getLUSDInStabilityPool() {
+  getSIMInStabilityPool() {
     return tokensInStabilityPool.get(this.client, undefined);
   }
 
-  watchLUSDInStabilityPool(onLUSDInStabilityPoolChanged: (lusdInStabilityPool: Decimal) => void) {
+  watchSIMInStabilityPool(onLUSDInStabilityPoolChanged: (lusdInStabilityPool: Decimal) => void) {
     return tokensInStabilityPool.watch(this.client, onLUSDInStabilityPoolChanged, undefined);
   }
 
@@ -332,7 +332,7 @@ export class SubgraphSim implements ReadableLiquity, ObservableLiquity {
     throw new Error("Method not implemented.");
   }
 
-  getTotalStakedLQTY(): Promise<Decimal> {
+  getTotalStakedSHADY(): Promise<Decimal> {
     throw new Error("Method not implemented.");
   }
 

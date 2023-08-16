@@ -36,19 +36,19 @@ const select = ({
   numberOfTroves,
   price,
   total,
-  lusdInStabilityPool,
+  simInStabilityPool,
   borrowingRate,
   redemptionRate,
-  totalStakedLQTY,
+  totalStakedSHADY,
   frontend
 }: SimStoreState) => ({
   numberOfTroves,
   price,
   total,
-  lusdInStabilityPool,
+  simInStabilityPool,
   borrowingRate,
   redemptionRate,
-  totalStakedLQTY,
+  totalStakedSHADY,
   kickbackRate: frontend.status === "registered" ? frontend.kickbackRate : null
 });
 
@@ -56,14 +56,14 @@ export const SystemStats: React.FC<SystemStatsProps> = ({ variant = "info", show
   const {
     numberOfTroves,
     price,
-    lusdInStabilityPool,
+    simInStabilityPool,
     total,
     borrowingRate,
-    totalStakedLQTY
+    totalStakedSHADY
   } = useSimSelector(select);
 
-  const lusdInStabilityPoolPct =
-    total.debt.nonZero && new Percent(lusdInStabilityPool.div(total.debt));
+  const simInStabilityPoolPct =
+    total.debt.nonZero && new Percent(simInStabilityPool.div(total.debt));
   const totalCollateralRatioPct = new Percent(total.collateralRatio(price));
   const borrowingFeePct = new Percent(borrowingRate);
 
@@ -87,13 +87,13 @@ export const SystemStats: React.FC<SystemStatsProps> = ({ variant = "info", show
       </Statistic>
       <Statistic lexicon={l.TROVES}>{Decimal.from(numberOfTroves).prettify(0)}</Statistic>
       <Statistic lexicon={l.SIM_SUPPLY}>{total.debt.shorten()}</Statistic>
-      {lusdInStabilityPoolPct && (
+      {simInStabilityPoolPct && (
         <Statistic lexicon={l.STABILITY_POOL_SIM}>
-          {lusdInStabilityPool.shorten()}
-          <Text sx={{ fontSize: 1 }}>&nbsp;({lusdInStabilityPoolPct.toString(1)})</Text>
+          {simInStabilityPool.shorten()}
+          <Text sx={{ fontSize: 1 }}>&nbsp;({simInStabilityPoolPct.toString(1)})</Text>
         </Statistic>
       )}
-      <Statistic lexicon={l.STAKED_SHADY}>{totalStakedLQTY.shorten()}</Statistic>
+      <Statistic lexicon={l.STAKED_SHADY}>{totalStakedSHADY.shorten()}</Statistic>
       <Statistic lexicon={l.TCR}>{totalCollateralRatioPct.prettify()}</Statistic>
       <Statistic lexicon={l.RECOVERY_MODE}>
         {total.collateralRatioIsBelowCritical(price) ? <Box color="danger">Yes</Box> : "No"}

@@ -12,16 +12,16 @@ import { Icon } from "../Icon";
 import { useStakingView } from "./context/StakingViewContext";
 import { StakingGainsAction } from "./StakingGainsAction";
 
-const select = ({ lqtyStake, totalStakedLQTY }: SimStoreState) => ({
+const select = ({ lqtyStake, totalStakedSHADY }: SimStoreState) => ({
   lqtyStake,
-  totalStakedLQTY
+  totalStakedSHADY
 });
 
 export const ReadOnlyStake: React.FC = () => {
   const { changePending, dispatch } = useStakingView();
-  const { lqtyStake, totalStakedLQTY } = useSimSelector(select);
+  const { lqtyStake, totalStakedSHADY } = useSimSelector(select);
 
-  const poolShare = lqtyStake.stakedLQTY.mulDiv(100, totalStakedLQTY);
+  const poolShare = lqtyStake.stakedLQTY.mulDiv(100, totalStakedSHADY);
 
   return (
     <Card>

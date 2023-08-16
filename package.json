@@ -61,6 +61,7 @@
     "release:providers": "yarn workspace @sim/providers semantic-release",
     "save-live-version": "yarn workspace @sim/lib-ethers save-live-version",
     "start": "yarn workspace @sim/dev-frontend start",
+    "start:prod": "yarn workspace @sim/dev-frontend start:prod",
     "start-demo": "run-s 'start-demo:*'",
     "start-tunnel": "./scripts/start-local-tunnel.sh",
     "test": "run-s 'test:*'",

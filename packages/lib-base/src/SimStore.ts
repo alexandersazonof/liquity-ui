@@ -61,8 +61,8 @@ export interface SimStoreBaseState {
   /** Current price of the native currency (e.g. Ether) in USD. */
   price: Decimal;
 
-  /** Total amount of LUSD currently deposited in the Stability Pool. */
-  lusdInStabilityPool: Decimal;
+  /** Total amount of SIM currently deposited in the Stability Pool. */
+  simInStabilityPool: Decimal;
 
   /** Total collateral and debt in the Liquity system. */
   total: Trove;
@@ -96,8 +96,8 @@ export interface SimStoreBaseState {
   /** User's LQTY stake. */
   lqtyStake: LQTYStake;
 
-  /** Total amount of LQTY currently staked. */
-  totalStakedLQTY: Decimal;
+  /** Total amount of SHADY currently staked. */
+  totalStakedSHADY: Decimal;
 
   /** @internal */
   _riskiestTroveBeforeRedistribution: TroveWithPendingRedistribution;
@@ -435,11 +435,11 @@ export abstract class SimStore<T = unknown> {
 
       price: this._updateIfChanged(eq, "price", baseState.price, baseStateUpdate.price),
 
-      lusdInStabilityPool: this._updateIfChanged(
+      simInStabilityPool: this._updateIfChanged(
         eq,
-        "lusdInStabilityPool",
-        baseState.lusdInStabilityPool,
-        baseStateUpdate.lusdInStabilityPool
+        "simInStabilityPool",
+        baseState.simInStabilityPool,
+        baseStateUpdate.simInStabilityPool
       ),
 
       total: this._updateIfChanged(equals, "total", baseState.total, baseStateUpdate.total),
@@ -484,11 +484,11 @@ export abstract class SimStore<T = unknown> {
         baseStateUpdate.lqtyStake
       ),
 
-      totalStakedLQTY: this._updateIfChanged(
+      totalStakedSHADY: this._updateIfChanged(
         eq,
-        "totalStakedLQTY",
-        baseState.totalStakedLQTY,
-        baseStateUpdate.totalStakedLQTY
+        "totalStakedSHADY",
+        baseState.totalStakedSHADY,
+        baseStateUpdate.totalStakedSHADY
       ),
 
       _riskiestTroveBeforeRedistribution: this._silentlyUpdateIfChanged(

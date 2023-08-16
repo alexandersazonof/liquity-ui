@@ -20,8 +20,6 @@ export class _CachedReadableLiquity<T extends unknown[]> implements _ReadableLiq
     // (undocumented)
     getLQTYStake(address?: string, ...extraParams: T): Promise<LQTYStake>;
     // (undocumented)
-    getLUSDInStabilityPool(...extraParams: T): Promise<Decimal>;
-    // (undocumented)
     getNumberOfTroves(...extraParams: T): Promise<number>;
     // (undocumented)
     getPrice(...extraParams: T): Promise<Decimal>;
@@ -34,13 +32,15 @@ export class _CachedReadableLiquity<T extends unknown[]> implements _ReadableLiq
     // (undocumented)
     getSIMBalance(address?: string, ...extraParams: T): Promise<Decimal>;
     // (undocumented)
+    getSIMInStabilityPool(...extraParams: T): Promise<Decimal>;
+    // (undocumented)
     getStabilityDeposit(address?: string, ...extraParams: T): Promise<StabilityDeposit>;
     // (undocumented)
     getTotal(...extraParams: T): Promise<Trove>;
     // (undocumented)
     getTotalRedistributed(...extraParams: T): Promise<Trove>;
     // (undocumented)
-    getTotalStakedLQTY(...extraParams: T): Promise<Decimal>;
+    getTotalStakedSHADY(...extraParams: T): Promise<Decimal>;
     // (undocumented)
     getTotalStakedUniTokens(...extraParams: T): Promise<Decimal>;
     // (undocumented)
@@ -306,11 +306,11 @@ export interface ObservableLiquity {
     // (undocumented)
     watchLUSDBalance(onLUSDBalanceChanged: (balance: Decimal) => void, address?: string): () => void;
     // (undocumented)
-    watchLUSDInStabilityPool(onLUSDInStabilityPoolChanged: (lusdInStabilityPool: Decimal) => void): () => void;
-    // (undocumented)
     watchNumberOfTroves(onNumberOfTrovesChanged: (numberOfTroves: number) => void): () => void;
     // (undocumented)
     watchPrice(onPriceChanged: (price: Decimal) => void): () => void;
+    // (undocumented)
+    watchSIMInStabilityPool(onSIMInStabilityPoolChanged: (simInStabilityPool: Decimal) => void): () => void;
     // (undocumented)
     watchStabilityDeposit(onStabilityDepositChanged: (stabilityDeposit: StabilityDeposit) => void, address?: string): () => void;
     // (undocumented)
@@ -402,17 +402,17 @@ export interface ReadableLiquity {
     getLiquidityMiningLQTYReward(address?: string): Promise<Decimal>;
     getLiquidityMiningStake(address?: string): Promise<Decimal>;
     getLQTYStake(address?: string): Promise<LQTYStake>;
-    getLUSDInStabilityPool(): Promise<Decimal>;
     getNumberOfTroves(): Promise<number>;
     getPrice(): Promise<Decimal>;
     getRemainingLiquidityMiningLQTYReward(): Promise<Decimal>;
     getRemainingStabilityPoolLQTYReward(): Promise<Decimal>;
     getSHADYBalance(address?: string): Promise<Decimal>;
     getSIMBalance(address?: string): Promise<Decimal>;
+    getSIMInStabilityPool(): Promise<Decimal>;
     getStabilityDeposit(address?: string): Promise<StabilityDeposit>;
     getTotal(): Promise<Trove>;
     getTotalRedistributed(): Promise<Trove>;
-    getTotalStakedLQTY(): Promise<Decimal>;
+    getTotalStakedSHADY(): Promise<Decimal>;
     getTotalStakedUniTokens(): Promise<Decimal>;
     getTrove(address?: string): Promise<UserTrove>;
     getTroveBeforeRedistribution(address?: string): Promise<TroveWithPendingRedistribution>;
@@ -536,7 +536,6 @@ export interface SimStoreBaseState {
     liquidityMiningLQTYReward: Decimal;
     liquidityMiningStake: Decimal;
     lqtyStake: LQTYStake;
-    lusdInStabilityPool: Decimal;
     numberOfTroves: number;
     ownFrontend: FrontendStatus;
     price: Decimal;
@@ -546,10 +545,11 @@ export interface SimStoreBaseState {
     _riskiestTroveBeforeRedistribution: TroveWithPendingRedistribution;
     shadyBalance: Decimal;
     simBalance: Decimal;
+    simInStabilityPool: Decimal;
     stabilityDeposit: StabilityDeposit;
     total: Trove;
     totalRedistributed: Trove;
-    totalStakedLQTY: Decimal;
+    totalStakedSHADY: Decimal;
     totalStakedUniTokens: Decimal;
     troveBeforeRedistribution: TroveWithPendingRedistribution;
     uniTokenAllowance: Decimal;
@@ -580,29 +580,29 @@ export type SimStoreState<T = unknown> = SimStoreBaseState & SimStoreDerivedStat
 // @public
 export class StabilityDeposit {
     // @internal
-    constructor(initialLUSD: Decimal, currentLUSD: Decimal, collateralGain: Decimal, lqtyReward: Decimal, frontendTag: string);
+    constructor(initialSIM: Decimal, currentSIM: Decimal, collateralGain: Decimal, shadyReward: Decimal, frontendTag: string);
     apply(change: StabilityDepositChange<Decimalish> | undefined): Decimal;
     readonly collateralGain: Decimal;
-    readonly currentLUSD: Decimal;
+    readonly currentSIM: Decimal;
     equals(that: StabilityDeposit): boolean;
     readonly frontendTag: string;
-    readonly initialLUSD: Decimal;
+    readonly initialSIM: Decimal;
     // (undocumented)
     get isEmpty(): boolean;
-    readonly lqtyReward: Decimal;
+    readonly shadyReward: Decimal;
     // @internal (undocumented)
     toString(): string;
-    whatChanged(thatLUSD: Decimalish): StabilityDepositChange<Decimal> | undefined;
+    whatChanged(thatSIM: Decimalish): StabilityDepositChange<Decimal> | undefined;
 }
 
 // @public
 export type StabilityDepositChange<T> = {
-    depositLUSD: T;
-    withdrawLUSD?: undefined;
+    depositSIM: T;
+    withdrawSIM?: undefined;
 } | {
-    depositLUSD?: undefined;
-    withdrawLUSD: T;
-    withdrawAllLUSD: boolean;
+    depositSIM?: undefined;
+    withdrawSIM: T;
+    withdrawAllSIM: boolean;
 };
 
 // @public

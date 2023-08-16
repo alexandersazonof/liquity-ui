@@ -258,9 +258,9 @@ export class ReadableEthersLiquity implements ReadableLiquity {
 
     const [
       { frontEndTag, initialValue },
-      currentLUSD,
+      currentSIM,
       collateralGain,
-      lqtyReward
+      shadyReward
     ] = await Promise.all([
       stabilityPool.deposits(address, { ...overrides }),
       stabilityPool.getCompoundedSIMDeposit(address, { ...overrides }),
@@ -270,9 +270,9 @@ export class ReadableEthersLiquity implements ReadableLiquity {
 
     return new StabilityDeposit(
       decimalify(initialValue),
-      decimalify(currentLUSD),
+      decimalify(currentSIM),
       decimalify(collateralGain),
-      decimalify(lqtyReward),
+      decimalify(shadyReward),
       frontEndTag
     );
   }
@@ -288,8 +288,8 @@ export class ReadableEthersLiquity implements ReadableLiquity {
     return issuanceCap.sub(totalLQTYIssued);
   }
 
-  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getLUSDInStabilityPool} */
-  getLUSDInStabilityPool(overrides?: EthersCallOverrides): Promise<Decimal> {
+  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getSIMInStabilityPool} */
+  getSIMInStabilityPool(overrides?: EthersCallOverrides): Promise<Decimal> {
     const { stabilityPool } = _getContracts(this.connection);
 
     return stabilityPool.getTotalSIMDeposits({ ...overrides }).then(decimalify);
@@ -498,11 +498,9 @@ export class ReadableEthersLiquity implements ReadableLiquity {
     return new LQTYStake(stakedLQTY, collateralGain, lusdGain);
   }
 
-  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getTotalStakedLQTY} */
-  async getTotalStakedLQTY(overrides?: EthersCallOverrides): Promise<Decimal> {
-    // TODO
+  /** {@inheritDoc @sim/lib-base#ReadableLiquity.getTotalStakedSHADY} */
+  async getTotalStakedSHADY(overrides?: EthersCallOverrides): Promise<Decimal> {
     const { troveManager } = _getContracts(this.connection);
-
     return troveManager.totalStakes({ ...overrides }).then(decimalify);
   }
 
@@ -642,10 +640,10 @@ class _BlockPolledReadableEthersLiquity
       : this._readable.getRemainingStabilityPoolLQTYReward(overrides);
   }
 
-  async getLUSDInStabilityPool(overrides?: EthersCallOverrides): Promise<Decimal> {
+  async getSIMInStabilityPool(overrides?: EthersCallOverrides): Promise<Decimal> {
     return this._blockHit(overrides)
-      ? this.store.state.lusdInStabilityPool
-      : this._readable.getLUSDInStabilityPool(overrides);
+      ? this.store.state.simInStabilityPool
+      : this._readable.getSIMInStabilityPool(overrides);
   }
 
   async getSIMBalance(address?: string, overrides?: EthersCallOverrides): Promise<Decimal> {
@@ -735,10 +733,10 @@ class _BlockPolledReadableEthersLiquity
       : this._readable.getLQTYStake(address, overrides);
   }
 
-  async getTotalStakedLQTY(overrides?: EthersCallOverrides): Promise<Decimal> {
+  async getTotalStakedSHADY(overrides?: EthersCallOverrides): Promise<Decimal> {
     return this._blockHit(overrides)
-      ? this.store.state.totalStakedLQTY
-      : this._readable.getTotalStakedLQTY(overrides);
+      ? this.store.state.totalStakedSHADY
+      : this._readable.getTotalStakedSHADY(overrides);
   }
 
   async getFrontendStatus(
