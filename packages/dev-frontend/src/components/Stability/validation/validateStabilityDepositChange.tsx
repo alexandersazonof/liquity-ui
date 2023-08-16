@@ -53,20 +53,20 @@ export const validateStabilityDepositChange = (
     return [undefined, undefined];
   }
 
-  if (change.depositLUSD?.gt(simBalance)) {
+  if (change.depositSIM?.gt(simBalance)) {
     return [
       undefined,
       <ErrorDescription>
         The amount you're trying to deposit exceeds your balance by{" "}
         <Amount>
-          {change.depositLUSD.sub(simBalance).prettify()} {COIN}
+          {change.depositSIM.sub(simBalance).prettify()} {COIN}
         </Amount>
         .
       </ErrorDescription>
     ];
   }
 
-  if (change.withdrawLUSD && haveUndercollateralizedTroves) {
+  if (change.withdrawSIM && haveUndercollateralizedTroves) {
     return [
       undefined,
       <ErrorDescription>
