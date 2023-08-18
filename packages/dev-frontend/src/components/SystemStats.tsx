@@ -93,7 +93,7 @@ export const SystemStats: React.FC<SystemStatsProps> = ({ variant = "info", show
           <Text sx={{ fontSize: 1 }}>&nbsp;({simInStabilityPoolPct.toString(1)})</Text>
         </Statistic>
       )}
-      {/*<Statistic lexicon={l.STAKED_SHADY}>{totalStakedSHADY.shorten()}</Statistic>*/}
+      <Statistic lexicon={l.STAKED_SHADY}>{totalStakedSHADY.shorten()}</Statistic>
       <Statistic lexicon={l.TCR}>{totalCollateralRatioPct.prettify()}</Statistic>
       <Statistic lexicon={l.RECOVERY_MODE}>
         {total.collateralRatioIsBelowCritical(price) ? <Box color="danger">Yes</Box> : "No"}

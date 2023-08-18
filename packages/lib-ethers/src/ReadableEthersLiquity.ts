@@ -530,8 +530,8 @@ export class ReadableEthersLiquity implements ReadableLiquity {
 
   /** {@inheritDoc @sim/lib-base#ReadableLiquity.getTotalStakedSHADY} */
   async getTotalStakedSHADY(overrides?: EthersCallOverrides): Promise<Decimal> {
-    const { troveManager } = _getContracts(this.connection);
-    return troveManager.totalStakes({ ...overrides }).then(decimalify);
+    const { shadyToken, veLogic } = _getContracts(this.connection);
+    return shadyToken.balanceOf(veLogic.address, { ...overrides }).then(decimalify);
   }
 
   /** {@inheritDoc @sim/lib-base#ReadableLiquity.getFrontendStatus} */

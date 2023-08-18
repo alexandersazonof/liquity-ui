@@ -17,8 +17,8 @@ export const TVL: Lexicon = {
 };
 
 export const STAKED_SHADY: Lexicon = {
-  term: "Staked SHADY",
-  description: "The total amount of SHADY that is staked for earning fee revenue."
+  term: "Locked SHADY in xSHADY",
+  description: "The total amount of SHADY that is locked for earning fee revenue."
 };
 
 export const TCR: Lexicon = {
