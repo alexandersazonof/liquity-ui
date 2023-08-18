@@ -430,11 +430,11 @@ export class Trove {
    * This doesn't include the liquidation reserve, which is refunded in case of normal closure.
    */
   get netDebt(): Decimal {
-    if (this.debt.lt(SIM_LIQUIDATION_RESERVE)) {
+    /*if (this.debt.lt(SIM_LIQUIDATION_RESERVE)) {
       throw new Error(`netDebt should not be used when debt < ${SIM_LIQUIDATION_RESERVE}`);
-    }
+    }*/
 
-    return this.debt.sub(SIM_LIQUIDATION_RESERVE);
+    return this.debt/*.sub(SIM_LIQUIDATION_RESERVE)*/;
   }
 
   /** @internal */
@@ -567,9 +567,9 @@ export class Trove {
     }
 
     if (this.isEmpty) {
-      if (that.debt.lt(SIM_LIQUIDATION_RESERVE)) {
+      /*if (that.debt.lt(SIM_LIQUIDATION_RESERVE)) {
         return invalidTroveCreation(that, "missingLiquidationReserve");
-      }
+      }*/
 
       return troveCreation({
         depositCollateral: that.collateral,

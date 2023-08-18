@@ -980,7 +980,6 @@ export class PopulatableEthersLiquity
       currentBorrowingRate
     );
 
-    // TODO check params
     const txParams = (borrowSIM?: Decimal): Parameters<typeof borrowerOperations.adjustTrove> => [
       (depositCollateral ?? Decimal.ZERO).hex,
       maxBorrowingRate.hex,
@@ -992,7 +991,8 @@ export class PopulatableEthersLiquity
 
     let gasHeadroom: number | undefined;
 
-    if (overrides.gasLimit === undefined) {
+    // todo need to know why it doesn't work
+    /*if (overrides.gasLimit === undefined) {
       const decayedBorrowingRate = decayBorrowingRate(60 * borrowingFeeDecayToleranceMinutes);
       const decayedTrove = trove.adjust(normalizedParams, decayedBorrowingRate);
       const { borrowSIM: borrowLUSDSimulatingDecay } = trove.adjustTo(
@@ -1021,7 +1021,7 @@ export class PopulatableEthersLiquity
 
       gasHeadroom = gasLimit.sub(gasNow).toNumber();
       overrides = { ...overrides, gasLimit };
-    }
+    }*/
 
     return this._wrapTroveChangeWithFees(
       normalizedParams,

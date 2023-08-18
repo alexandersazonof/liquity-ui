@@ -30,7 +30,7 @@ export const SIM_LIQUIDATION_RESERVE = Decimal.from(200);
  *
  * @public
  */
-export const SIM_MINIMUM_NET_DEBT = Decimal.from(1800);
+export const SIM_MINIMUM_NET_DEBT = Decimal.from(1);
 
 /**
  * A Trove must always have at least this much debt.
@@ -40,7 +40,7 @@ export const SIM_MINIMUM_NET_DEBT = Decimal.from(1800);
  *
  * @public
  */
-export const SIM_MINIMUM_DEBT = SIM_LIQUIDATION_RESERVE.add(SIM_MINIMUM_NET_DEBT);
+export const SIM_MINIMUM_DEBT = SIM_MINIMUM_NET_DEBT/*SIM_LIQUIDATION_RESERVE.add(SIM_MINIMUM_NET_DEBT);*/
 
 /**
  * Value that the {@link Fees.borrowingRate | borrowing rate} will never decay below.

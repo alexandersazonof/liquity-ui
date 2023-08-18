@@ -55,7 +55,7 @@ export const Opening: React.FC = () => {
 
   const fee = borrowAmount.mul(borrowingRate);
   const feePct = new Percent(borrowingRate);
-  const totalDebt = borrowAmount.add(SIM_LIQUIDATION_RESERVE).add(fee);
+  const totalDebt = borrowAmount/*.add(SIM_LIQUIDATION_RESERVE)*/.add(fee);
   const isDirty = !collateral.isZero || !borrowAmount.isZero;
   const trove = isDirty ? new Trove(collateral, totalDebt) : EMPTY_TROVE;
   const maxCollateral = wstETHBalance.gt(GAS_ROOM_ETH)
@@ -95,7 +95,7 @@ export const Opening: React.FC = () => {
 
   useEffect(() => {
     if (!collateral.isZero && borrowAmount.isZero) {
-      setBorrowAmount(SIM_MINIMUM_NET_DEBT);
+      setBorrowAmount(SIM_MINIMUM_NET_DEBT.mul(10));
     }
   }, [collateral, borrowAmount]);
 
@@ -133,7 +133,7 @@ export const Opening: React.FC = () => {
           setEditedAmount={(amount: string) => setBorrowAmount(Decimal.from(amount))}
         />
 
-        <StaticRow
+        {/*<StaticRow
           label="Liquidation Reserve"
           inputId="trove-liquidation-reserve"
           amount={`${SIM_LIQUIDATION_RESERVE}`}
@@ -149,7 +149,7 @@ export const Opening: React.FC = () => {
               }
             />
           }
-        />
+        />*/}
 
         <StaticRow
           label="Borrowing Fee"
@@ -179,13 +179,13 @@ export const Opening: React.FC = () => {
               tooltip={
                 <Card variant="tooltip" sx={{ width: "240px" }}>
                   The total amount of SIM your Trove will hold.{" "}
-                  {isDirty && (
+                  {/*{isDirty && (
                     <>
                       You will need to repay {totalDebt.sub(SIM_LIQUIDATION_RESERVE).prettify(2)}{" "}
                       SIM to reclaim your collateral ({SIM_LIQUIDATION_RESERVE.toString()} SIM
                       Liquidation Reserve excluded).
                     </>
-                  )}
+                  )}*/}
                 </Card>
               }
             />
