@@ -591,22 +591,63 @@ export interface SIMToken
   extractEvents(logs: Log[], name: "TroveManagerAddressChanged"): _TypedLogDescription<{ troveManagerAddress: string }>[];
 }
 
-interface SIMVeDistributorCalls {
-  PROXY_CONTROLLED_VERSION(_overrides?: CallOverrides): Promise<string>;
-  implementation(_overrides?: CallOverrides): Promise<string>;
+interface VeDistributorLogicCalls {
+  CONTROLLABLE_VERSION(_overrides?: CallOverrides): Promise<string>;
+  I_TETU_ERC165(_overrides?: CallOverrides): Promise<string>;
+  VE_DIST_VERSION(_overrides?: CallOverrides): Promise<string>;
+  activePeriod(_overrides?: CallOverrides): Promise<BigNumber>;
+  adjustToDistribute(toDistribute: BigNumberish, t0: BigNumberish, t1: BigNumberish, sinceLast: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  adjustVeSupply(t: BigNumberish, ptTs: BigNumberish, ptBias: BigNumberish, ptSlope: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  calculateToDistribute(_tokenId: BigNumberish, weekCursor: BigNumberish, _lastTokenTime: BigNumberish, userPoint: { bias: BigNumberish; slope: BigNumberish; ts: BigNumberish; blk: BigNumberish }, userEpoch: BigNumberish, maxUserEpoch: BigNumberish, _ve: string, _overrides?: CallOverrides): Promise<{ toDistribute: BigNumber; userEpoch: BigNumber; weekCursor: BigNumber; maxUserEpoch: BigNumber; success: boolean }>;
+  claimable(_tokenId: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  controller(_overrides?: CallOverrides): Promise<string>;
+  created(_overrides?: CallOverrides): Promise<BigNumber>;
+  createdBlock(_overrides?: CallOverrides): Promise<BigNumber>;
+  findTimestampEpoch(_ve: string, _timestamp: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  findTimestampUserEpoch(_ve: string, tokenId: BigNumberish, _timestamp: BigNumberish, maxUserEpoch: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  getSlot(slot: BigNumberish, _overrides?: CallOverrides): Promise<string>;
+  isController(_value: string, _overrides?: CallOverrides): Promise<boolean>;
+  isGovernance(_value: string, _overrides?: CallOverrides): Promise<boolean>;
+  lastTokenTime(_overrides?: CallOverrides): Promise<BigNumber>;
+  previousImplementation(_overrides?: CallOverrides): Promise<string>;
+  revision(_overrides?: CallOverrides): Promise<BigNumber>;
+  rewardToken(_overrides?: CallOverrides): Promise<string>;
+  startTime(_overrides?: CallOverrides): Promise<BigNumber>;
+  supportsInterface(interfaceId: BytesLike, _overrides?: CallOverrides): Promise<boolean>;
+  timeCursor(_overrides?: CallOverrides): Promise<BigNumber>;
+  timeCursorOf(arg0: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  timestamp(_overrides?: CallOverrides): Promise<BigNumber>;
+  tokenLastBalance(_overrides?: CallOverrides): Promise<BigNumber>;
+  tokensPerWeek(arg0: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  userEpochOf(arg0: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  ve(_overrides?: CallOverrides): Promise<string>;
+  veForAt(_tokenId: BigNumberish, _timestamp: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  veSupply(arg0: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
 }
 
-interface SIMVeDistributorTransactions {
-  initProxy(_logic: string, _overrides?: Overrides): Promise<void>;
-  upgrade(_newImplementation: string, _overrides?: Overrides): Promise<void>;
+interface VeDistributorLogicTransactions {
+  checkpoint(_overrides?: Overrides): Promise<void>;
+  checkpointTotalSupply(_overrides?: Overrides): Promise<void>;
+  claim(_tokenId: BigNumberish, _overrides?: Overrides): Promise<BigNumber>;
+  claimMany(_tokenIds: BigNumberish[], _overrides?: Overrides): Promise<boolean>;
+  increaseRevision(oldLogic: string, _overrides?: Overrides): Promise<void>;
+  init(controller_: string, _ve: string, _rewardToken: string, _overrides?: Overrides): Promise<void>;
 }
 
-export interface SIMVeDistributor
-  extends _TypedSimContract<SIMVeDistributorCalls, SIMVeDistributorTransactions> {
+export interface VeDistributorLogic
+  extends _TypedSimContract<VeDistributorLogicCalls, VeDistributorLogicTransactions> {
   readonly filters: {
-    Upgraded(implementation?: string | null): EventFilter;
+    CheckpointToken(time?: null, tokens?: null): EventFilter;
+    Claimed(tokenId?: null, amount?: null, claimEpoch?: null, maxEpoch?: null): EventFilter;
+    ContractInitialized(controller?: null, ts?: null, block?: null): EventFilter;
+    Initialized(version?: null): EventFilter;
+    RevisionIncreased(value?: null, oldLogic?: null): EventFilter;
   };
-  extractEvents(logs: Log[], name: "Upgraded"): _TypedLogDescription<{ implementation: string }>[];
+  extractEvents(logs: Log[], name: "CheckpointToken"): _TypedLogDescription<{ time: BigNumber; tokens: BigNumber }>[];
+  extractEvents(logs: Log[], name: "Claimed"): _TypedLogDescription<{ tokenId: BigNumber; amount: BigNumber; claimEpoch: BigNumber; maxEpoch: BigNumber }>[];
+  extractEvents(logs: Log[], name: "ContractInitialized"): _TypedLogDescription<{ controller: string; ts: BigNumber; block: BigNumber }>[];
+  extractEvents(logs: Log[], name: "Initialized"): _TypedLogDescription<{ version: number }>[];
+  extractEvents(logs: Log[], name: "RevisionIncreased"): _TypedLogDescription<{ value: BigNumber; oldLogic: string }>[];
 }
 
 interface SortedTrovesCalls {
@@ -1176,20 +1217,61 @@ export interface WSTETHMock
   extractEvents(logs: Log[], name: "Transfer"): _TypedLogDescription<{ from: string; to: string; value: BigNumber }>[];
 }
 
-interface WSTETHVeDistributorCalls {
-  PROXY_CONTROLLED_VERSION(_overrides?: CallOverrides): Promise<string>;
-  implementation(_overrides?: CallOverrides): Promise<string>;
+interface VeDistributorLogicCalls {
+  CONTROLLABLE_VERSION(_overrides?: CallOverrides): Promise<string>;
+  I_TETU_ERC165(_overrides?: CallOverrides): Promise<string>;
+  VE_DIST_VERSION(_overrides?: CallOverrides): Promise<string>;
+  activePeriod(_overrides?: CallOverrides): Promise<BigNumber>;
+  adjustToDistribute(toDistribute: BigNumberish, t0: BigNumberish, t1: BigNumberish, sinceLast: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  adjustVeSupply(t: BigNumberish, ptTs: BigNumberish, ptBias: BigNumberish, ptSlope: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  calculateToDistribute(_tokenId: BigNumberish, weekCursor: BigNumberish, _lastTokenTime: BigNumberish, userPoint: { bias: BigNumberish; slope: BigNumberish; ts: BigNumberish; blk: BigNumberish }, userEpoch: BigNumberish, maxUserEpoch: BigNumberish, _ve: string, _overrides?: CallOverrides): Promise<{ toDistribute: BigNumber; userEpoch: BigNumber; weekCursor: BigNumber; maxUserEpoch: BigNumber; success: boolean }>;
+  claimable(_tokenId: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  controller(_overrides?: CallOverrides): Promise<string>;
+  created(_overrides?: CallOverrides): Promise<BigNumber>;
+  createdBlock(_overrides?: CallOverrides): Promise<BigNumber>;
+  findTimestampEpoch(_ve: string, _timestamp: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  findTimestampUserEpoch(_ve: string, tokenId: BigNumberish, _timestamp: BigNumberish, maxUserEpoch: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  getSlot(slot: BigNumberish, _overrides?: CallOverrides): Promise<string>;
+  isController(_value: string, _overrides?: CallOverrides): Promise<boolean>;
+  isGovernance(_value: string, _overrides?: CallOverrides): Promise<boolean>;
+  lastTokenTime(_overrides?: CallOverrides): Promise<BigNumber>;
+  previousImplementation(_overrides?: CallOverrides): Promise<string>;
+  revision(_overrides?: CallOverrides): Promise<BigNumber>;
+  rewardToken(_overrides?: CallOverrides): Promise<string>;
+  startTime(_overrides?: CallOverrides): Promise<BigNumber>;
+  supportsInterface(interfaceId: BytesLike, _overrides?: CallOverrides): Promise<boolean>;
+  timeCursor(_overrides?: CallOverrides): Promise<BigNumber>;
+  timeCursorOf(arg0: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  timestamp(_overrides?: CallOverrides): Promise<BigNumber>;
+  tokenLastBalance(_overrides?: CallOverrides): Promise<BigNumber>;
+  tokensPerWeek(arg0: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  userEpochOf(arg0: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  ve(_overrides?: CallOverrides): Promise<string>;
+  veForAt(_tokenId: BigNumberish, _timestamp: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
+  veSupply(arg0: BigNumberish, _overrides?: CallOverrides): Promise<BigNumber>;
 }
 
-interface WSTETHVeDistributorTransactions {
-  initProxy(_logic: string, _overrides?: Overrides): Promise<void>;
-  upgrade(_newImplementation: string, _overrides?: Overrides): Promise<void>;
+interface VeDistributorLogicTransactions {
+  checkpoint(_overrides?: Overrides): Promise<void>;
+  checkpointTotalSupply(_overrides?: Overrides): Promise<void>;
+  claim(_tokenId: BigNumberish, _overrides?: Overrides): Promise<BigNumber>;
+  claimMany(_tokenIds: BigNumberish[], _overrides?: Overrides): Promise<boolean>;
+  increaseRevision(oldLogic: string, _overrides?: Overrides): Promise<void>;
+  init(controller_: string, _ve: string, _rewardToken: string, _overrides?: Overrides): Promise<void>;
 }
 
-export interface WSTETHVeDistributor
-  extends _TypedSimContract<WSTETHVeDistributorCalls, WSTETHVeDistributorTransactions> {
+export interface VeDistributorLogic
+  extends _TypedSimContract<VeDistributorLogicCalls, VeDistributorLogicTransactions> {
   readonly filters: {
-    Upgraded(implementation?: string | null): EventFilter;
+    CheckpointToken(time?: null, tokens?: null): EventFilter;
+    Claimed(tokenId?: null, amount?: null, claimEpoch?: null, maxEpoch?: null): EventFilter;
+    ContractInitialized(controller?: null, ts?: null, block?: null): EventFilter;
+    Initialized(version?: null): EventFilter;
+    RevisionIncreased(value?: null, oldLogic?: null): EventFilter;
   };
-  extractEvents(logs: Log[], name: "Upgraded"): _TypedLogDescription<{ implementation: string }>[];
+  extractEvents(logs: Log[], name: "CheckpointToken"): _TypedLogDescription<{ time: BigNumber; tokens: BigNumber }>[];
+  extractEvents(logs: Log[], name: "Claimed"): _TypedLogDescription<{ tokenId: BigNumber; amount: BigNumber; claimEpoch: BigNumber; maxEpoch: BigNumber }>[];
+  extractEvents(logs: Log[], name: "ContractInitialized"): _TypedLogDescription<{ controller: string; ts: BigNumber; block: BigNumber }>[];
+  extractEvents(logs: Log[], name: "Initialized"): _TypedLogDescription<{ version: number }>[];
+  extractEvents(logs: Log[], name: "RevisionIncreased"): _TypedLogDescription<{ value: BigNumber; oldLogic: string }>[];
 }

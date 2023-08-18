@@ -27,13 +27,15 @@ import stabilityPoolAbi from "../abi/StabilityPool.json";
 import LiquidityRewardsIssuanceAbi from "../abi/LiquidityRewardsIssuance.json";
 import SHADYTokenAbi from "../abi/SHADYToken.json";
 import SIMTokenAbi from "../abi/SIMToken.json";
-import SIMVeDistributorAbi from "../abi/SIMVeDistributor.json";
+// import SIMVeDistributorAbi from "../abi/SIMVeDistributor.json";
+// import SIMVeDistributorAbi from "../abi/VeDistributorLogic.json";
 import VeAbi from "../abi/Ve.json";
 import VeDistributorLogicAbi from "../abi/VeDistributorLogic.json";
 import VeLogicAbi from "../abi/VeLogic.json";
 import VeLogoAbi from "../abi/VeLogo.json";
 import WSTETHMockAbi from "../abi/WSTETHMock.json";
-import WSTETHVeDistributorAbi from "../abi/WSTETHVeDistributor.json";
+// import WSTETHVeDistributorAbi from "../abi/WSTETHVeDistributor.json";
+// import WSTETHVeDistributorAbi from "../abi/VeDistributorLogic.json";
 
 import {
   ActivePool,
@@ -49,7 +51,7 @@ import {
   PriceFeedTestnet,
   SHADYToken,
   SIMToken,
-  SIMVeDistributor,
+  // SIMVeDistributor,
   SortedTroves,
   StabilityPool,
   ERC20Mock,
@@ -59,7 +61,7 @@ import {
   VeLogic,
   VeLogo,
   WSTETHMock,
-  WSTETHVeDistributor
+  // WSTETHVeDistributor
 } from "../types";
 
 import { EthersProvider, EthersSigner } from "./types";
@@ -182,7 +184,8 @@ export interface _SimContracts {
   priceFeed: PriceFeed | PriceFeedTestnet;
   shadyToken: SHADYToken;
   simToken: SIMToken;
-  simVeDistributor: SIMVeDistributor;
+  // simVeDistributor: SIMVeDistributor;
+  simVeDistributor: VeDistributorLogic;
   sortedTroves: SortedTroves;
   stabilityPool: StabilityPool;
   troveManager: TroveManager;
@@ -191,7 +194,8 @@ export interface _SimContracts {
   veLogic: VeLogic;
   veLogo: VeLogo;
   wStEthMock: WSTETHMock;
-  wStEthVeDistributor: WSTETHVeDistributor;
+  // wStEthVeDistributor: WSTETHVeDistributor;
+  wStEthVeDistributor: VeDistributorLogic;
 }
 
 /** @internal */
@@ -225,13 +229,14 @@ const getAbi = (priceFeedIsTestnet: boolean): SimContractAbis => ({
   liquidityRewardsIssuance: LiquidityRewardsIssuanceAbi,
   shadyToken: SHADYTokenAbi,
   simToken: SIMTokenAbi,
-  simVeDistributor: SIMVeDistributorAbi,
+  // simVeDistributor: SIMVeDistributorAbi,
+  simVeDistributor: VeDistributorLogicAbi,
   ve: VeAbi,
   veDistributorLogic: VeDistributorLogicAbi,
   veLogic: VeLogicAbi,
   veLogo: VeLogoAbi,
   wStEthMock: WSTETHMockAbi,
-  wStEthVeDistributor: WSTETHVeDistributorAbi
+  wStEthVeDistributor: VeDistributorLogicAbi
 });
 
 const mapSimContracts = <T, U>(

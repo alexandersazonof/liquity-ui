@@ -239,16 +239,19 @@ export type LiquityReceipt<R = unknown, D = unknown> = PendingReceipt | MinedRec
 // @public
 export class LQTYStake {
     // @internal
-    constructor(stakedLQTY?: Decimal, collateralGain?: Decimal, lusdGain?: Decimal);
+    constructor(stakedLQTY?: Decimal, collateralGain?: Decimal, lusdGain?: Decimal, ves?: Ve[], shadyVeAllowance?: Decimal);
     apply(change: LQTYStakeChange<Decimalish> | undefined): Decimal;
     readonly collateralGain: Decimal;
     equals(that: LQTYStake): boolean;
     // (undocumented)
     get isEmpty(): boolean;
     readonly lusdGain: Decimal;
+    // (undocumented)
+    readonly shadyVeAllowance: Decimal;
     readonly stakedLQTY: Decimal;
     // @internal (undocumented)
     toString(): string;
+    readonly ves: Ve[];
     whatChanged(thatStakedLQTY: Decimalish): LQTYStakeChange<Decimal> | undefined;
 }
 
@@ -808,6 +811,16 @@ export class UserTrove extends Trove {
 
 // @public
 export type UserTroveStatus = "nonExistent" | "open" | "closedByOwner" | "closedByLiquidation" | "closedByRedemption";
+
+// @public (undocumented)
+export type Ve = {
+    tokenId: number;
+    locked: Decimal;
+    lockEnd: number;
+    power: Decimal;
+    earnedWSTETH: Decimal;
+    earnedSIM: Decimal;
+};
 
 
 // (No @packageDocumentation comment for this package)

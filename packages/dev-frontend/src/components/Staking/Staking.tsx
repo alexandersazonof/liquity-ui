@@ -4,14 +4,14 @@ import { StakingManager } from "./StakingManager";
 import { NoStake } from "./NoStake";
 
 export const Staking: React.FC = () => {
-  const { view } = useStakingView();
+  const { view, tokenId } = useStakingView();
 
   switch (view) {
     case "ACTIVE":
       return <ReadOnlyStake />;
 
     case "ADJUSTING":
-      return <StakingManager />;
+      return <StakingManager tokenId={tokenId}/>;
 
     case "NONE":
       return <NoStake />;

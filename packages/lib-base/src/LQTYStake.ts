@@ -9,6 +9,15 @@ export type LQTYStakeChange<T> =
   | { stakeLQTY: T; unstakeLQTY?: undefined }
   | { stakeLQTY?: undefined; unstakeLQTY: T; unstakeAllLQTY: boolean };
 
+export type Ve = {
+  tokenId: number
+  locked: Decimal
+  lockEnd: number
+  power: Decimal
+  earnedWSTETH: Decimal
+  earnedSIM: Decimal
+}
+
 /** 
  * Represents a user's LQTY stake and accrued gains.
  * 
@@ -27,15 +36,28 @@ export class LQTYStake {
   /** LUSD gain available to withdraw. */
   readonly lusdGain: Decimal;
 
+  /** Ve tokens */
+  readonly ves: Ve[];
+
+  readonly shadyVeAllowance: Decimal;
+
   /** @internal */
-  constructor(stakedLQTY = Decimal.ZERO, collateralGain = Decimal.ZERO, lusdGain = Decimal.ZERO) {
+  constructor(
+    stakedLQTY = Decimal.ZERO,
+    collateralGain = Decimal.ZERO,
+    lusdGain = Decimal.ZERO,
+    ves: Ve[] = [],
+    shadyVeAllowance = Decimal.ZERO
+    ) {
     this.stakedLQTY = stakedLQTY;
     this.collateralGain = collateralGain;
     this.lusdGain = lusdGain;
+    this.ves = ves
+    this.shadyVeAllowance = shadyVeAllowance
   }
 
   get isEmpty(): boolean {
-    return this.stakedLQTY.isZero && this.collateralGain.isZero && this.lusdGain.isZero;
+    return this.ves.length === 0;
   }
 
   /** @internal */

@@ -333,13 +333,21 @@ export class PopulatableEthersLiquity implements PopulatableLiquity<EthersTransa
     // (undocumented)
     adjustTrove(params: TroveAdjustmentParams<Decimalish>, maxBorrowingRateOrOptionalParams?: Decimalish | BorrowingOperationOptionalParams, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)
+    approveShadyForVe(overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
+    // (undocumented)
     approveWstEthTokens(allowance?: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // (undocumented)
     borrowLUSD(amount: Decimalish, maxBorrowingRate?: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)
     claimCollateralSurplus(overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // (undocumented)
+    claimVeDistributorSIM(tokenId: number, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
+    // (undocumented)
+    claimVeDistributorwstETH(tokenId: number, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
+    // (undocumented)
     closeTrove(overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<TroveClosureDetails>>;
+    // (undocumented)
+    createLock(amount: Decimalish, lockDuration: number, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // (undocumented)
     depositCollateral(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)
@@ -347,9 +355,15 @@ export class PopulatableEthersLiquity implements PopulatableLiquity<EthersTransa
     // (undocumented)
     exitLiquidityMining(overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // (undocumented)
+    increaseAmount(amount: Decimalish, tokenId: number, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
+    // (undocumented)
+    increaseUnlockTime(lockDuration: number, tokenId: number, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
+    // (undocumented)
     liquidate(address: string | string[], overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<LiquidationDetails>>;
     // (undocumented)
     liquidateUpTo(maximumNumberOfTrovesToLiquidate: number, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<LiquidationDetails>>;
+    // (undocumented)
+    merge(tokenFrom: number, tokenTo: number, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // @internal (undocumented)
     _mintUniToken(amount: Decimalish, address?: string, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // (undocumented)
@@ -367,6 +381,8 @@ export class PopulatableEthersLiquity implements PopulatableLiquity<EthersTransa
     // @internal (undocumented)
     setPrice(price: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // (undocumented)
+    split(percent: Decimalish, tokenId: number, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
+    // (undocumented)
     stakeLQTY(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // (undocumented)
     stakeUniTokens(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
@@ -376,6 +392,8 @@ export class PopulatableEthersLiquity implements PopulatableLiquity<EthersTransa
     unstakeLQTY(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // (undocumented)
     unstakeUniTokens(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
+    // (undocumented)
+    veWithdrawAll(tokenId: number, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>>;
     // (undocumented)
     withdrawCollateral(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)
@@ -536,13 +554,21 @@ export class SendableEthersLiquity implements SendableLiquity<EthersTransactionR
     // (undocumented)
     adjustTrove(params: TroveAdjustmentParams<Decimalish>, maxBorrowingRateOrOptionalParams?: Decimalish | BorrowingOperationOptionalParams, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)
+    approveShadyForVe(overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
+    // (undocumented)
     approveWstEthTokens(allowance?: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // (undocumented)
     borrowLUSD(amount: Decimalish, maxBorrowingRate?: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)
     claimCollateralSurplus(overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // (undocumented)
+    claimVeDistributorSIM(tokenId: number, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
+    // (undocumented)
+    claimVeDistributorwstETH(tokenId: number, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
+    // (undocumented)
     closeTrove(overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<TroveClosureDetails>>;
+    // (undocumented)
+    createLock(amount: Decimalish, lockDuration: number, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // (undocumented)
     depositCollateral(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)
@@ -550,9 +576,15 @@ export class SendableEthersLiquity implements SendableLiquity<EthersTransactionR
     // (undocumented)
     exitLiquidityMining(overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // (undocumented)
+    increaseAmount(amount: Decimalish, tokenId: number, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
+    // (undocumented)
+    increaseUnlockTime(lockDuration: number, tokenId: number, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
+    // (undocumented)
     liquidate(address: string | string[], overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<LiquidationDetails>>;
     // (undocumented)
     liquidateUpTo(maximumNumberOfTrovesToLiquidate: number, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<LiquidationDetails>>;
+    // (undocumented)
+    merge(tokenFrom: number, tokenTo: number, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // @internal (undocumented)
     _mintUniToken(amount: Decimalish, address?: string, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // (undocumented)
@@ -570,6 +602,8 @@ export class SendableEthersLiquity implements SendableLiquity<EthersTransactionR
     // @internal (undocumented)
     setPrice(price: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // (undocumented)
+    split(percent: Decimalish, tokenId: number, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
+    // (undocumented)
     stakeLQTY(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // (undocumented)
     stakeUniTokens(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
@@ -579,6 +613,8 @@ export class SendableEthersLiquity implements SendableLiquity<EthersTransactionR
     unstakeLQTY(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // (undocumented)
     unstakeUniTokens(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
+    // (undocumented)
+    veWithdrawAll(tokenId: number, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>>;
     // (undocumented)
     withdrawCollateral(amount: Decimalish, overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<TroveAdjustmentDetails>>;
     // (undocumented)

@@ -196,6 +196,9 @@ const showFrontendStatus = (x: FrontendStatus) =>
     ? '{ status: "unregistered" }'
     : `{ status: "registered", kickbackRate: ${x.kickbackRate} }`;
 
+const lqtyStakeEquals = (a: LQTYStake, b: LQTYStake) =>
+  a.shadyVeAllowance.eq(b.shadyVeAllowance) && a.ves.length === b.ves.length && a.ves.every((aVe, index) => aVe.locked.eq(b.ves[index].locked) && aVe.lockEnd === b.ves[index].lockEnd)
+
 const wrap = <A extends unknown[], R>(f: (...args: A) => R) => (...args: A) => f(...args);
 
 const difference = <T>(a: T, b: T) =>
@@ -478,7 +481,7 @@ export abstract class SimStore<T = unknown> {
       ),
 
       lqtyStake: this._updateIfChanged(
-        equals,
+        lqtyStakeEquals,
         "lqtyStake",
         baseState.lqtyStake,
         baseStateUpdate.lqtyStake
@@ -604,6 +607,7 @@ export abstract class SimStore<T = unknown> {
     baseStateUpdate?: Partial<SimStoreBaseState>,
     extraStateUpdate?: Partial<T>
   ): void {
+
     assert(this._baseState && this._derivedState);
 
     const oldState = this.state;

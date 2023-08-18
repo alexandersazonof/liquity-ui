@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 
 export type StakingView = "ACTIVE" | "ADJUSTING" | "NONE";
 
-export type StakingViewAction = { type: "startAdjusting" | "cancelAdjusting" };
+export type StakingViewAction = { type: "startAdjusting" | "cancelAdjusting", tokenId: number|undefined };
 
 export type StakingViewContextType = {
   view: StakingView;
@@ -10,6 +10,8 @@ export type StakingViewContextType = {
   // Indicates that a staking TX is pending.
   // The panel should be covered with a spinner overlay when this is true.
   changePending: boolean;
+
+  tokenId: number|undefined;
 
   // Dispatch an action that changes the Staking panel's view.
   dispatch: (action: StakingViewAction) => void;
