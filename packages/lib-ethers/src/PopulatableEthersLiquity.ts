@@ -980,7 +980,6 @@ export class PopulatableEthersLiquity
       currentBorrowingRate
     );
 
-    // TODO check params
     const txParams = (borrowSIM?: Decimal): Parameters<typeof borrowerOperations.adjustTrove> => [
       (depositCollateral ?? Decimal.ZERO).hex,
       maxBorrowingRate.hex,
@@ -992,7 +991,8 @@ export class PopulatableEthersLiquity
 
     let gasHeadroom: number | undefined;
 
-    if (overrides.gasLimit === undefined) {
+    // todo need to know why it doesn't work
+    /*if (overrides.gasLimit === undefined) {
       const decayedBorrowingRate = decayBorrowingRate(60 * borrowingFeeDecayToleranceMinutes);
       const decayedTrove = trove.adjust(normalizedParams, decayedBorrowingRate);
       const { borrowSIM: borrowLUSDSimulatingDecay } = trove.adjustTo(
@@ -1021,7 +1021,7 @@ export class PopulatableEthersLiquity
 
       gasHeadroom = gasLimit.sub(gasNow).toNumber();
       overrides = { ...overrides, gasLimit };
-    }
+    }*/
 
     return this._wrapTroveChangeWithFees(
       normalizedParams,
@@ -1283,6 +1283,116 @@ export class PopulatableEthersLiquity
     };
 
     return populateRedemption(attemptedLUSDAmount, maxRedemptionRate, truncatedAmount, partialHints);
+  }
+
+  async approveShadyForVe(overrides?: EthersTransactionOverrides): Promise<PopulatedEthersLiquityTransaction<void>> {
+    overrides = this._prepareOverrides(overrides);
+    const { veLogic, shadyToken } = _getContracts(this._readable.connection);
+
+    return this._wrapSimpleTransaction(
+      await shadyToken.estimateAndPopulate.approve(overrides, id, veLogic.address, Decimal.INFINITY.hex)
+    );
+  }
+
+  async claimVeDistributorSIM(
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<PopulatedEthersLiquityTransaction<void>> {
+    overrides = this._prepareOverrides(overrides);
+    const { simVeDistributor} = _getContracts(this._readable.connection);
+
+    return this._wrapSimpleTransaction(
+      await simVeDistributor.estimateAndPopulate.claim(overrides, id, tokenId)
+    );
+  }
+
+  async claimVeDistributorwstETH(
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<PopulatedEthersLiquityTransaction<void>> {
+    overrides = this._prepareOverrides(overrides);
+    const { wStEthVeDistributor} = _getContracts(this._readable.connection);
+
+    return this._wrapSimpleTransaction(
+      await wStEthVeDistributor.estimateAndPopulate.claim(overrides, id, tokenId)
+    );
+  }
+
+  async veWithdrawAll(
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<PopulatedEthersLiquityTransaction<void>> {
+    overrides = this._prepareOverrides(overrides);
+    const { veLogic} = _getContracts(this._readable.connection);
+
+    return this._wrapSimpleTransaction(
+      await veLogic.estimateAndPopulate.withdrawAll(overrides, id, tokenId)
+    );
+  }
+
+  async merge(
+    tokenFrom: number,
+    tokenTo: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<PopulatedEthersLiquityTransaction<void>> {
+    overrides = this._prepareOverrides(overrides);
+    const { veLogic} = _getContracts(this._readable.connection);
+
+    return this._wrapSimpleTransaction(
+      await veLogic.estimateAndPopulate.merge(overrides, id, tokenFrom, tokenTo)
+    );
+  }
+
+  async split(
+    percent: Decimalish,
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<PopulatedEthersLiquityTransaction<void>> {
+    overrides = this._prepareOverrides(overrides);
+    const { veLogic} = _getContracts(this._readable.connection);
+
+    return this._wrapSimpleTransaction(
+      await veLogic.estimateAndPopulate.split(overrides, id, tokenId,  Decimal.from(percent).hex)
+    );
+  }
+
+  async increaseUnlockTime(
+    lockDuration: number,
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<PopulatedEthersLiquityTransaction<void>> {
+    overrides = this._prepareOverrides(overrides);
+    const { veLogic} = _getContracts(this._readable.connection);
+
+    return this._wrapSimpleTransaction(
+      await veLogic.estimateAndPopulate.increaseUnlockTime(overrides, id, tokenId,  lockDuration)
+    );
+  }
+
+  async increaseAmount(
+    amount: Decimalish,
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<PopulatedEthersLiquityTransaction<void>> {
+    overrides = this._prepareOverrides(overrides);
+    const { veLogic, shadyToken } = _getContracts(this._readable.connection);
+
+    return this._wrapSimpleTransaction(
+      await veLogic.estimateAndPopulate.increaseAmount(overrides, id, shadyToken.address, tokenId,  Decimal.from(amount).hex)
+    );
+  }
+
+  async createLock(
+    amount: Decimalish,
+    lockDuration: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<PopulatedEthersLiquityTransaction<void>> {
+    overrides = this._prepareOverrides(overrides);
+    const { veLogic, shadyToken } = _getContracts(this._readable.connection);
+
+    return this._wrapSimpleTransaction(
+      await veLogic.estimateAndPopulate.createLock(overrides, id, shadyToken.address, Decimal.from(amount).hex, lockDuration.toString())
+    );
   }
 
   /** {@inheritDoc @sim/lib-base#PopulatableLiquity.stakeLQTY} */

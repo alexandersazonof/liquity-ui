@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Heading, Box, Card, Button } from "theme-ui";
+import { Heading, Box, Card, Button, Select } from "theme-ui";
 
-import { Decimal, Decimalish, Difference, SimStoreState, LQTYStake } from "@sim/lib-base";
+import { Decimal, Decimalish, /*Difference,*/ SimStoreState, LQTYStake } from "@sim/lib-base";
 import { useSimSelector } from "@sim/lib-react";
 
-import { COIN, GT } from "../../strings";
+import { /*COIN,*/ GT } from "../../strings";
 
 import { Icon } from "../Icon";
-import { EditableRow, StaticRow } from "../Trove/Editor";
+import { EditableRow, /*StaticRow*/ } from "../Trove/Editor";
 import { LoadingOverlay } from "../LoadingOverlay";
 
 import { useStakingView } from "./context/StakingViewContext";
@@ -21,7 +21,15 @@ type StakingEditorProps = {
   title: string;
   originalStake: LQTYStake;
   editedLQTY: Decimal;
-  dispatch: (action: { type: "setStake"; newValue: Decimalish } | { type: "revert" }) => void;
+  editedLockPeriod: number;
+  canSplit: boolean;
+  editedSplitPercent: Decimal;
+  canMergeWith: number[],
+  mergeId: number,
+  dispatch: (action: { type: "setStake"; newValue: Decimalish } | { type: "revert" } | { type: "setPeriod"; newValue: number }) => void;
+  dispatchSetPeriod: (newPeriod: number) => void;
+  dispatchSplitPercent: (splitPercent: Decimal) => void;
+  dispatchMergeId: (id: number) => void;
 };
 
 export const StakingEditor: React.FC<StakingEditorProps> = ({
@@ -29,9 +37,17 @@ export const StakingEditor: React.FC<StakingEditorProps> = ({
   title,
   originalStake,
   editedLQTY,
-  dispatch
+  editedLockPeriod,
+  canSplit,
+  editedSplitPercent,
+  canMergeWith,
+  mergeId,
+  dispatch,
+  dispatchSetPeriod,
+  dispatchSplitPercent,
+  dispatchMergeId,
 }) => {
-  const { shadyBalance, totalStakedSHADY } = useSimSelector(select);
+  const { shadyBalance, /*totalStakedSHADY*/ } = useSimSelector(select);
   const { changePending } = useStakingView();
   const editingState = useState<string>();
 
@@ -40,12 +56,7 @@ export const StakingEditor: React.FC<StakingEditorProps> = ({
   const maxAmount = originalStake.stakedLQTY.add(shadyBalance);
   const maxedOut = editedLQTY.eq(maxAmount);
 
-  const totalStakedLQTYAfterChange = totalStakedSHADY.sub(originalStake.stakedLQTY).add(editedLQTY);
-
-  const originalPoolShare = originalStake.stakedLQTY.mulDiv(100, totalStakedSHADY);
-  const newPoolShare = editedLQTY.mulDiv(100, totalStakedLQTYAfterChange);
-  const poolShareChange =
-    originalStake.stakedLQTY.nonZero && Difference.between(newPoolShare, originalPoolShare).nonZero;
+  const maxPercent = Decimal.from(100)
 
   return (
     <Card>
@@ -64,7 +75,7 @@ export const StakingEditor: React.FC<StakingEditorProps> = ({
 
       <Box sx={{ p: [2, 3] }}>
         <EditableRow
-          label="Stake"
+          label="Lock"
           inputId="stake-lqty"
           amount={editedLQTY.prettify()}
           maxAmount={maxAmount.toString()}
@@ -75,38 +86,44 @@ export const StakingEditor: React.FC<StakingEditorProps> = ({
           setEditedAmount={newValue => dispatch({ type: "setStake", newValue })}
         />
 
-        {newPoolShare.infinite ? (
-          <StaticRow label="Pool share" inputId="stake-share" amount="N/A" />
-        ) : (
-          <StaticRow
-            label="Pool share"
-            inputId="stake-share"
-            amount={newPoolShare.prettify(4)}
-            pendingAmount={poolShareChange?.prettify(4).concat("%")}
-            pendingColor={poolShareChange?.positive ? "success" : "danger"}
-            unit="%"
-          />
-        )}
+        <EditableRow
+          label="Period"
+          inputId="lock-period"
+          amount={editedLockPeriod.toString()}
+          maxAmount={'16'}
+          maxedOut={editedLockPeriod === 16}
+          unit="weeks"
+          {...{ editingState }}
+          editedAmount={editedLockPeriod.toString()}
+          // setEditedAmount={newValue => dispatch({ type: "setPeriod", newValue: +newValue })}
+          setEditedAmount={newValue => dispatchSetPeriod(+newValue )}
+        />
 
-        {!originalStake.isEmpty && (
-          <>
-            <StaticRow
-              label="Redemption gain"
-              inputId="stake-gain-eth"
-              amount={originalStake.collateralGain.prettify(4)}
-              color={originalStake.collateralGain.nonZero && "success"}
-              unit="ETH"
+        {canSplit &&
+            <EditableRow
+                label="Split percent"
+                inputId="split=percent"
+                amount={editedSplitPercent.toString()}
+                maxAmount={maxPercent.toString()}
+                maxedOut={editedSplitPercent.eq(maxPercent)}
+                unit={'%'}
+                {...{ editingState }}
+                editedAmount={editedSplitPercent.toString(2)}
+                setEditedAmount={newValue => dispatchSplitPercent(Decimal.from(newValue) )}
             />
+        }
 
-            <StaticRow
-              label="Issuance gain"
-              inputId="stake-gain-lusd"
-              amount={originalStake.lusdGain.prettify()}
-              color={originalStake.lusdGain.nonZero && "success"}
-              unit={COIN}
-            />
-          </>
-        )}
+        {canMergeWith.length > 0 &&
+            <>
+                <span>Merge with</span>
+                <Select defaultValue={mergeId} onChange={e => dispatchMergeId(+e.target.value)}>
+                  {[0, ...canMergeWith].map(mergeToId => (
+                    <option value={mergeToId}>{mergeToId ? `#${mergeToId}` : '-'}</option>
+                  ))}
+                </Select>
+                <br />
+            </>
+        }
 
         {children}
       </Box>

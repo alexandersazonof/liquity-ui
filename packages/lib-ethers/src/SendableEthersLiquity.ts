@@ -196,6 +196,71 @@ export class SendableEthersLiquity
     return this._populate.claimCollateralSurplus(overrides).then(sendTransaction);
   }
 
+  approveShadyForVe(overrides?: EthersTransactionOverrides): Promise<SentEthersLiquityTransaction<void>> {
+    return this._populate.approveShadyForVe(overrides).then(sendTransaction);
+  }
+
+  veWithdrawAll(
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<SentEthersLiquityTransaction<void>> {
+    return this._populate.veWithdrawAll(tokenId, overrides).then(sendTransaction);
+  }
+
+  claimVeDistributorSIM(
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<SentEthersLiquityTransaction<void>> {
+    return this._populate.claimVeDistributorSIM(tokenId, overrides).then(sendTransaction);
+  }
+
+  claimVeDistributorwstETH(
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<SentEthersLiquityTransaction<void>> {
+    return this._populate.claimVeDistributorwstETH(tokenId, overrides).then(sendTransaction);
+  }
+
+  merge(
+    tokenFrom: number,
+    tokenTo: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<SentEthersLiquityTransaction<void>> {
+    return this._populate.merge(tokenFrom, tokenTo, overrides).then(sendTransaction);
+  }
+
+  split(
+    percent: Decimalish,
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<SentEthersLiquityTransaction<void>> {
+    return this._populate.split(percent, tokenId, overrides).then(sendTransaction);
+  }
+
+  increaseUnlockTime(
+    lockDuration: number,
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<SentEthersLiquityTransaction<void>> {
+    return this._populate.increaseUnlockTime(lockDuration, tokenId, overrides).then(sendTransaction);
+  }
+
+  increaseAmount(
+    amount: Decimalish,
+    tokenId: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<SentEthersLiquityTransaction<void>> {
+    return this._populate.increaseAmount(amount, tokenId, overrides).then(sendTransaction);
+  }
+
+  createLock(
+    amount: Decimalish,
+    lockDuration: number,
+    overrides?: EthersTransactionOverrides
+  ): Promise<SentEthersLiquityTransaction<void>> {
+    return this._populate.createLock(amount, lockDuration, overrides).then(sendTransaction);
+  }
+
   /** {@inheritDoc @sim/lib-base#SendableLiquity.stakeLQTY} */
   stakeLQTY(
     amount: Decimalish,

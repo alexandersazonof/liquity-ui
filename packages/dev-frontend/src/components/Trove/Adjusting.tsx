@@ -5,7 +5,7 @@ import {
   Decimal,
   Trove,
   Percent,
-  Difference, SIM_LIQUIDATION_RESERVE,
+  Difference, /*SIM_LIQUIDATION_RESERVE,*/
 } from '@sim/lib-base';
 import { useSimSelector } from "@sim/lib-react";
 
@@ -127,7 +127,7 @@ export const Adjusting: React.FC = () => {
   const fee = isDebtIncrease
     ? feeFrom(trove, new Trove(trove.collateral, trove.debt.add(debtIncreaseAmount)), borrowingRate)
     : Decimal.ZERO;
-  const totalDebt = netDebt.add(SIM_LIQUIDATION_RESERVE).add(fee);
+  const totalDebt = netDebt/*.add(SIM_LIQUIDATION_RESERVE)*/.add(fee);
   const maxBorrowingRate = borrowingRate.add(0.005);
   const updatedTrove = isDirty ? new Trove(collateral, totalDebt) : trove;
   const feePct = new Percent(borrowingRate);
@@ -192,7 +192,7 @@ export const Adjusting: React.FC = () => {
           setEditedAmount={(amount: string) => setNetDebt(Decimal.from(amount))}
         />
 
-        <StaticRow
+        {/*<StaticRow
           label="Liquidation Reserve"
           inputId="trove-liquidation-reserve"
           amount={`${SIM_LIQUIDATION_RESERVE}`}
@@ -208,7 +208,7 @@ export const Adjusting: React.FC = () => {
               }
             />
           }
-        />
+        />*/}
 
         <StaticRow
           label="Borrowing Fee"
@@ -238,13 +238,13 @@ export const Adjusting: React.FC = () => {
               tooltip={
                 <Card variant="tooltip" sx={{ width: "240px" }}>
                   The total amount of LUSD your Trove will hold.{" "}
-                  {isDirty && (
+                  {/*{isDirty && (
                     <>
                       You will need to repay {totalDebt.sub(SIM_LIQUIDATION_RESERVE).prettify(2)}{" "}
                       SIM to reclaim your collateral ({SIM_LIQUIDATION_RESERVE.toString()} SIM
                       Liquidation Reserve excluded).
                     </>
-                  )}
+                  )}*/}
                 </Card>
               }
             />

@@ -16,24 +16,24 @@ type StakingViewProviderState = {
   lqtyStake: LQTYStake;
   changePending: boolean;
   adjusting: boolean;
+  currentTokenId: number|undefined;
 };
 
 const init = ({ lqtyStake }: SimStoreState): StakingViewProviderState => ({
   lqtyStake,
   changePending: false,
-  adjusting: false
+  adjusting: false,
+  currentTokenId: undefined
 });
 
 const reduce = (
   state: StakingViewProviderState,
   action: StakingViewProviderAction
 ): StakingViewProviderState => {
-  // console.log(state);
-  // console.log(action);
 
   switch (action.type) {
     case "startAdjusting":
-      return { ...state, adjusting: true };
+      return { ...state, adjusting: true, currentTokenId: action.tokenId };
 
     case "cancelAdjusting":
       return { ...state, adjusting: false };
@@ -71,7 +71,7 @@ const reduce = (
 
 export const StakingViewProvider: React.FC = ({ children }) => {
   const stakingTransactionState = useMyTransactionState("stake");
-  const [{ adjusting, changePending, lqtyStake }, dispatch] = useSimReducer(reduce, init);
+  const [{ adjusting, changePending, lqtyStake, currentTokenId }, dispatch] = useSimReducer(reduce, init);
 
   useEffect(() => {
     if (
@@ -92,7 +92,8 @@ export const StakingViewProvider: React.FC = ({ children }) => {
       value={{
         view: adjusting ? "ADJUSTING" : lqtyStake.isEmpty ? "NONE" : "ACTIVE",
         changePending,
-        dispatch
+        dispatch,
+        tokenId: currentTokenId
       }}
     >
       {children}

@@ -32,7 +32,7 @@ import {
 } from "./EthersLiquityConnection";
 
 import { BlockPolledSimStore } from "./BlockPolledSimStore";
-import { BigNumber } from '@ethersproject/bignumber';
+import {Ve} from "@sim/lib-base";
 
 // TODO: these are constant in the contracts, so it doesn't make sense to make a call for them,
 // but to avoid having to update them here when we change them in the contracts, we could read
@@ -484,24 +484,54 @@ export class ReadableEthersLiquity implements ReadableLiquity {
   /** {@inheritDoc @sim/lib-base#ReadableLiquity.getLQTYStake} */
   async getLQTYStake(address?: string, overrides?: EthersCallOverrides): Promise<LQTYStake> {
     address ??= _requireAddress(this.connection);
-    const { troveManager } = _getContracts(this.connection);
+    const { troveManager, shadyToken, veLogic, wStEthVeDistributor, simVeDistributor } = _getContracts(this.connection);
 
-    const [stakedLQTY, collateralGain, lusdGain] = await Promise.all(
+    const [stakedLQTY, collateralGain, lusdGain, shadyVeAllowance, balanceOf] = await Promise.all(
       [
         // TODO compare with old logic
         troveManager.getTroveStake(address, { ...overrides }),
         troveManager.getPendingSIMDebtReward(address, { ...overrides }),
-        troveManager.getPendingWSTETHReward(address, { ...overrides })
+        troveManager.getPendingWSTETHReward(address, { ...overrides }),
+        shadyToken.allowance(address, veLogic.address, { ...overrides }),
+        veLogic.balanceOf(address, { ...overrides }),
       ].map(getBigNumber => getBigNumber.then(decimalify))
     );
 
-    return new LQTYStake(stakedLQTY, collateralGain, lusdGain);
+    const nftsTotal = +balanceOf.bigNumber
+
+    const ves: Ve[] = []
+
+    if (nftsTotal > 0) {
+      for (let i = 0; i < nftsTotal; i++) {
+        const tokenId = await veLogic.tokenOfOwnerByIndex(address, i, { ...overrides })
+        // console.log('tokenId', tokenId.toNumber())
+        const locked = await veLogic.lockedDerivedAmount(tokenId, { ...overrides })
+        // console.log('locked', locked.toString())
+        const lockEnd = await veLogic.lockedEnd(tokenId, { ...overrides })
+        // console.log('lockEnd', lockEnd.toString())
+        const power = await veLogic.balanceOfNFT(tokenId, { ...overrides })
+
+        const earnedWSTETH = await wStEthVeDistributor.claimable(tokenId, { ...overrides })
+        const earnedSIM = await simVeDistributor.claimable(tokenId, { ...overrides })
+
+        ves.push({
+          tokenId: tokenId.toNumber(),
+          locked: decimalify(locked),
+          lockEnd: lockEnd.toNumber(),
+          power: decimalify(power),
+          earnedWSTETH: decimalify(earnedWSTETH),
+          earnedSIM: decimalify(earnedSIM),
+        })
+      }
+    }
+
+    return new LQTYStake(stakedLQTY, collateralGain, lusdGain, ves, shadyVeAllowance);
   }
 
   /** {@inheritDoc @sim/lib-base#ReadableLiquity.getTotalStakedSHADY} */
   async getTotalStakedSHADY(overrides?: EthersCallOverrides): Promise<Decimal> {
-    const { troveManager } = _getContracts(this.connection);
-    return troveManager.totalStakes({ ...overrides }).then(decimalify);
+    const { shadyToken, veLogic } = _getContracts(this.connection);
+    return shadyToken.balanceOf(veLogic.address, { ...overrides }).then(decimalify);
   }
 
   /** {@inheritDoc @sim/lib-base#ReadableLiquity.getFrontendStatus} */

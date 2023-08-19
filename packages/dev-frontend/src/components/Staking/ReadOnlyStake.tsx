@@ -3,14 +3,15 @@ import { Heading, Box, Card, Flex, Button } from "theme-ui";
 import { SimStoreState } from "@sim/lib-base";
 import { useSimSelector } from "@sim/lib-react";
 
-import { COIN, GT } from "../../strings";
+import {COIN, GT, VE} from "../../strings";
 
-import { DisabledEditableRow, StaticRow } from "../Trove/Editor";
+import { StaticRow } from "../Trove/Editor";
 import { LoadingOverlay } from "../LoadingOverlay";
 import { Icon } from "../Icon";
 
 import { useStakingView } from "./context/StakingViewContext";
-import { StakingGainsAction } from "./StakingGainsAction";
+import {StakingGainswstETHAction} from "./StakingGainswstETHAction.tsx";
+import {StakingGainsSIMAction} from "./StakingGainsSIMAction.tsx";
 
 const select = ({ lqtyStake, totalStakedSHADY }: SimStoreState) => ({
   lqtyStake,
@@ -19,54 +20,72 @@ const select = ({ lqtyStake, totalStakedSHADY }: SimStoreState) => ({
 
 export const ReadOnlyStake: React.FC = () => {
   const { changePending, dispatch } = useStakingView();
-  const { lqtyStake, totalStakedSHADY } = useSimSelector(select);
-
-  const poolShare = lqtyStake.stakedLQTY.mulDiv(100, totalStakedSHADY);
+  const { lqtyStake } = useSimSelector(select);
 
   return (
     <Card>
-      <Heading>Staking</Heading>
+      <Heading>{VE}</Heading>
 
-      <Box sx={{ p: [2, 3] }}>
-        <DisabledEditableRow
-          label="Stake"
-          inputId="stake-lqty"
-          amount={lqtyStake.stakedLQTY.prettify()}
-          unit={GT}
-        />
+      <Box sx={{
+        p: [2, 3],
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: 'wrap',
+      }}>
+        {lqtyStake.ves.map(ve => (
+          <div style={{flexDirection: 'column', margin: '0 20px'}} key={ve.tokenId}>
+            <StaticRow
+              label="TokenId"
+              amount={ve.tokenId.toString()}
+            />
+            <StaticRow
+              label="Locked"
+              amount={ve.locked.prettify()}
+              unit={GT}
+            />
+            <StaticRow
+              label="Lock end"
+              amount={new Date(+ve.lockEnd.toString() * 1000).toLocaleDateString("en-US")}
+            />
+            <StaticRow
+              label="Redemption gain"
+              amount={ve.earnedWSTETH.prettify()}
+              unit="wstETH"
+            />
+            {ve.earnedWSTETH.gt(0) &&
+                <>
+                    <StakingGainswstETHAction tokenId={ve.tokenId} />
+                    <br />
+                </>
+            }
 
-        <StaticRow
-          label="Pool share"
-          inputId="stake-share"
-          amount={poolShare.prettify(4)}
-          unit="%"
-        />
+            <StaticRow
+              label="Issuance gain"
+              amount={ve.earnedSIM.prettify()}
+              unit={COIN}
+            />
+            {ve.earnedSIM.gt(0) &&
+                <>
+                    <StakingGainsSIMAction tokenId={ve.tokenId} />
+                    <br />
+                </>
+            }
 
-        <StaticRow
-          label="Redemption gain"
-          inputId="stake-gain-eth"
-          amount={lqtyStake.collateralGain.prettify(4)}
-          color={lqtyStake.collateralGain.nonZero && "success"}
-          unit="ETH"
-        />
+            <Button variant="outline" onClick={() => dispatch({ type: "startAdjusting", tokenId: ve.tokenId })}>
+              <Icon name="pen" size="sm" />
+              &nbsp;Adjust NFT
+            </Button>
 
-        <StaticRow
-          label="Issuance gain"
-          inputId="stake-gain-lusd"
-          amount={lqtyStake.lusdGain.prettify()}
-          color={lqtyStake.lusdGain.nonZero && "success"}
-          unit={COIN}
-        />
-
-        <Flex variant="layout.actions">
-          <Button variant="outline" onClick={() => dispatch({ type: "startAdjusting" })}>
-            <Icon name="pen" size="sm" />
-            &nbsp;Adjust
-          </Button>
-
-          <StakingGainsAction />
-        </Flex>
+            <br />
+          </div>
+        ))}
       </Box>
+
+      <Flex variant="layout.actions">
+        <Button variant="outline" onClick={() => dispatch({ type: "startAdjusting", tokenId: undefined })}>
+          &nbsp;Create new lock
+        </Button>
+      </Flex>
 
       {changePending && <LoadingOverlay />}
     </Card>

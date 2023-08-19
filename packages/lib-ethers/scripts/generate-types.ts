@@ -19,7 +19,7 @@ import PriceFeed from "../../../client/src/contracts/PriceFeed.json";
 import PriceFeedTestnet from "../../../client/src/contracts/PriceFeedTestnet.json";
 import SHADYToken from "../../../client/src/contracts/SHADYToken.json";
 import SIMToken from "../../../client/src/contracts/SIMToken.json";
-import SIMVeDistributor from "../../../client/src/contracts/SIMVeDistributor.json";
+import SIMVeDistributor from "../../../client/src/contracts/VeDistributorLogic.json";
 import SortedTroves from "../../../client/src/contracts/SortedTroves.json";
 import StabilityPool from "../../../client/src/contracts/StabilityPool.json";
 import TroveManager from "../../../client/src/contracts/TroveManager.json";
@@ -29,7 +29,7 @@ import VeDistributorLogic from "../../../client/src/contracts/VeDistributorLogic
 import VeLogic from "../../../client/src/contracts/VeLogic.json";
 import VeLogo from "../../../client/src/contracts/VeLogo.json";
 import WSTETHMock from "../../../client/src/contracts/WSTETHMock.json";
-import WSTETHVeDistributor from "../../../client/src/contracts/WSTETHVeDistributor.json";
+import WSTETHVeDistributor from "../../../client/src/contracts/VeDistributorLogic.json";
 
 const getTupleType = (components: ParamType[], flexible: boolean) => {
   if (components.every(component => component.name)) {
