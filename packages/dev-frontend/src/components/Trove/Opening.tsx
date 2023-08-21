@@ -4,7 +4,7 @@ import {
   SimStoreState,
   Decimal,
   Trove,
-  Percent, SIM_MINIMUM_NET_DEBT, SIM_LIQUIDATION_RESERVE,
+  Percent, SIM_MINIMUM_NET_DEBT,
 } from '@sim/lib-base';
 import { useSimSelector } from "@sim/lib-react";
 
@@ -86,7 +86,10 @@ export const Opening: React.FC = () => {
   }, [dispatchEvent]);
 
   const handleApprove = useCallback(() => {
-    sim.approveWstEthTokens(Decimal.INFINITY).then(() => gasEstimationState.type = 'idle')
+    setApproved(true);
+    sim.approveWstEthTokens(Decimal.INFINITY)
+      .then(() => gasEstimationState.type = 'idle')
+      .finally(() => setApproved(false))
   }, [dispatchEvent]);
 
   const reset = useCallback(() => {

@@ -12,5 +12,5 @@ Install dependencies
 Build application
 > yarn build
  
-Start application
-> yarn start:prod
+Local run application
+> yarn start
