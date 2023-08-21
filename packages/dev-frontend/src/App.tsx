@@ -48,6 +48,7 @@ const UnsupportedMainnetFallback: React.FC = () => (
       <Icon name="exclamation-triangle" /> This app is for testing purposes only.
     </Heading>
 
+
     <Paragraph sx={{ mb: 3 }}>Please change your network to Görli.</Paragraph>
 
 
