@@ -2674,7 +2674,7 @@ __metadata:
     rollup-plugin-polyfill-node: ^0.12.0
     source-map-explorer: 2.5.2
     theme-ui: 0.6.0-canary.1544.5359f8a1e408a4dfeb74a9ae39688270286e534a.0
-    typescript: ^5.0.4
+    typescript: 5.0.4
     vite: ^4.3.2
     vitest: ^0.31.0
     wagmi: ^0.12.0
@@ -17589,7 +17589,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.0.4":
+"typescript@npm:5.0.4":
   version: 5.0.4
   resolution: "typescript@npm:5.0.4"
   bin:
@@ -17609,7 +17609,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^5.0.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@5.0.4#~builtin<compat/typescript>":
   version: 5.0.4
   resolution: "typescript@patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"
   bin:
