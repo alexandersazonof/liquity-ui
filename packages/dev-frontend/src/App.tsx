@@ -81,7 +81,6 @@ const App = () => {
   const config = useAsyncValue(getConfig);
   const loader = <AppLoader />;
 
-
   return (
     <ThemeProvider theme={theme}>
       {config.loaded && (
