@@ -25,14 +25,16 @@ import {
   selectForTroveChangeValidation,
   validateTroveChange
 } from "./validation/validateTroveChange";
+import { useSim } from '../../hooks/SimContext';
 
 const selector = (state: SimStoreState) => {
-  const { trove, fees, price, accountBalance } = state;
+  const { trove, fees, price, accountBalance, wstETHTokenAllowance } = state;
   return {
     trove,
     fees,
     price,
     accountBalance,
+    wstETHTokenAllowance,
     validationContext: selectForTroveChangeValidation(state)
   };
 };
@@ -82,7 +84,7 @@ const applyUnsavedNetDebtChanges = (unsavedChanges: Difference, trove: Trove) =>
 
 export const Adjusting: React.FC = () => {
   const { dispatchEvent } = useTroveView();
-  const { trove, fees, price, accountBalance, validationContext } = useSimSelector(selector);
+  const { trove, fees, price, accountBalance, validationContext, wstETHTokenAllowance } = useSimSelector(selector);
   const editingState = useState<string>();
   const previousTrove = useRef<Trove>(trove);
   const [collateral, setCollateral] = useState<Decimal>(trove.collateral);
@@ -90,6 +92,15 @@ export const Adjusting: React.FC = () => {
 
   const transactionState = useMyTransactionState(TRANSACTION_ID);
   const borrowingRate = fees.borrowingRate();
+  const { sim } = useSim();
+  const [approved, setApproved] = useState<boolean>(false);
+
+  const handleApprove = useCallback(() => {
+    setApproved(true);
+    sim.approveWstEthTokens(Decimal.INFINITY).then(() => {
+      gasEstimationState.type = 'idle';
+    }).finally(() => setApproved(false))
+  }, [dispatchEvent]);
 
   useEffect(() => {
     if (transactionState.type === "confirmedOneShot") {
@@ -272,7 +283,11 @@ export const Adjusting: React.FC = () => {
             Cancel
           </Button>
 
-          {stableTroveChange ? (
+          {wstETHTokenAllowance < collateral ? (
+            <Button disabled={approved} onClick={handleApprove}>
+              Approve
+            </Button>
+          ) : stableTroveChange ? (
             <TroveAction
               transactionId={TRANSACTION_ID}
               change={stableTroveChange}

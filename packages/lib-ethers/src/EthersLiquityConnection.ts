@@ -5,7 +5,7 @@ import { Decimal } from "@sim/lib-base";
 
 import devOrNull from "../deployments/dev.json";
 import zkevmTestnet from "../deployments/zkevm-testnet.json";
-
+import goerli from "../deployments/goerli.json";
 import { numberify, panic } from "./_utils";
 import { EthersProvider, EthersSigner } from "./types";
 
@@ -24,6 +24,7 @@ const deployments: {
   [chainId: number]: _SimDeploymentJSON | undefined;
 } = {
   [zkevmTestnet.chainId]: zkevmTestnet,
+  [goerli.chainId]: goerli,
 
   ...(dev !== null ? { [dev.chainId]: dev } : {})
 };

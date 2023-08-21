@@ -89,7 +89,7 @@ export const BondViewProvider: React.FC = props => {
     BLUSD_LP_ZAP_ADDRESS,
     BLUSD_AMM_STAKING_ADDRESS
   } = useBondAddresses();
-  const contracts = useBondContracts();
+  const contracts: any = {};
   const chainId = useChainId();
   const isMainnet = chainId === 1;
 

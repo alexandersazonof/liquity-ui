@@ -409,8 +409,7 @@ export class ReadableEthersLiquity implements ReadableLiquity {
     params: TroveListingParams,
     overrides?: EthersCallOverrides
   ): Promise<UserTrove[]> {
-    // TODO multiTroveGetter ?? remove
-    // const { multiTroveGetter } = _getContracts(this.connection);
+    const { multiTroveGetter } = _getContracts(this.connection);
 
     expectPositiveInt(params, "first");
     expectPositiveInt(params, "startingAt");
@@ -423,14 +422,13 @@ export class ReadableEthersLiquity implements ReadableLiquity {
 
     const [totalRedistributed, backendTroves] = await Promise.all([
       params.beforeRedistribution ? undefined : this.getTotalRedistributed({ ...overrides }),
-      []
-      // multiTroveGetter.getMultipleSortedTroves(
-      //   params.sortedBy === "descendingCollateralRatio"
-      //     ? params.startingAt ?? 0
-      //     : -((params.startingAt ?? 0) + 1),
-      //   params.first,
-      //   { ...overrides }
-      // )
+      multiTroveGetter.getMultipleSortedTroves(
+        params.sortedBy === "descendingCollateralRatio"
+          ? params.startingAt ?? 0
+          : -((params.startingAt ?? 0) + 1),
+        params.first,
+        { ...overrides }
+      )
     ]);
 
     const troves = mapBackendTroves(backendTroves);

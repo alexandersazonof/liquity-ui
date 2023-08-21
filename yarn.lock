@@ -2626,13 +2626,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sim/chicken-bonds@file:.yalc/@sim/chicken-bonds::locator=%40sim%2Fdev-frontend%40workspace%3Apackages%2Fdev-frontend":
-  version: 0.0.1
-  resolution: "@sim/chicken-bonds@file:.yalc/@sim/chicken-bonds#.yalc/@sim/chicken-bonds::hash=5a45e8&locator=%40sim%2Fdev-frontend%40workspace%3Apackages%2Fdev-frontend"
-  checksum: 4f23bb814cf5e54b3b12448319a1c0463c696bcaf6982d755e78fa925f6568ac2299de7653b6b85d1fedfd01a796c36eecae99a6459a830689120a52f15b3c42
-  languageName: node
-  linkType: hard
-
 "@sim/dev-frontend@workspace:packages/dev-frontend":
   version: 0.0.0-use.local
   resolution: "@sim/dev-frontend@workspace:packages/dev-frontend"
@@ -2645,7 +2638,6 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": 5.15.2
     "@fortawesome/react-fontawesome": 0.1.14
     "@metamask/eth-sig-util": 5.0.1
-    "@sim/chicken-bonds": "file:.yalc/@sim/chicken-bonds"
     "@testing-library/dom": 7.30.0
     "@testing-library/jest-dom": 5.11.9
     "@testing-library/react": 11.2.5

@@ -1,5 +1,5 @@
 import React from "react";
-import { createClient, WagmiConfig } from "wagmi";
+import { createClient, goerli, WagmiConfig } from 'wagmi';
 import { polygonZkEvmTestnet, localhost } from "wagmi/chains";
 import { ConnectKitProvider, getDefaultClient } from "connectkit";
 import { Flex, Heading, ThemeProvider, Paragraph, Link } from "theme-ui";
@@ -73,7 +73,7 @@ const UnsupportedNetworkFallback: React.FC = () => (
     <Heading sx={{ mb: 3 }}>
       <Icon name="exclamation-triangle" /> Liquity is not supported on this network.
     </Heading>
-    Please switch to mainnet or Görli.
+    Please switch to ZkEVM testnet or Görli.
   </Flex>
 );
 
@@ -92,8 +92,8 @@ const App = () => {
                 isDemoMode || import.meta.env.MODE === "test"
                   ? [localhost]
                   : config.value.testnetOnly
-                  ? [polygonZkEvmTestnet]
-                  : [polygonZkEvmTestnet],
+                  ? [polygonZkEvmTestnet, goerli]
+                  : [polygonZkEvmTestnet, goerli],
               walletConnectProjectId: config.value.walletConnectProjectId,
               infuraId: config.value.infuraApiKey,
               alchemyId: config.value.alchemyApiKey

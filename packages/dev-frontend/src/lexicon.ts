@@ -1,3 +1,5 @@
+import { COLLATERAL } from './strings';
+
 export type Lexicon = {
   term: string;
   description?: string;
@@ -13,7 +15,7 @@ export const BORROW_FEE: Lexicon = {
 export const TVL: Lexicon = {
   term: "TVL",
   description:
-    "The Total Value Locked (TVL) is the total value of Ether locked as collateral in the system, given in ETH and USD."
+    `The Total Value Locked (TVL) is the total value of Ether locked as collateral in the system, given in ${COLLATERAL} and USD.`
 };
 
 export const STAKED_SHADY: Lexicon = {
@@ -24,7 +26,7 @@ export const STAKED_SHADY: Lexicon = {
 export const TCR: Lexicon = {
   term: "Total Collateral Ratio",
   description:
-    "The ratio of the Dollar value of the entire system collateral at the current ETH:USD price, to the entire system debt."
+    `The ratio of the Dollar value of the entire system collateral at the current ${COLLATERAL}:USD price, to the entire system debt.`
 };
 
 export const RECOVERY_MODE: Lexicon = {

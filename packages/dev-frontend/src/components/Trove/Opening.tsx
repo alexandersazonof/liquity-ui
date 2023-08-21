@@ -50,6 +50,7 @@ export const Opening: React.FC = () => {
 
   const [collateral, setCollateral] = useState<Decimal>(Decimal.ZERO);
   const [borrowAmount, setBorrowAmount] = useState<Decimal>(Decimal.ZERO);
+  const [approved, setApproved] = useState<boolean>(false);
 
   const maxBorrowingRate = borrowingRate.add(0.005);
 
@@ -214,7 +215,7 @@ export const Opening: React.FC = () => {
           </Button>
 
           {wstETHTokenAllowance < collateral ? (
-            <Button onClick={handleApprove}>
+            <Button disabled={approved} onClick={handleApprove}>
               Approve
             </Button>
           ) : gasEstimationState.type === "inProgress" ? (

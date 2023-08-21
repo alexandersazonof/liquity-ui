@@ -15,11 +15,11 @@ export const CRITICAL_COLLATERAL_RATIO = Decimal.from(1.5);
 export const MINIMUM_COLLATERAL_RATIO = Decimal.from(1.1);
 
 /**
- * Amount of LUSD that's reserved for compensating the liquidator of a Trove.
+ * Amount of SIM that's reserved for compensating the liquidator of a Trove.
  *
  * @public
  */
-export const SIM_LIQUIDATION_RESERVE = Decimal.from(200);
+export const SIM_LIQUIDATION_RESERVE = Decimal.from(0);
 
 /**
  * A Trove must always have at least this much debt on top of the
