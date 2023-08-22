@@ -2654,7 +2654,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.57.1
     "@typescript-eslint/parser": ^5.57.1
     "@vitejs/plugin-react-swc": ^3.0.0
-    connectkit: ^1.3.0
+    connectkit: ^1.5.1
     cross-env: 7.0.3
     eslint: ^8.38.0
     eslint-plugin-react-hooks: ^4.6.0
@@ -6966,9 +6966,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"connectkit@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "connectkit@npm:1.3.0"
+"connectkit@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "connectkit@npm:1.5.1"
   dependencies:
     buffer: ^6.0.3
     detect-browser: ^5.3.0
@@ -6979,11 +6979,11 @@ __metadata:
     resize-observer-polyfill: ^1.5.1
     styled-components: ^5.3.5
   peerDependencies:
-    ethers: ">=5.5.0 <6"
     react: 17.x || 18.x
     react-dom: 17.x || 18.x
-    wagmi: 0.12.x
-  checksum: b54fc6b7267be17d3fff69cb51f38d8537ca40d4611fb2685bb41501cac05b77e91cc35c1b5542958aae2d6d0bc1f987210ca3951b7e55e88da7b417f90195a0
+    viem: ^1.0.0
+    wagmi: ^1.1.1
+  checksum: 9e1fc52199bb1b82e8196c1c79f0ac1545eeacd6750e80e443cae3dbb88fc0895fb54e6634339854a4a50e5202de9e7322522bcb813ee58182c07dd336f410cc
   languageName: node
   linkType: hard
 
