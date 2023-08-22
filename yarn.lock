@@ -2721,7 +2721,7 @@ __metadata:
     chai-as-promised: 7.1.1
     chai-spies: 1.0.0
     cross-env: 7.0.3
-    dotenv: 8.2.0
+    dotenv: 16.3.1
     eslint: 7.22.0
     eslint-plugin-tsdoc: 0.2.11
     ethers: 5.7.2
@@ -7905,10 +7905,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:8.2.0, dotenv@npm:^8.0.0":
-  version: 8.2.0
-  resolution: "dotenv@npm:8.2.0"
-  checksum: ad4c8e0df3e24b4811c8e93377d048a10a9b213dcd9f062483b4a2d3168f08f10ec9c618c23f5639060d230ccdb174c08761479e9baa29610aa978e1ee66df76
+"dotenv@npm:16.3.1":
+  version: 16.3.1
+  resolution: "dotenv@npm:16.3.1"
+  checksum: 15d75e7279018f4bafd0ee9706593dd14455ddb71b3bcba9c52574460b7ccaf67d5cf8b2c08a5af1a9da6db36c956a04a1192b101ee102a3e0cf8817bbcf3dfd
   languageName: node
   linkType: hard
 
@@ -7916,6 +7916,13 @@ __metadata:
   version: 5.0.1
   resolution: "dotenv@npm:5.0.1"
   checksum: 78a69d88e6a74bea1c13e55bbd7b69bf4a5eed8d055866eb5cf8d85e9acd1afe3191fd1a9f6352a43ec9de292f3ddda9fe9c5e3c46fb2907eaf50fb3d3ea98f8
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^8.0.0":
+  version: 8.2.0
+  resolution: "dotenv@npm:8.2.0"
+  checksum: ad4c8e0df3e24b4811c8e93377d048a10a9b213dcd9f062483b4a2d3168f08f10ec9c618c23f5639060d230ccdb174c08761479e9baa29610aa978e1ee66df76
   languageName: node
   linkType: hard
 
