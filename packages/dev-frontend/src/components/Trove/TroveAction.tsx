@@ -20,8 +20,6 @@ export const TroveAction: React.FC<TroveActionProps> = ({
   borrowingFeeDecayToleranceMinutes
 }) => {
   const { sim } = useSim();
-  console.log(change.params.borrowSIM?.toString(18));
-  console.log(change.params.depositCollateral?.toString(18));
 
   const [sendTransaction] = useTransactionFunction(
     transactionId,

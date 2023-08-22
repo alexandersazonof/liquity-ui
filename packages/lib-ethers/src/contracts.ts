@@ -34,6 +34,7 @@ import VeDistributorLogicAbi from "../abi/VeDistributorLogic.json";
 import VeLogicAbi from "../abi/VeLogic.json";
 import VeLogoAbi from "../abi/VeLogo.json";
 import WSTETHMockAbi from "../abi/WSTETHMock.json";
+import MultiTroveGetterAbi from "../abi/MultiTroveGetter.json";
 // import WSTETHVeDistributorAbi from "../abi/WSTETHVeDistributor.json";
 // import WSTETHVeDistributorAbi from "../abi/VeDistributorLogic.json";
 
@@ -60,9 +61,9 @@ import {
   VeDistributorLogic,
   VeLogic,
   VeLogo,
-  WSTETHMock,
+  WSTETHMock, MultiTroveGetter,
   // WSTETHVeDistributor
-} from "../types";
+} from '../types';
 
 import { EthersProvider, EthersSigner } from "./types";
 
@@ -184,7 +185,6 @@ export interface _SimContracts {
   priceFeed: PriceFeed | PriceFeedTestnet;
   shadyToken: SHADYToken;
   simToken: SIMToken;
-  // simVeDistributor: SIMVeDistributor;
   simVeDistributor: VeDistributorLogic;
   sortedTroves: SortedTroves;
   stabilityPool: StabilityPool;
@@ -194,8 +194,8 @@ export interface _SimContracts {
   veLogic: VeLogic;
   veLogo: VeLogo;
   wStEthMock: WSTETHMock;
-  // wStEthVeDistributor: WSTETHVeDistributor;
   wStEthVeDistributor: VeDistributorLogic;
+  multiTroveGetter: MultiTroveGetter;
 }
 
 /** @internal */
@@ -236,7 +236,8 @@ const getAbi = (priceFeedIsTestnet: boolean): SimContractAbis => ({
   veLogic: VeLogicAbi,
   veLogo: VeLogoAbi,
   wStEthMock: WSTETHMockAbi,
-  wStEthVeDistributor: VeDistributorLogicAbi
+  wStEthVeDistributor: VeDistributorLogicAbi,
+  multiTroveGetter: MultiTroveGetterAbi,
 });
 
 const mapSimContracts = <T, U>(

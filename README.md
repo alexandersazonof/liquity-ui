@@ -1,16 +1,28 @@
 # SIM UI
 
 
-## Deploy to remote service
+## Local run
+___
 
-For remote deploy you need execute those commands:
 
+**Use Node JS 18**
 
-Install dependencies
-> yarn install
- 
-Build application
-> yarn build
- 
-Start application
-> yarn start:prod
+Commands:
+```
+yarn install
+
+yarn build
+
+yarn start
+```
+
+## Deploy to Digital Ocean
+
+---
+
+```
+yarn do-build
+
+yarn start:prod
+```
+

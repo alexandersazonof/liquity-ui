@@ -4,7 +4,7 @@ import {
   SimStoreState,
   Decimal,
   Trove,
-  Percent, SIM_MINIMUM_NET_DEBT, SIM_LIQUIDATION_RESERVE,
+  Percent, SIM_MINIMUM_NET_DEBT,
 } from '@sim/lib-base';
 import { useSimSelector } from "@sim/lib-react";
 
@@ -50,6 +50,7 @@ export const Opening: React.FC = () => {
 
   const [collateral, setCollateral] = useState<Decimal>(Decimal.ZERO);
   const [borrowAmount, setBorrowAmount] = useState<Decimal>(Decimal.ZERO);
+  const [approved, setApproved] = useState<boolean>(false);
 
   const maxBorrowingRate = borrowingRate.add(0.005);
 
@@ -85,7 +86,10 @@ export const Opening: React.FC = () => {
   }, [dispatchEvent]);
 
   const handleApprove = useCallback(() => {
-    sim.approveWstEthTokens(Decimal.INFINITY).then(() => gasEstimationState.type = 'idle')
+    setApproved(true);
+    sim.approveWstEthTokens(Decimal.INFINITY)
+      .then(() => gasEstimationState.type = 'idle')
+      .finally(() => setApproved(false))
   }, [dispatchEvent]);
 
   const reset = useCallback(() => {
@@ -214,7 +218,7 @@ export const Opening: React.FC = () => {
           </Button>
 
           {wstETHTokenAllowance < collateral ? (
-            <Button onClick={handleApprove}>
+            <Button disabled={approved} onClick={handleApprove}>
               Approve
             </Button>
           ) : gasEstimationState.type === "inProgress" ? (

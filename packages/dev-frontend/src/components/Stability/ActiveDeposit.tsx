@@ -4,7 +4,7 @@ import { Card, Heading, Box, Flex, Button } from "theme-ui";
 import { SimStoreState } from "@sim/lib-base";
 import { useSimSelector } from "@sim/lib-react";
 
-import { COIN, GT } from "../../strings";
+import { COIN, COLLATERAL, GT } from '../../strings';
 import { Icon } from "../Icon";
 import { LoadingOverlay } from "../LoadingOverlay";
 import { useMyTransactionState } from "../Transaction";
@@ -113,11 +113,11 @@ export const ActiveDeposit: React.FC = () => {
             &nbsp;Adjust
           </Button>
 
-          <ClaimRewards disabled={!hasGain && !hasReward}>Claim ETH and SHADY</ClaimRewards>
+          <ClaimRewards disabled={!hasGain && !hasReward}>Claim {COLLATERAL} and SHADY</ClaimRewards>
         </Flex>
 
         {hasTrove && (
-          <ClaimAndMove disabled={!hasGain}>Claim SHADY and move ETH to Trove</ClaimAndMove>
+          <ClaimAndMove disabled={!hasGain}>Claim SHADY and move {COLLATERAL} to Trove</ClaimAndMove>
         )}
       </Box>
 

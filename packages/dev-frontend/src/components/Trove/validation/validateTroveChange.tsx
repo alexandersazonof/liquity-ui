@@ -11,7 +11,7 @@ import {
   TroveCreationParams, SIM_MINIMUM_DEBT, SIM_MINIMUM_NET_DEBT,
 } from '@sim/lib-base';
 
-import { COIN } from "../../../strings";
+import { COIN, COLLATERAL } from '../../../strings';
 
 import { ActionDescription, Amount } from "../../ActionDescription";
 import { ErrorDescription } from "../../ErrorDescription";
@@ -38,7 +38,7 @@ const TroveChangeDescription: React.FC<TroveAdjustmentDescriptionParams> = ({ pa
         <Amount>
           {params.repaySIM.prettify()} {COIN}
         </Amount>{" "}
-        and receive <Amount>{params.withdrawCollateral.prettify()} ETH</Amount>
+        and receive <Amount>{params.withdrawCollateral.prettify()} {COLLATERAL}</Amount>
       </>
     ) : params.depositCollateral && params.repaySIM ? (
       <>
@@ -49,7 +49,7 @@ const TroveChangeDescription: React.FC<TroveAdjustmentDescriptionParams> = ({ pa
       </>
     ) : params.borrowSIM && params.withdrawCollateral ? (
       <>
-        You will receive <Amount>{params.withdrawCollateral.prettify()} ETH</Amount> and{" "}
+        You will receive <Amount>{params.withdrawCollateral.prettify()} {COLLATERAL}</Amount> and{" "}
         <Amount>
           {params.borrowSIM.prettify()} {COIN}
         </Amount>
@@ -60,7 +60,7 @@ const TroveChangeDescription: React.FC<TroveAdjustmentDescriptionParams> = ({ pa
       </>
     ) : params.withdrawCollateral ? (
       <>
-        You will receive <Amount>{params.withdrawCollateral.prettify()} ETH</Amount>
+        You will receive <Amount>{params.withdrawCollateral.prettify()} {COLLATERAL}</Amount>
       </>
     ) : params.borrowSIM ? (
       <>
@@ -309,7 +309,7 @@ const validateTroveAdjustment = (
     return (
       <ErrorDescription>
         The amount you're trying to deposit exceeds your balance by{" "}
-        <Amount>{depositCollateral.sub(wstETHBalance).prettify()} ETH</Amount>.
+        <Amount>{depositCollateral.sub(wstETHBalance).prettify()} {COLLATERAL}</Amount>.
       </ErrorDescription>
     );
   }

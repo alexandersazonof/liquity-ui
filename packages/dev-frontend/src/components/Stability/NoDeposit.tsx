@@ -4,6 +4,7 @@ import { InfoMessage } from "../InfoMessage";
 import { useStabilityView } from "./context/StabilityViewContext";
 import { RemainingSHADY } from "./RemainingSHADY";
 import { Yield } from "./Yield";
+import { COLLATERAL } from '../../strings';
 
 export const NoDeposit: React.FC = () => {
   const { dispatchEvent } = useStabilityView();
@@ -22,7 +23,7 @@ export const NoDeposit: React.FC = () => {
       </Heading>
       <Box sx={{ p: [2, 3] }}>
         <InfoMessage title="You have no SIM in the Stability Pool.">
-          You can earn ETH and SHADY rewards by depositing SIM.
+          You can earn {COLLATERAL} and SHADY rewards by depositing SIM.
         </InfoMessage>
 
         <Flex variant="layout.actions">

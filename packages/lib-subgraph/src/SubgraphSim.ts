@@ -186,7 +186,7 @@ const blockNumberDummy = new Query<void, BlockNumberDummy, BlockNumberDummyVaria
 export class SubgraphSim implements ReadableLiquity, ObservableLiquity {
   private client: ApolloClient<NormalizedCacheObject>;
 
-  constructor(uri = "http://localhost:8000/subgraphs/name/liquity/subgraph", pollInterval = 4000) {
+  constructor(uri = '', pollInterval = 4000) {
     this.client = new ApolloClient({
       cache: new InMemoryCache(),
       link: new HttpLink({ fetch, uri }),

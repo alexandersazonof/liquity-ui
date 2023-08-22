@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 
 export type StakingView = "ACTIVE" | "ADJUSTING" | "NONE";
 
-export type StakingViewAction = { type: "startAdjusting" | "cancelAdjusting", tokenId: number|undefined };
+export type StakingViewAction = { type: "startAdjusting" | "cancelAdjusting", tokenId?: number|undefined };
 
 export type StakingViewContextType = {
   view: StakingView;
@@ -11,7 +11,7 @@ export type StakingViewContextType = {
   // The panel should be covered with a spinner overlay when this is true.
   changePending: boolean;
 
-  tokenId: number|undefined;
+  tokenId?: number|undefined;
 
   // Dispatch an action that changes the Staking panel's view.
   dispatch: (action: StakingViewAction) => void;
